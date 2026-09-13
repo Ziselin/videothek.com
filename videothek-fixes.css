@@ -306,6 +306,29 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .support-message-actions { display:flex; justify-content:flex-end; align-items:center; gap:9px; margin-top:24px; }
 .support-message-actions button,.support-message-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:42px; border-radius:8px; padding:10px 14px; text-decoration:none; }
 .support-message-actions button { border:1px solid #d8d4cc; background:#f7f5f1; color:#55514b; }
+.support-message-dialog { width:min(520px,calc(100vw - 28px)); overflow:hidden; border:1px solid #d9d3cb; border-radius:20px; background:#fffdf9; box-shadow:0 30px 90px rgba(45,35,28,.2); }
+.support-message-dialog[open] { animation:support-dialog-in .2s cubic-bezier(.2,.8,.25,1) both; }
+.support-message-dialog::backdrop { background:rgba(31,27,24,.48); backdrop-filter:blur(7px); animation:support-backdrop-in .18s ease-out both; }
+.support-message-dialog form { position:relative; padding:31px 32px 29px; }
+.support-message-accent { position:absolute; inset:0 0 auto; height:3px; background:linear-gradient(90deg,#1d948d 0 38%,#b54572 68%,#e28a54); }
+.support-message-dialog .dialog-head { align-items:flex-start; margin-bottom:19px; }
+.support-message-dialog .dialog-head h2 { max-width:390px; margin:5px 0 0; color:#302b28; font:italic 650 2.1rem/1.06 Garamond,serif; letter-spacing:-.025em; }
+.support-message-dialog .dialog-close { display:grid; place-items:center; width:42px; height:42px; margin:-9px -10px 0 10px; border-radius:50%; transition:background .16s,color .16s,transform .16s; }
+.support-message-dialog .dialog-close:hover { background:#f2ece7; color:#744451; transform:rotate(3deg); }
+.support-message-dialog .support-message-lead { max-width:420px; margin:0; color:#4b4540; font-size:1.02rem; font-weight:500; line-height:1.55; }
+.support-message-dialog .support-message-cinema { display:grid; grid-template-columns:28px 1fr; gap:11px; align-items:start; margin:21px 0 0; padding:14px 15px; border:1px solid #e4ded7; border-radius:12px; background:#f8f4ef; color:#68605a; font-size:.9rem; line-height:1.48; }
+.support-cinema-icon { display:grid; place-items:center; width:27px; height:27px; border:1px solid #c8aeb5; border-radius:50%; color:#8b4d60; font-size:1rem; }
+.support-message-actions { display:flex; flex-direction:column; align-items:stretch; gap:7px; margin-top:23px; }
+.support-message-actions a.primary-button { min-height:48px; border-radius:11px; background:#8f455a; color:#fff; box-shadow:0 9px 22px rgba(117,58,67,.2); font-weight:750; transition:transform .16s,box-shadow .16s,background .16s; }
+.support-message-actions a.primary-button:hover { background:#a84d68; box-shadow:0 12px 27px rgba(117,58,67,.27); transform:translateY(-1px); }
+.support-message-actions a.primary-button:active { transform:translateY(0); }
+.support-message-actions .support-later-button { min-height:42px; border:0; background:transparent; color:#7b746e; }
+.support-message-actions .support-later-button:hover { color:#493f3a; text-decoration:underline; text-underline-offset:3px; }
+.support-message-dialog :focus-visible { outline:2px solid #168f88; outline-offset:3px; }
+@keyframes support-dialog-in { from { opacity:0; transform:translateY(8px) scale(.985); } to { opacity:1; transform:none; } }
+@keyframes support-backdrop-in { from { opacity:0; } to { opacity:1; } }
+@media(max-width:520px){.support-message-dialog{width:calc(100vw - 24px);max-height:calc(100dvh - 24px);border-radius:17px}.support-message-dialog form{padding:25px 20px 21px}.support-message-dialog .dialog-head h2{font-size:1.85rem}.support-message-dialog .support-message-lead{font-size:1rem}.support-message-dialog .support-message-cinema{margin-top:17px}.support-message-actions{margin-top:19px}.support-message-actions a.primary-button{min-height:50px}.support-message-actions .support-later-button{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.support-message-dialog[open],.support-message-dialog::backdrop{animation:none}.support-message-dialog .dialog-close,.support-message-actions a.primary-button{transition:none}}
 .catalog-drawer-fields { display:grid; gap:20px; padding-top:25px; }
 .catalog-info-panel { display:grid; gap:20px; padding-top:25px; }
 .catalog-info-section { padding:17px 16px; border:1px solid #dedbd4; border-radius:9px; background:#faf9f6; }
