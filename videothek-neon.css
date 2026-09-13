@@ -39,7 +39,7 @@
 :root[data-theme="neon"] .archive-neon-brand img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 7px rgba(255,58,160,.7))}
 :root[data-theme="neon"][data-view="machine"] .topbar{height:72px;grid-template-rows:0 62px}
 :root[data-theme="neon"][data-view="machine"] .brand{opacity:0;transform:translateY(-210px) scale(.34);pointer-events:none;transition:transform .52s cubic-bezier(.22,.75,.18,1),opacity .14s ease .3s}
-:root[data-theme="neon"][data-view="machine"] .archive-neon-brand{opacity:1;transform:none;pointer-events:auto;transition-delay:.58s}
+:root[data-theme="neon"][data-view="machine"] .archive-neon-brand{opacity:1;transform:none;pointer-events:auto;animation:compact-neon-ignite .48s linear .58s both}
 :root[data-theme="neon"][data-view="machine"] .view{min-height:calc(100dvh - 72px)}
 :root[data-theme="neon"][data-view="machine"] .machine-view{height:calc(100dvh - 72px);min-height:calc(100dvh - 72px)}
 :root[data-theme="neon"] .nav-button{color:#a9a2b8;background:transparent;border-radius:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.76rem}
@@ -81,6 +81,7 @@
 :root[data-theme="neon"][data-genre-accent="romance"] .cinema-view::before{background:radial-gradient(ellipse at 91% 24%,rgba(239,93,151,.68),transparent 30%),radial-gradient(ellipse at 18% 90%,rgba(198,76,133,.38),transparent 24%)}
 :root[data-theme="neon"][data-genre-accent="romance"] .cinema-view::after{border:1px solid rgba(255,133,182,.7);border-right-color:transparent;border-radius:50%;width:31vw;height:43vh;inset:auto -12vw -14vh auto;filter:drop-shadow(0 0 20px rgba(239,93,151,.48));transform:rotate(-12deg)}
 @keyframes genre-accent-in{from{opacity:0}to{}}
+@keyframes compact-neon-ignite{0%,12%{opacity:0;filter:brightness(.45)}20%{opacity:.72;filter:brightness(1.18)}29%{opacity:.18;filter:brightness(.7)}43%{opacity:.94;filter:brightness(1.08)}52%{opacity:.68;filter:brightness(.92)}68%,100%{opacity:1;filter:brightness(1)}}
 :root[data-theme="neon"] .cinema-view>section{min-width:0}
 :root[data-theme="neon"] .genre-filter-region{position:sticky;top:327px;align-self:start;max-height:calc(100dvh - 339px);margin:0;padding:2px 4px 2px 0;border:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
 :root[data-theme="neon"] .genre-filter-head{display:none}
