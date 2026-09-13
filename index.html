@@ -94,7 +94,7 @@
   <div id="catalogBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
   <aside id="catalogDrawer" class="catalog-drawer" aria-hidden="true" aria-labelledby="catalogDrawerTitle">
     <div class="catalog-drawer-head"><div><p class="eyebrow">Entdecken</p><h2 id="catalogDrawerTitle">Auswahl &amp; Anordnung</h2></div><button id="catalogDrawerClose" type="button" aria-label="Seitenmenü schließen">×</button></div>
-    <div class="catalog-settings-tabs" role="tablist" aria-label="Einstellungsbereiche"><button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-settings-tab="filters">Filter</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="display">Darstellung</button></div>
+    <div class="catalog-settings-tabs" role="tablist" aria-label="Einstellungsbereiche"><button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-settings-tab="filters">Filter</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="display">Darstellung</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="info">Info</button></div>
     <div id="catalogFilterPanel" class="catalog-drawer-fields" role="tabpanel">
       <label>Projekt<select id="projectSelect"></select></label>
       <label>Playlist<select id="catalogPlaylistSelect"><option value="all">Alle Playlisten</option></select></label>
@@ -118,6 +118,10 @@
       <button id="syncFilmMetadataButton" class="secondary-action" type="button">Fehlende Filminformationen synchronisieren</button>
       <div id="filmMetadataSyncProgress" class="metadata-sync-progress" hidden><progress max="100" value="0"></progress><small></small></div>
       <p class="drawer-language-empty">Die Auswahl bestimmt künftig die Sprache der Oberfläche und der geladenen Metadaten.</p>
+    </div>
+    <div id="catalogInfoPanel" class="catalog-info-panel" role="tabpanel" hidden>
+      <section class="catalog-info-section"><h3>Datensicherheit</h3><p>Deine Filme, Projekte und Einstellungen werden ausschließlich auf deinem Rechner gespeichert. Es werden keine Filmdaten an einen Videothek-Server übertragen.</p><p>Erstelle nach wichtigen Änderungen regelmäßig eine Exportdatei und bewahre sie sicher auf. Nur diese Datei kann deine lokalen Daten bei Verlust oder Gerätewechsel wiederherstellen.</p></section>
+      <section class="catalog-info-section"><h3>Impressum</h3><p>Videothek ist eine Anwendung von Ziselin, einer Plattform für digitale Werkzeuge zur Erstellung und Erprobung interaktiver Wissens- und Präsentationsräume.</p><p><strong>Verantwortlich für den Inhalt</strong><br>Martin Graupner<br>Ribnitz-Damgarten<br>Deutschland</p><p>Kontakt: <a href="mailto:impressum@ziselin.com">impressum@ziselin.com</a></p></section>
     </div>
   </aside>
 

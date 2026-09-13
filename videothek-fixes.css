@@ -296,11 +296,18 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .metadata-sync-progress progress { width:100%; accent-color:#79515a; }
 .metadata-sync-progress small { color:#85817a; }
 .topbar .brand { border:0; background:transparent; padding:0; text-align:left; }
-.support-message-dialog p:not(.eyebrow) { color:#66615a; font-size:1rem; line-height:1.65; }
+.support-message-dialog p:not(.eyebrow) { color:#66615a; font-size:1rem; line-height:1.55; }
+.support-message-dialog .support-message-lead { margin-bottom:10px; color:#3c3935; font-size:1.05rem; font-weight:600; }
+.support-message-dialog .support-message-cinema { margin-top:0; padding-top:13px; border-top:1px solid #e1ded8; color:#77716a; font-size:.9rem; }
 .support-message-actions { display:flex; justify-content:flex-end; align-items:center; gap:9px; margin-top:24px; }
 .support-message-actions button,.support-message-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:42px; border-radius:8px; padding:10px 14px; text-decoration:none; }
 .support-message-actions button { border:1px solid #d8d4cc; background:#f7f5f1; color:#55514b; }
 .catalog-drawer-fields { display:grid; gap:20px; padding-top:25px; }
+.catalog-info-panel { display:grid; gap:20px; padding-top:25px; }
+.catalog-info-section { padding:17px 16px; border:1px solid #dedbd4; border-radius:9px; background:#faf9f6; }
+.catalog-info-section h3 { margin:0 0 8px; color:#3e3b37; font-size:.86rem; letter-spacing:.08em; text-transform:uppercase; }
+.catalog-info-section p { margin:7px 0 0; color:#66615a; font-size:.88rem; line-height:1.5; }
+.catalog-info-section a { color:#79515a; }
 .catalog-drawer-fields label { display:grid; gap:7px; color:#62605b; font-size:.78rem; font-weight:650; letter-spacing:.08em; text-transform:uppercase; }
 .catalog-drawer-fields select { min-height:48px; color:#302f2c; font-size:.95rem; font-weight:450; letter-spacing:0; text-transform:none; }
 .catalog-drawer-fields .drawer-toggle { display:flex; grid-template-columns:none; align-items:center; gap:10px; min-height:42px; padding:8px 10px; border-radius:6px; background:#f1efea; color:#4f4d49; cursor:pointer; font-size:.88rem; font-weight:450; letter-spacing:0; text-transform:none; }
