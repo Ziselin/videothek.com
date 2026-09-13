@@ -1,5 +1,5 @@
 window.VIDEOTHEK_REFERENCE_CATALOG = Object.freeze({
-  version: 1,
+  version: 2,
   languages: [
     { id:"Q188", code:"de", labels:{ de:"Deutsch", en:"German" }, aliases:["deutsch","german","deu","ger"] },
     { id:"Q1860", code:"en", labels:{ de:"Englisch", en:"English" }, aliases:["englisch","english","eng"] },
@@ -10,7 +10,8 @@ window.VIDEOTHEK_REFERENCE_CATALOG = Object.freeze({
     { id:"Q9176", code:"ko", labels:{ de:"Koreanisch", en:"Korean" }, aliases:["koreanisch","korean","한국어","kor"] },
     { id:"Q7850", code:"zh", labels:{ de:"Chinesisch", en:"Chinese" }, aliases:["chinesisch","chinese","中文","zho","chi"] },
     { id:"Q7737", code:"ru", labels:{ de:"Russisch", en:"Russian" }, aliases:["russisch","russian","русский","rus"] },
-    { id:"Q5146", code:"pt", labels:{ de:"Portugiesisch", en:"Portuguese" }, aliases:["portugiesisch","portuguese","português","por"] }
+    { id:"Q5146", code:"pt", labels:{ de:"Portugiesisch", en:"Portuguese" }, aliases:["portugiesisch","portuguese","português","por"] },
+    { id:"Q226730", code:"silent", labels:{ de:"Stummfilm", en:"Silent film" }, aliases:["stummfilm","stumm","ohne dialog","silent film","silent movie","silent"] }
   ],
   genres: [
     { key:"action", labels:{ de:"Action", en:"Action" }, aliases:["actionfilm"] },
