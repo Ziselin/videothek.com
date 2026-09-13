@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f3efe6">
+  <meta name="theme-color" content="#090914">
   <meta name="description" content="Videothek verwaltet kuratierte Filmprojekte und Verweise auf externe Speicherorte.">
   <title>Videothek</title>
-  <script>try{if(localStorage.getItem("videothek-theme-v1")==="neon")document.documentElement.dataset.theme="neon"}catch{}</script>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("videothek-theme-v1")==="default"?"default":"neon"}catch{document.documentElement.dataset.theme="neon"}</script>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/videothek-neon-v-favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
