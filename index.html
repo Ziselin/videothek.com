@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3efe6">
+  <meta name="description" content="Videothek verwaltet kuratierte Filmprojekte und Verweise auf externe Speicherorte.">
+  <title>Videothek</title>
+  <script>try{if(localStorage.getItem("videothek-theme-v1")==="neon")document.documentElement.dataset.theme="neon"}catch{}</script>
+  <link rel="icon" type="image/svg+xml" href="assets/videothek-favicon.svg">
+  <link rel="stylesheet" href="videothek.css">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260913-17">
+  <link rel="stylesheet" href="videothek-neon.css?v=20260913-17">
+</head>
+<body>
+  <datalist id="languageOptions"><option value="Deutsch"><option value="Englisch"><option value="Französisch"><option value="Spanisch"><option value="Italienisch"><option value="Japanisch"><option value="Koreanisch"><option value="Chinesisch"><option value="Russisch"><option value="Portugiesisch"></datalist>
+  <div class="app-shell">
+    <header class="topbar">
+      <button id="supportMessageButton" class="brand" type="button" aria-label="Videothek unterstützen">
+        <img src="assets/ziselin-bild-flach.svg" alt="">
+        <span>Videothek</span>
+        <img class="neon-brand-sign" src="assets/videothek-neon-sign.png" alt="">
+      </button>
+      <nav class="main-nav" aria-label="Hauptnavigation">
+        <button class="nav-button is-active" type="button" data-view="cinema">Entdecken</button>
+        <button class="nav-button" type="button" data-view="machine">Archive</button>
+      </nav>
+      <div class="top-actions">
+        <label class="search"><span class="sr-only">Filme suchen</span><input id="searchInput" type="search" placeholder="Titel, Regie, Genre …" spellcheck="false" autocomplete="off"></label>
+        <div class="header-tools">
+          <button id="catalogMenuButton" class="catalog-menu-button" type="button" aria-label="Auswahl und Sortierung öffnen. Mit der Tab-Taste öffnen und schließen." title="Mit der Tab-Taste öffnen und schließen" aria-expanded="false" aria-controls="catalogDrawer"><span aria-hidden="true">☰</span></button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="cinemaView" class="view cinema-view">
+        <h1 id="projectHeading" hidden>Alle Projekte</h1>
+        <div class="genre-filter-region">
+          <div class="genre-filter-head"><button id="genreVisibilityToggle" class="genre-visibility-toggle" type="button" aria-pressed="true"><span class="switch-track" aria-hidden="true"><span></span></span><span>Genres</span></button></div>
+          <div id="genreFilters" class="chips" aria-label="Nach Genre filtern"></div>
+          <button id="genreToggle" class="genre-toggle" type="button" aria-expanded="false" aria-controls="genreFilters" hidden>Mehr Genres <span aria-hidden="true">⌄</span></button>
+        </div>
+        <section aria-labelledby="allFilmsHeading">
+          <div class="section-heading">
+            <h2 id="allFilmsHeading">Alle Filme</h2>
+            <div class="catalog-meta">
+              <span id="filmCount"></span>
+            </div>
+          </div>
+          <div id="filmGrid" class="film-grid"></div>
+          <div id="emptyState" class="empty-state" hidden><strong>Hier ist noch Platz für Filme.</strong><span>In den Archiven kannst du Verweise und Cover anlegen.</span><button type="button" data-open-machine>Archive öffnen</button></div>
+        </section>
+      </section>
+
+      <section id="machineView" class="view machine-view" hidden>
+        <aside class="project-sidebar">
+          <p class="eyebrow archive-label">Archive</p>
+          <div class="archive-tabs" role="tablist" aria-label="Archivbereiche"><button class="archive-tab is-active" type="button" role="tab" aria-selected="true" data-archive-section="projects">Projekte</button><button class="archive-tab" type="button" role="tab" aria-selected="false" data-archive-section="playlists">Playlisten</button></div>
+          <div id="projectsSidebarPane" class="archive-sidebar-pane">
+            <div class="sidebar-head"><h1>Projekte</h1><div class="project-menu-wrap"><button id="projectMenuButton" class="square-button project-menu-button" type="button" aria-label="Projektmenü öffnen" aria-expanded="false" aria-controls="projectMenu">⋮</button><div id="projectMenu" class="project-menu" hidden><button id="importButton" type="button">Importieren</button><button id="pasteImportButton" type="button">Liste einfügen</button><button id="exportButton" type="button">Exportieren</button><button id="smartImportButton" type="button">Smart Import</button></div></div></div>
+            <div id="projectList" class="project-list"></div>
+            <button id="addProjectButton" class="add-project-button" type="button">Projekt hinzufügen</button>
+          </div>
+          <div id="playlistsSidebarPane" class="archive-sidebar-pane" hidden>
+            <div class="sidebar-head"><h1>Playlisten</h1></div>
+            <div id="playlistList" class="project-list"></div>
+            <button id="addPlaylistButton" class="add-project-button" type="button">Playlist hinzufügen</button>
+          </div>
+          <input id="importInput" type="file" accept="text/csv,application/json,.csv,.json" hidden>
+        </aside>
+        <div id="projectsContent" class="machine-content">
+          <div class="machine-head">
+            <div><p class="eyebrow">Projektbestand</p><h2 id="machineProjectTitle">Filmarchiv</h2><p id="projectSummary" class="muted"></p></div>
+            <button id="addFilmButton" class="primary-button" type="button">+ Film anlegen</button>
+          </div>
+          <div class="notice"><span aria-hidden="true">↗</span><p><strong>Die Videothek speichert keine Filmdateien.</strong><br>Gesichert werden nur Projekte, Metadaten, Cover-Verweise und Links zu deinen Speicherorten.</p></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Titel</th><th>Jahr</th><th>Genre</th><th>Speicherort</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead>
+              <tbody id="filmTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="playlistsContent" class="machine-content" hidden>
+          <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div></div>
+          <div class="playlist-empty"><strong id="playlistEmptyTitle">Filme für einen Abend zusammenstellen</strong><span id="playlistEmptyText">Lege links deine erste Playlist an.</span></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="catalogBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
+  <aside id="catalogDrawer" class="catalog-drawer" aria-hidden="true" aria-labelledby="catalogDrawerTitle">
+    <div class="catalog-drawer-head"><div><p class="eyebrow">Entdecken</p><h2 id="catalogDrawerTitle">Auswahl &amp; Anordnung</h2></div><button id="catalogDrawerClose" type="button" aria-label="Seitenmenü schließen">×</button></div>
+    <div class="catalog-settings-tabs" role="tablist" aria-label="Einstellungsbereiche"><button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-settings-tab="filters">Filter</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="display">Darstellung</button></div>
+    <div id="catalogFilterPanel" class="catalog-drawer-fields" role="tabpanel">
+      <label>Projekt<select id="projectSelect"></select></label>
+      <label>Playlist<select id="catalogPlaylistSelect"><option value="all">Alle Playlisten</option></select></label>
+      <label>Anordnung<select id="catalogSortSelect"><option value="alphabetical">Alphabetisch</option><option value="year-desc">Jahr · neu nach alt</option><option value="year-asc">Jahr · alt nach neu</option><option value="genre">Genre</option><option value="collection-number">Nach Sammlungsnummer</option><option value="random">Zufällig</option></select></label>
+      <label class="drawer-toggle"><input id="catalogOriginalTitleToggle" type="checkbox"><span>Originaltitel anzeigen</span></label>
+      <section class="drawer-language-section" aria-labelledby="drawerLanguageTitle">
+        <div><strong id="drawerLanguageTitle">Sprachen</strong><small>Keine Auswahl zeigt alle Filme.</small></div>
+        <div id="catalogLanguageFilters" class="drawer-language-filters"></div>
+        <p id="catalogLanguagesEmpty" class="drawer-language-empty" hidden>Noch keine Sprachen in eigenen Fassungen hinterlegt.</p>
+      </section>
+      <section class="drawer-language-section" aria-labelledby="drawerSubtitleTitle">
+        <div><strong id="drawerSubtitleTitle">Untertitel</strong><small>Keine Auswahl zeigt alle Filme.</small></div>
+        <div id="catalogSubtitleFilters" class="drawer-language-filters"></div>
+        <p id="catalogSubtitlesEmpty" class="drawer-language-empty" hidden>Noch keine Untertitel in eigenen Fassungen hinterlegt.</p>
+      </section>
+    </div>
+    <div id="catalogDisplayPanel" class="catalog-drawer-fields" role="tabpanel" hidden>
+      <label>Theme<select id="catalogThemeSelect"><option value="default">Arthouse</option><option value="neon">Videothek · Neon</option></select></label>
+      <label>Sprache der App<select id="appLanguageSelect"><option value="de">Deutsch</option><option value="en">English</option></select></label>
+      <label>Sprache der Filminformationen<select id="filmMetadataLanguageSelect"><option value="app">Wie App-Sprache</option><option value="original">Originalsprache</option><option value="de-DE">Deutsch</option><option value="en-US">English</option></select></label>
+      <button id="syncFilmMetadataButton" class="secondary-action" type="button">Fehlende Filminformationen synchronisieren</button>
+      <div id="filmMetadataSyncProgress" class="metadata-sync-progress" hidden><progress max="100" value="0"></progress><small></small></div>
+      <p class="drawer-language-empty">Die Auswahl bestimmt künftig die Sprache der Oberfläche und der geladenen Metadaten.</p>
+    </div>
+  </aside>
+
+  <dialog id="filmDialog" class="dialog">
+    <form id="filmForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Filmeintrag</p><h2 id="filmDialogTitle">Film bearbeiten</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <input id="filmId" type="hidden">
+      <div class="film-editor-tabs" role="tablist" aria-label="Bereiche des Filmeintrags">
+        <button class="is-active" type="button" role="tab" aria-selected="true" data-film-tab="general">Filminformationen</button>
+        <button type="button" role="tab" aria-selected="false" data-film-tab="copies">Meine Fassungen <span id="filmCopyCount">0</span></button>
+        <button type="button" role="tab" aria-selected="false" data-film-tab="playlists">Playlisten <span id="filmPlaylistCount">0</span></button>
+      </div>
+      <div id="filmGeneralPanel" class="film-tab-panel" role="tabpanel">
+      <section class="tmdb-panel" aria-labelledby="tmdbPanelTitle">
+        <div class="tmdb-panel-head">
+          <div><strong id="tmdbPanelTitle">Filminformationen &amp; IDs</strong></div>
+          <div class="tmdb-panel-actions"><button id="identifyIdsButton" class="secondary-action" type="button">IDs ergänzen</button></div>
+        </div>
+        <div id="tmdbTokenRow" class="tmdb-token-row" hidden>
+          <label>TMDB API Read Access Token<input id="tmdbTokenInput" type="password" autocomplete="off" placeholder="Bearer Token eingeben"></label>
+          <button id="tmdbTokenSaveButton" class="secondary-action" type="button">Token speichern</button>
+          <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener noreferrer">API-Einstellungen öffnen</a>
+        </div>
+        <p id="tmdbStatus" class="tmdb-status" role="status" aria-live="polite"></p>
+        <section class="film-identifiers" aria-labelledby="filmIdentifiersTitle">
+          <div class="film-id-list">
+            <div class="film-id-row film-id-source-tmdb" data-id-row="tmdb"><label>TMDB-ID<input id="filmTmdbId" data-film-id="tmdb" maxlength="20" placeholder="z. B. 47557"></label><span class="film-id-status" data-id-status="tmdb" aria-label="TMDB-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="tmdb">Beziehen</button></div>
+            <div class="film-id-row" data-id-row="imdb"><label>IMDb-ID<input id="filmImdbId" data-film-id="imdb" maxlength="20" placeholder="z. B. tt0133093"></label><span class="film-id-status" data-id-status="imdb" aria-label="IMDb-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="imdb">Beziehen</button></div>
+            <div class="film-id-row film-id-source-wikidata" data-id-row="wikidata"><label>Wikidata-ID<input id="filmWikidataId" data-film-id="wikidata" maxlength="30" placeholder="z. B. Q83495"></label><span class="film-id-status" data-id-status="wikidata" aria-label="Wikidata-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="wikidata">Beziehen</button></div>
+            <div class="film-id-row" data-id-row="tvdb"><label>TVDB-ID<input id="filmTvdbId" data-film-id="tvdb" maxlength="30" placeholder="z. B. 81189"></label><span class="film-id-status" data-id-status="tvdb" aria-label="TVDB-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="tvdb">Beziehen</button></div>
+            <div class="film-id-row" data-id-row="eidr"><label>EIDR<input id="filmEidr" data-film-id="eidr" maxlength="80" placeholder="EIDR-Kennung"></label><span class="film-id-status" data-id-status="eidr" aria-label="EIDR fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="eidr">Beziehen</button></div>
+            <div class="film-id-row" data-id-row="isan"><label>ISAN<input id="filmIsan" data-film-id="isan" maxlength="30" placeholder="ISAN-Kennung"></label><span class="film-id-status" data-id-status="isan" aria-label="ISAN fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="isan">Beziehen</button></div>
+            <div class="film-id-row" data-id-row="letterboxd"><label>Letterboxd-ID<input id="filmLetterboxdId" data-film-id="letterboxd" maxlength="80" placeholder="Letterboxd-Kennung"></label><span class="film-id-status" data-id-status="letterboxd" aria-label="Letterboxd-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="letterboxd">Beziehen</button></div>
+            <div class="film-id-row" data-id-row="rottenTomatoes"><label>Rotten-Tomatoes-ID<input id="filmRottenTomatoesId" data-film-id="rottenTomatoes" maxlength="80" placeholder="Rotten-Tomatoes-Kennung"></label><span class="film-id-status" data-id-status="rottenTomatoes" aria-label="Rotten-Tomatoes-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="rottenTomatoes">Beziehen</button></div>
+          </div>
+        </section>
+        <div id="tmdbResults" class="tmdb-results" hidden></div>
+      </section>
+      <div class="form-grid">
+        <label class="span-2">Titel<input id="filmTitle" required maxlength="160"></label>
+        <label class="span-2">Originaltitel<input id="filmOriginalTitle" maxlength="200"></label>
+        <label>Jahr<input id="filmYear" type="number" min="1800" max="2200"></label>
+        <label>Laufzeit (h:mm:ss)<input id="filmRuntime" type="text" inputmode="numeric" pattern="[0-9]{1,3}:[0-5][0-9]:[0-5][0-9]" placeholder="1:42:30" title="Bitte im Format Stunden:Minuten:Sekunden eingeben, z. B. 1:42:30"></label>
+        <label>Regie<input id="filmDirector" maxlength="120"></label>
+        <label class="span-2">Schauspieler<input id="filmCast" maxlength="600" placeholder="Namen, durch Kommas getrennt"></label>
+        <label>Genre<input id="filmGenre" maxlength="120" placeholder="Drama, Dokumentarfilm"></label>
+        <label>Länder<input id="filmCountries" maxlength="240" placeholder="z. B. Frankreich, Deutschland"></label>
+        <label class="span-2">Trailer-Link<input id="filmTrailer" type="url" placeholder="https://…"></label>
+        <label class="span-2">Cover-Link<input id="filmCover" type="url" placeholder="https://…"></label>
+        <label>Altersfreigabe<input id="filmRating" maxlength="20" placeholder="FSK 12"></label>
+        <label class="span-2">Beschreibung<textarea id="filmDescription" rows="4"></textarea></label>
+      </div>
+      </div>
+      <div id="filmCopiesPanel" class="film-tab-panel" role="tabpanel" hidden>
+        <div class="copies-head"><div><strong>Meine Fassungen</strong><small>Links und technische Eigenschaften deiner eigenen Kopien.</small></div><button id="addFilmCopyButton" class="secondary-action" type="button">Fassung hinzufügen</button></div>
+        <div id="filmCopiesList" class="film-copies-list"></div>
+        <div id="filmCopiesEmpty" class="copies-empty">Noch keine eigene Fassung hinterlegt.</div>
+      </div>
+      <div id="filmPlaylistsPanel" class="film-tab-panel" role="tabpanel" hidden>
+        <div class="copies-head"><div><strong>Playlisten</strong><small>Wähle aus, auf welchen Playlists dieser Film erscheinen soll.</small></div></div>
+        <div id="filmPlaylistChecklist" class="film-playlist-checklist"></div>
+        <div id="filmPlaylistsEmpty" class="copies-empty">Noch keine Playlist angelegt.</div>
+      </div>
+      <div class="dialog-actions"><button id="deleteFilmButton" class="danger-button" type="button">Film löschen</button><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Speichern</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="projectDialog" class="dialog small-dialog">
+    <form id="projectForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Neue Sammlung</p><h2>Projekt anlegen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <label>Projektname<input id="projectName" required maxlength="100" placeholder="z. B. Filmgeschichte 10"></label>
+      <label>Beschreibung<textarea id="projectDescription" rows="3" maxlength="400"></textarea></label>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Anlegen</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="playlistDialog" class="dialog small-dialog">
+    <form id="playlistForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Neue Sammlung</p><h2>Playlist anlegen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <label>Playlistname<input id="playlistName" required maxlength="100" placeholder="z. B. Freitagabend"></label>
+      <label>Beschreibung<textarea id="playlistDescription" rows="3" maxlength="800"></textarea></label>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Anlegen</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="exportDialog" class="dialog small-dialog">
+    <form id="exportForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Projekt weitergeben</p><h2>Projekt exportieren</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <p id="exportSummary" class="export-summary"></p>
+      <fieldset class="export-options">
+        <legend>Welche Fassungen sollen enthalten sein?</legend>
+        <label><input type="radio" name="exportScope" value="all" checked><span><strong>Vollständiges Projekt</strong><small>Enthält auch Links aus deinem privaten Archiv.</small></span></label>
+        <label><input type="radio" name="exportScope" value="public"><span><strong>Nur frei zugängliche Filme</strong><small>Private Fassungen und Filme ohne öffentlichen Link werden entfernt.</small></span></label>
+      </fieldset>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Exportieren</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="pasteDialog" class="dialog paste-dialog">
+    <form id="pasteForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Google / YouTube</p><h2>Filmliste einfügen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <p class="paste-help">Öffne deine Kaufbibliothek, markiere die gesamte Seite und füge den kopierten Inhalt hier ein. Die Videothek sucht darin nach Titeln und Links.</p>
+      <label>Projektname<input id="pasteProjectName" maxlength="100" value="Meine Google-Filme"></label>
+      <label>Kopierter Seiteninhalt<textarea id="pasteSource" rows="9" placeholder="Hier den gesamten kopierten Inhalt einfügen …"></textarea></label>
+      <div class="paste-analyze-row"><button id="analyzePasteButton" class="secondary-action" type="button">Liste analysieren</button><span id="pasteResultSummary" class="muted"></span></div>
+      <fieldset id="pastePreviewFieldset" class="paste-preview" hidden><legend>Erkannte Titel</legend><div id="pastePreview"></div></fieldset>
+      <div class="dialog-actions paste-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button id="confirmPasteButton" class="primary-button" type="button" disabled>Auswahl importieren</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="smartImportDialog" class="dialog paste-dialog"><form method="dialog"><div class="dialog-head"><h2>Smart Import</h2></div><p>Diese Vorlage kannst du in eine KI kopieren. Sie erklärt das JSON-Format für den direkten Import in Videothek.</p><textarea id="smartImportPrompt" rows="14" readonly></textarea><div class="dialog-actions"><button id="copySmartImportButton" class="primary-button" type="button">Erklärung kopieren</button><button id="smartImportNextButton" class="primary-button" type="button">Weiter</button><button value="cancel">Schließen</button></div></form></dialog>
+  <dialog id="supportMessageDialog" class="dialog small-dialog support-message-dialog"><form method="dialog"><div class="dialog-head"><div><p class="eyebrow">Ein kleiner Abspann</p><h2>Filme brauchen Menschen.</h2></div><button class="dialog-close" value="cancel" aria-label="Schließen">×</button></div><p>Wenn dir die Videothek Freude macht, kannst du das Projekt gern mit einem kleinen Beitrag unterstützen. Und wenn heute ein Filmabend ansteht: Denk auch an dein Kino um die Ecke – dort leuchtet die Leinwand am schönsten.</p><div class="dialog-actions"><span></span><span></span><button class="primary-button" value="cancel">Mach ich ♡</button></div></form></dialog>
+  <dialog id="trailerDialog" class="trailer-dialog"><div class="trailer-dialog-head"><strong>Trailer</strong><button id="trailerDialogClose" class="dialog-close" type="button" aria-label="Trailer schließen">×</button></div><div id="trailerFrameHost" class="trailer-frame-host"></div><a id="trailerExternalLink" class="secondary-action trailer-external-link" target="_blank" rel="noopener noreferrer">Auf YouTube öffnen</a></dialog>
+  <dialog id="detailDialog" class="detail-dialog"><div id="detailContent"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="videothek-import.js?v=20260912-2"></script>
+  <script src="videothek.js?v=20260913-20"></script>
+</body>
+</html>
+
+
+
+
+
+
+
