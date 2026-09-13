@@ -10,6 +10,10 @@ body { min-width: 0; }
 .film-drag-handle { cursor:grab; user-select:none; }
 .film-drag-handle:active { cursor:grabbing; }
 .film-drag-handle.is-dragging { opacity:.42; }
+.film-drag-handle { display:inline-flex; flex:0 0 auto; }
+.archive-film-title { border:0; padding:2px 0; background:transparent; color:inherit; font-weight:700; text-align:left; }
+.archive-film-title:hover { color:var(--accent2); }
+.archive-film-title:focus-visible { outline:2px solid var(--accent); outline-offset:4px; border-radius:2px; }
 .project-row { transition:background-color .16s,box-shadow .16s; }
 .project-row.is-film-drop-target { background:rgba(116,59,67,.09); box-shadow:inset 0 0 0 1px rgba(116,59,67,.42); }
 .project-row.is-film-drop-target .project-item { color:var(--text); }
