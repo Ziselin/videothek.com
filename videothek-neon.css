@@ -39,7 +39,7 @@
 :root[data-theme="neon"] .archive-neon-brand img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 7px rgba(255,58,160,.7))}
 :root[data-theme="neon"][data-view="machine"] .topbar{height:72px;grid-template-rows:0 62px}
 :root[data-theme="neon"][data-view="machine"] .brand{opacity:0;transform:translateY(-210px) scale(.34);pointer-events:none;transition:transform .52s cubic-bezier(.22,.75,.18,1),opacity .14s ease .3s}
-:root[data-theme="neon"][data-view="machine"] .archive-neon-brand{opacity:1;transform:none;pointer-events:auto;transition-delay:.34s}
+:root[data-theme="neon"][data-view="machine"] .archive-neon-brand{opacity:1;transform:none;pointer-events:auto;transition-delay:.58s}
 :root[data-theme="neon"][data-view="machine"] .view{min-height:calc(100dvh - 72px)}
 :root[data-theme="neon"][data-view="machine"] .machine-view{height:calc(100dvh - 72px);min-height:calc(100dvh - 72px)}
 :root[data-theme="neon"] .nav-button{color:#a9a2b8;background:transparent;border-radius:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.76rem}
