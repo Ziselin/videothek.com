@@ -130,6 +130,10 @@
 :root[data-theme="neon"] .project-menu,:root[data-theme="neon"] .project-row-menu{background:#191625;border-color:#40394f;box-shadow:0 18px 45px rgba(0,0,0,.55)}
 :root[data-theme="neon"] .project-menu button{color:#eee8f2}
 :root[data-theme="neon"] .project-menu button:hover{background:#292238}
+:root[data-theme="neon"] .project-row-menu button{color:#eee8f2}
+:root[data-theme="neon"] .project-row-menu button:hover{background:#292238}
+:root[data-theme="neon"] .project-row-menu .project-delete-button{border-color:#40394f;color:#ff8faf}
+:root[data-theme="neon"] .project-row-menu .project-delete-button:hover{background:#38202d}
 :root[data-theme="neon"] .add-project-button,:root[data-theme="neon"] .square-button{color:#eee7f0;background:#171522;border-color:#383248}
 :root[data-theme="neon"] .add-project-button:hover{border-color:#28ded1;background:#1b1928}
 :root[data-theme="neon"] .machine-content{background:#0b0a13}

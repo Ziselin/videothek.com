@@ -48,9 +48,12 @@ body { min-width: 0; }
 .project-row-menu-wrap { position: relative; display: grid; align-items: center; }
 .project-row-menu-button { width: 34px; height: 34px; border: 0; border-radius: 7px; background: transparent; color: var(--muted); font-size: 1.35rem; line-height: 1; }
 .project-row-menu-button:hover, .project-row-menu-button[aria-expanded="true"] { background: #303641; color: var(--text); }
-.project-row-menu { position: absolute; top: 36px; right: 0; z-index: 25; width: 145px; padding: 6px; border: 1px solid var(--line); border-radius: 9px; background: #1a1e25; box-shadow: 0 14px 35px rgba(0,0,0,.45); }
-.project-row-menu button { width: 100%; border: 0; border-radius: 6px; background: transparent; padding: 9px 10px; text-align: left; color: #f0a4a4; }
-.project-row-menu button:hover { background: #382125; }
+.project-row-menu { position:absolute; top:calc(100% + 5px); right:0; z-index:45; width:190px; padding:6px; border:1px solid var(--line); border-radius:10px; background:#1a1e25; box-shadow:0 14px 35px rgba(0,0,0,.45); }
+.project-row-menu.opens-upward { top:auto; bottom:calc(100% + 5px); }
+.project-row-menu button { width:100%; border:0; border-radius:6px; background:transparent; padding:10px 11px; text-align:left; color:var(--text); }
+.project-row-menu button:hover { background:#292e38; }
+.project-row-menu .project-delete-button { margin-top:4px; border-top:1px solid var(--line); border-radius:0 0 6px 6px; color:#f0a4a4; }
+.project-row-menu .project-delete-button:hover { background:#382125; }
 .add-project-button { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: #171a20; color: var(--text); padding: 11px 14px; text-align: left; }
 .add-project-button:hover { border-color: #555d6b; background: #20242b; }
 .project-menu-wrap { position: relative; }
@@ -134,8 +137,10 @@ td { color:#3c3731; }
 .project-menu,.project-row-menu { background:#fffaf2; border-color:#cbbfad; box-shadow:0 16px 38px rgba(55,39,25,.16); }
 .project-menu button { color:#302b26; }
 .project-menu button:hover { background:#eee6da; }
-.project-row-menu button { color:#9b3d3d; }
-.project-row-menu button:hover { background:#f3e0df; }
+.project-row-menu button { color:#302b26; }
+.project-row-menu button:hover { background:#eee6da; }
+.project-row-menu .project-delete-button { color:#9b3d3d; }
+.project-row-menu .project-delete-button:hover { background:#f3e0df; }
 .dialog,.detail-dialog { background:#fbf8f1; color:#292622; border-color:#c7baa8; border-radius:8px; box-shadow:0 30px 80px rgba(49,34,22,.27); }
 .dialog::backdrop,.detail-dialog::backdrop { background:rgba(47,38,31,.45); }
 .dialog-close,.muted { color:#756e64; }
