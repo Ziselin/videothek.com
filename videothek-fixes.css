@@ -297,6 +297,9 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .metadata-sync-progress small { color:#85817a; }
 .topbar .brand { border:0; background:transparent; padding:0; text-align:left; }
 .support-message-dialog p:not(.eyebrow) { color:#66615a; font-size:1rem; line-height:1.65; }
+.support-message-actions { display:flex; justify-content:flex-end; align-items:center; gap:9px; margin-top:24px; }
+.support-message-actions button,.support-message-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:42px; border-radius:8px; padding:10px 14px; text-decoration:none; }
+.support-message-actions button { border:1px solid #d8d4cc; background:#f7f5f1; color:#55514b; }
 .catalog-drawer-fields { display:grid; gap:20px; padding-top:25px; }
 .catalog-drawer-fields label { display:grid; gap:7px; color:#62605b; font-size:.78rem; font-weight:650; letter-spacing:.08em; text-transform:uppercase; }
 .catalog-drawer-fields select { min-height:48px; color:#302f2c; font-size:.95rem; font-weight:450; letter-spacing:0; text-transform:none; }
