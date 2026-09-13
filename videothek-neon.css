@@ -155,15 +155,12 @@
 :root[data-theme="neon"] .dialog-head,:root[data-theme="neon"] .detail-body{background:#12101d}
 :root[data-theme="neon"] .dialog-head h2,:root[data-theme="neon"] .detail-body h2{color:#fff2dd;font-family:Garamond,serif;font-style:italic}
 :root[data-theme="neon"] .support-message-dialog .support-message-lead{color:#fff2dd}
-:root[data-theme="neon"] .support-message-dialog .support-message-cinema{border-color:#332d42;color:#aaa3b7}
 :root[data-theme="neon"] .support-message-dialog{background:radial-gradient(circle at 84% 105%,rgba(255,73,153,.09),transparent 34%),#12101d;border-color:#443a56;box-shadow:0 34px 110px rgba(0,0,0,.82),0 0 42px rgba(255,79,154,.1)}
 :root[data-theme="neon"] .support-message-dialog::backdrop{background:rgba(3,2,8,.76)}
 :root[data-theme="neon"] .support-message-accent{background:linear-gradient(90deg,#28ded1 0 38%,#f34291 70%,#ffaf51);box-shadow:0 0 14px rgba(40,222,209,.18),0 0 18px rgba(243,66,145,.16)}
 :root[data-theme="neon"] .support-message-dialog .dialog-head,:root[data-theme="neon"] .support-message-dialog form{background:transparent}
 :root[data-theme="neon"] .support-message-dialog .dialog-head h2{color:#fff2dd}
 :root[data-theme="neon"] .support-message-dialog .support-message-lead{color:#d8d0dc}
-:root[data-theme="neon"] .support-message-dialog .support-message-cinema{border-color:#393249;background:#191625;color:#bdb5c5}
-:root[data-theme="neon"] .support-cinema-icon{border-color:#356a70;color:#58d8d1;box-shadow:inset 0 0 10px rgba(40,222,209,.08)}
 :root[data-theme="neon"] .support-message-actions a.primary-button{background:#e83f88;color:#fff;box-shadow:0 0 19px rgba(232,63,136,.25),0 10px 28px rgba(0,0,0,.26)}
 :root[data-theme="neon"] .support-message-actions a.primary-button:hover{background:#f64c98;box-shadow:0 0 26px rgba(246,76,152,.38),0 13px 32px rgba(0,0,0,.3)}
 :root[data-theme="neon"] .support-message-actions .support-later-button{color:#aaa3b7}

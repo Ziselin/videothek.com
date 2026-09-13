@@ -302,7 +302,6 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .topbar .brand { border:0; background:transparent; padding:0; text-align:left; }
 .support-message-dialog p:not(.eyebrow) { color:#66615a; font-size:1rem; line-height:1.55; }
 .support-message-dialog .support-message-lead { margin-bottom:10px; color:#3c3935; font-size:1.05rem; font-weight:600; }
-.support-message-dialog .support-message-cinema { margin-top:0; padding-top:13px; border-top:1px solid #e1ded8; color:#77716a; font-size:.9rem; }
 .support-message-actions { display:flex; justify-content:flex-end; align-items:center; gap:9px; margin-top:24px; }
 .support-message-actions button,.support-message-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:42px; border-radius:8px; padding:10px 14px; text-decoration:none; }
 .support-message-actions button { border:1px solid #d8d4cc; background:#f7f5f1; color:#55514b; }
@@ -316,9 +315,7 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .support-message-dialog .dialog-close { display:grid; place-items:center; width:42px; height:42px; margin:-9px -10px 0 10px; border-radius:50%; transition:background .16s,color .16s,transform .16s; }
 .support-message-dialog .dialog-close:hover { background:#f2ece7; color:#744451; transform:rotate(3deg); }
 .support-message-dialog .support-message-lead { max-width:420px; margin:0; color:#4b4540; font-size:1.02rem; font-weight:500; line-height:1.55; }
-.support-message-dialog .support-message-cinema { display:grid; grid-template-columns:28px 1fr; gap:11px; align-items:start; margin:21px 0 0; padding:14px 15px; border:1px solid #e4ded7; border-radius:12px; background:#f8f4ef; color:#68605a; font-size:.9rem; line-height:1.48; }
-.support-cinema-icon { display:grid; place-items:center; width:27px; height:27px; border:1px solid #c8aeb5; border-radius:50%; color:#8b4d60; font-size:1rem; }
-.support-message-actions { display:flex; flex-direction:column; align-items:stretch; gap:7px; margin-top:23px; }
+.support-message-actions { display:flex; flex-direction:column; align-items:stretch; gap:7px; margin-top:27px; }
 .support-message-actions a.primary-button { min-height:48px; border-radius:11px; background:#8f455a; color:#fff; box-shadow:0 9px 22px rgba(117,58,67,.2); font-weight:750; transition:transform .16s,box-shadow .16s,background .16s; }
 .support-message-actions a.primary-button:hover { background:#a84d68; box-shadow:0 12px 27px rgba(117,58,67,.27); transform:translateY(-1px); }
 .support-message-actions a.primary-button:active { transform:translateY(0); }
@@ -327,7 +324,7 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .support-message-dialog :focus-visible { outline:2px solid #168f88; outline-offset:3px; }
 @keyframes support-dialog-in { from { opacity:0; transform:translateY(8px) scale(.985); } to { opacity:1; transform:none; } }
 @keyframes support-backdrop-in { from { opacity:0; } to { opacity:1; } }
-@media(max-width:520px){.support-message-dialog{width:calc(100vw - 24px);max-height:calc(100dvh - 24px);border-radius:17px}.support-message-dialog form{padding:25px 20px 21px}.support-message-dialog .dialog-head h2{font-size:1.85rem}.support-message-dialog .support-message-lead{font-size:1rem}.support-message-dialog .support-message-cinema{margin-top:17px}.support-message-actions{margin-top:19px}.support-message-actions a.primary-button{min-height:50px}.support-message-actions .support-later-button{min-height:44px}}
+@media(max-width:520px){.support-message-dialog{width:calc(100vw - 24px);max-height:calc(100dvh - 24px);border-radius:17px}.support-message-dialog form{padding:25px 20px 21px}.support-message-dialog .dialog-head h2{font-size:1.85rem}.support-message-dialog .support-message-lead{font-size:1rem}.support-message-actions{margin-top:23px}.support-message-actions a.primary-button{min-height:50px}.support-message-actions .support-later-button{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.support-message-dialog[open],.support-message-dialog::backdrop{animation:none}.support-message-dialog .dialog-close,.support-message-actions a.primary-button{transition:none}}
 .catalog-drawer-fields { display:grid; gap:20px; padding-top:25px; }
 .catalog-info-panel { display:grid; gap:20px; padding-top:25px; }
