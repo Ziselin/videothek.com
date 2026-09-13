@@ -319,6 +319,7 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .support-message-actions a.primary-button { min-height:48px; border-radius:11px; background:#8f455a; color:#fff; box-shadow:0 9px 22px rgba(117,58,67,.2); font-weight:750; transition:transform .16s,box-shadow .16s,background .16s; }
 .support-message-actions a.primary-button:hover { background:#a84d68; box-shadow:0 12px 27px rgba(117,58,67,.27); transform:translateY(-1px); }
 .support-message-actions a.primary-button:active { transform:translateY(0); }
+.support-message-actions a.primary-button > span[aria-hidden="true"] { display:inline-block; margin-left:15px; font-size:2rem; line-height:.5; transform:translateY(3px); }
 .support-message-actions .support-later-button { min-height:42px; border:0; background:transparent; color:#7b746e; }
 .support-message-actions .support-later-button:hover { color:#493f3a; text-decoration:underline; text-underline-offset:3px; }
 .support-message-dialog :focus-visible { outline:2px solid #168f88; outline-offset:3px; }
