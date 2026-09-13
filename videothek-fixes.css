@@ -289,7 +289,7 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .catalog-drawer-head { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; padding-bottom:22px; border-bottom:1px solid #dedbd4; }
 .catalog-drawer-head h2 { margin:3px 0 0; font-size:1.35rem; letter-spacing:-.02em; }
 .catalog-drawer-head button { width:36px; height:36px; border:0; border-radius:50%; background:#efede8; color:#5f5d58; font-size:1.5rem; line-height:1; }
-.catalog-settings-tabs { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-top:18px; padding:4px; border-radius:8px; background:#efede8; }
+.catalog-settings-tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; margin-top:18px; padding:4px; border-radius:8px; background:#efede8; }
 .catalog-settings-tabs button { min-height:38px; border:0; border-radius:6px; background:transparent; color:#716e68; }
 .catalog-settings-tabs button.is-active { background:#fff; color:#302f2c; box-shadow:0 1px 5px rgba(34,31,27,.1); }
 .metadata-sync-progress { display:grid; gap:6px; }
