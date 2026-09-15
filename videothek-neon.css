@@ -9,7 +9,7 @@
 .archive-neon-brand{display:none}
 
 :root[data-theme="neon"]{color-scheme:dark;--bg:#080812;--panel:#11101d;--panel2:#19162a;--line:#34304a;--text:#fff7e8;--muted:#aaa4bd;--accent:#ff4f9a;--accent2:#28ded1;--danger:#ff6478}
-:root[data-theme="neon"] body{background:#080812;color:var(--text);background-image:radial-gradient(circle at 13% 4%,rgba(255,50,148,.16),transparent 28rem),radial-gradient(circle at 89% 13%,rgba(30,220,211,.12),transparent 32rem),linear-gradient(180deg,#0d0b18 0,#080812 46rem);background-attachment:fixed}
+:root[data-theme="neon"] body{background:#080812;color:var(--text);background-image:radial-gradient(circle at 13% 4%,rgba(255,50,148,.16),transparent 28rem),radial-gradient(circle at 89% 13%,rgba(30,220,211,.12),transparent 32rem),linear-gradient(180deg,#0d0b18 0,#080812 46rem);background-attachment:fixed;overflow-anchor:none}
 :root[data-theme="neon"] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:4px 4px}
 
 /* Small neon cursor family — inline SVG keeps the theme self-contained. */
@@ -39,8 +39,8 @@
 :root[data-theme="neon"] .archive-neon-brand img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 7px rgba(255,58,160,.7))}
 :root[data-theme="neon"][data-view="machine"] .topbar{height:72px;grid-template-rows:0 62px}
 :root[data-theme="neon"][data-view="machine"] .brand{opacity:0;transform:translateY(-210px) scale(.34);pointer-events:none;transition:transform .52s cubic-bezier(.22,.75,.18,1),opacity .14s ease .3s}
-:root[data-theme="neon"][data-view="machine"] .archive-neon-brand{opacity:1;transform:none;pointer-events:auto;animation:compact-neon-ignite .48s linear .58s both}
-:root[data-theme="neon"][data-view="cinema"][data-header-collapsed="true"] .archive-neon-brand{opacity:1;transform:none;pointer-events:auto;animation:compact-neon-ignite .48s linear .06s both}
+:root[data-theme="neon"][data-view="machine"] .archive-neon-brand{opacity:1;transform:none;pointer-events:auto;animation:compact-neon-ignite .48s linear 1.52s both}
+:root[data-theme="neon"][data-view="cinema"][data-header-collapsed="true"] .archive-neon-brand{opacity:1;transform:none;pointer-events:auto;animation:compact-neon-ignite .48s linear 1s both}
 :root[data-theme="neon"][data-view="machine"] .view{min-height:calc(100dvh - 72px)}
 :root[data-theme="neon"][data-view="machine"] .machine-view{height:calc(100dvh - 72px);min-height:calc(100dvh - 72px)}
 :root[data-theme="neon"] .nav-button{color:#a9a2b8;background:transparent;border-radius:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.76rem}
@@ -84,7 +84,7 @@
 @keyframes genre-accent-in{from{opacity:0}to{}}
 @keyframes compact-neon-ignite{0%,12%{opacity:0;filter:brightness(.45)}20%{opacity:.72;filter:brightness(1.18)}29%{opacity:.18;filter:brightness(.7)}43%{opacity:.94;filter:brightness(1.08)}52%{opacity:.68;filter:brightness(.92)}68%,100%{opacity:1;filter:brightness(1)}}
 :root[data-theme="neon"] .cinema-view>section{min-width:0}
-:root[data-theme="neon"] .genre-filter-region{position:sticky;top:327px;align-self:start;max-height:calc(100dvh - 339px);margin:0;padding:2px 4px 2px 0;border:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+:root[data-theme="neon"] .genre-filter-region{position:sticky;top:calc(353px - var(--neon-header-shrink,0px));align-self:start;max-height:calc(100dvh - 365px + var(--neon-header-shrink,0px));margin:0;padding:2px 4px 2px 0;border:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;will-change:top,max-height;transition:top .56s cubic-bezier(.22,.75,.18,1),max-height .56s cubic-bezier(.22,.75,.18,1)}
 :root[data-theme="neon"] .genre-filter-head{display:none}
 :root[data-theme="neon"] .chips{display:grid;align-content:start;gap:6px;max-height:none;overflow:visible;padding:0}
 :root[data-theme="neon"] .chip{width:100%;min-height:36px;padding:8px 11px;text-align:left}
@@ -155,6 +155,24 @@
 :root[data-theme="neon"] .drawer-toggle,:root[data-theme="neon"] .drawer-language-filters label{background:#191625;border-color:#393348;color:#d8d1df}
 :root[data-theme="neon"] .drawer-language-filters label:hover{border-color:#28ded1;background:#1b1a29}
 :root[data-theme="neon"] .dialog,:root[data-theme="neon"] .detail-dialog{background:#12101d;color:#fff6e8;border-color:#40384f;box-shadow:0 30px 100px rgba(0,0,0,.75),0 0 35px rgba(255,79,154,.08)}
+:root[data-theme="neon"] .detail-person-link:hover,:root[data-theme="neon"] .detail-person-link:focus-visible{color:#28ded1;text-shadow:0 0 8px rgba(40,222,209,.42)}
+:root[data-theme="neon"] .playlist-film-result{background:#0d0c16;color:#fff6e8;border-color:#3e374c}
+:root[data-theme="neon"] .playlist-film-result:hover,:root[data-theme="neon"] .playlist-film-result:focus-visible{background:#171322;border-color:#28ded1}
+:root[data-theme="neon"] .playlist-film-result small{color:#aaa3b7}
+:root[data-theme="neon"] .playlist-film-result b{color:#28ded1}
+:root[data-theme="neon"] .playlist-film-result.is-selected{border-color:#28ded1;box-shadow:0 0 0 1px #28ded1,0 0 16px rgba(40,222,209,.14)}
+:root[data-theme="neon"] .playlist-film-tabs{background:#0b0a12;border:1px solid #302a3b}
+:root[data-theme="neon"] .playlist-film-tabs button{color:#aaa3b7}
+:root[data-theme="neon"] .playlist-film-tabs button.is-active{background:#211b2d;color:#fff6e8;box-shadow:none}
+:root[data-theme="neon"] .playlist-entry-cover{background:#211f28;border-color:#3e374c}
+:root[data-theme="neon"] .playlist-entry.is-placeholder{opacity:.48}
+:root[data-theme="neon"] .playlist-entry.is-placeholder .playlist-entry-cover{background:linear-gradient(145deg,#282730,#111119);filter:grayscale(1)}
+:root[data-theme="neon"] .playlist-entry-placeholder-title{color:#aaa6b0}
+:root[data-theme="neon"] .playlist-entry.is-resolved:hover .playlist-entry-cover,:root[data-theme="neon"] .playlist-entry.is-resolved:focus-visible .playlist-entry-cover{border-color:#28ded1;box-shadow:0 0 18px rgba(40,222,209,.16)}
+:root[data-theme="neon"] .playlist-placeholder-row{opacity:.48}
+:root[data-theme="neon"] .playlist-placeholder-row .mini-poster{filter:grayscale(1);opacity:.62}
+:root[data-theme="neon"] .playlist-placeholder-poster{background:linear-gradient(145deg,#282730,#111119);border-color:#3e374c;color:#77717f}
+:root[data-theme="neon"] .playlist-placeholder-row .status{background:#211e29;color:#8e8996}
 :root[data-theme="neon"] .dialog::backdrop,:root[data-theme="neon"] .detail-dialog::backdrop{background:rgba(3,2,8,.78)}
 :root[data-theme="neon"] .dialog-head,:root[data-theme="neon"] .detail-body{background:#12101d}
 :root[data-theme="neon"] .dialog-head h2,:root[data-theme="neon"] .detail-body h2{color:#fff2dd;font-family:Garamond,serif;font-style:italic}
@@ -181,6 +199,10 @@
 :root[data-theme="neon"] .film-editor-tabs button{color:#958fa2}
 :root[data-theme="neon"] .film-editor-tabs button.is-active{color:#28ded1;background:#1b1727;box-shadow:inset 0 -2px #28ded1}
 :root[data-theme="neon"] .tmdb-panel,:root[data-theme="neon"] .film-copy,:root[data-theme="neon"] .film-playlist-option,:root[data-theme="neon"] .playlist-empty{background:#171421;border-color:#373144;color:#d8d1df}
+:root[data-theme="neon"] .media-type-switch{border-color:#403951;background:#0f0d18}
+:root[data-theme="neon"] .media-type-switch label{color:#aaa3b7}
+:root[data-theme="neon"] .media-type-switch input:checked+span{color:#090812;background:#28ded1;box-shadow:0 0 14px rgba(40,222,209,.28)}
+:root[data-theme="neon"] .media-type-switch input:focus-visible+span{outline-color:#ff4f9a}
 :root[data-theme="neon"] .export-options label{background:#171421;border-color:#373144;color:#d8d1df}
 :root[data-theme="neon"] .export-summary,:root[data-theme="neon"] .export-options small{color:#aaa3b7}
 :root[data-theme="neon"] .copy-password-field::after{color:#aaa3b7}
@@ -194,7 +216,13 @@
 :root[data-theme="neon"] .catalog-info-section h3{color:#fff2dd}
 :root[data-theme="neon"] .catalog-info-section p{color:#aaa3b7}
 :root[data-theme="neon"] .catalog-info-section a{color:#52e5db}
-:root[data-theme="neon"] .film-id-source-tmdb input,:root[data-theme="neon"] .film-id-source-wikidata input{background:#342d18;border-color:#c9a83f;color:#fff3bd;box-shadow:0 0 10px rgba(255,205,71,.16)}
+:root[data-theme="neon"] .film-id-row [data-fetch-id]{color:#e7bd3e!important;text-shadow:0 0 8px rgba(255,205,71,.16)}
+:root[data-theme="neon"] .film-id-row [data-fetch-id]:hover{color:#ffe27a!important;text-shadow:0 0 10px rgba(255,205,71,.26)}
+:root[data-theme="neon"] .film-id-row.is-verifiable [data-fetch-id]{color:#55d99a!important;text-shadow:0 0 8px rgba(85,217,154,.16)}
+:root[data-theme="neon"] .film-id-row.is-verifiable [data-fetch-id]:hover{color:#8bf0bd!important;text-shadow:0 0 10px rgba(85,217,154,.26)}
+:root[data-theme="neon"] .api-key-button{color:#817a90;background:#12101c;border-color:#39334a}
+:root[data-theme="neon"] .api-key-button:hover{color:#28ded1;background:#171421;border-color:#28ded1;box-shadow:0 0 12px rgba(40,222,209,.14)}
+:root[data-theme="neon"] .api-config-dialog>a{color:#52e5db}
 :root[data-theme="neon"] .film-id-status.is-present{color:#55d99a}
 :root[data-theme="neon"] .form-grid label,:root[data-theme="neon"] .small-dialog label,:root[data-theme="neon"] .paste-dialog form>label,:root[data-theme="neon"] .copy-grid label,:root[data-theme="neon"] .tmdb-token-row label,:root[data-theme="neon"] .catalog-drawer-fields label,:root[data-theme="neon"] .playlist-number-field{color:#d2cada}
 :root[data-theme="neon"] .tmdb-panel-head strong,:root[data-theme="neon"] .copies-head strong{color:#fff2df}
@@ -205,6 +233,7 @@
 :root[data-theme="neon"] .tmdb-result:hover,:root[data-theme="neon"] .tmdb-result:focus-visible{background:#1b1425;border-color:#ff5ca2}
 :root[data-theme="neon"] .tmdb-result small,:root[data-theme="neon"] .tmdb-result em{color:#aaa3b7}
 :root[data-theme="neon"] .tmdb-result b{color:#5be8de}
+:root[data-theme="neon"] .wikidata-result-mark{color:#071217;background:#28ded1;box-shadow:0 0 14px rgba(40,222,209,.26)}
 :root[data-theme="neon"] .toast{color:#0d0b14;background:#28ded1;box-shadow:0 12px 35px rgba(0,0,0,.55),0 0 20px rgba(40,222,209,.26)}
 :root[data-theme="neon"] button:focus-visible,:root[data-theme="neon"] a:focus-visible,:root[data-theme="neon"] input:focus-visible,:root[data-theme="neon"] select:focus-visible,:root[data-theme="neon"] textarea:focus-visible{outline:2px solid #28ded1;outline-offset:3px}
 
@@ -214,7 +243,7 @@
   :root[data-theme="neon"] .brand{position:relative;grid-column:1/-1;grid-row:1;width:min(94vw,520px);height:170px;min-height:0;border-radius:0 0 12px 12px;transform:translateY(var(--neon-header-offset,0px)) scale(var(--neon-header-scale,1))}
   :root[data-theme="neon"][data-view="machine"] .topbar{height:66px;grid-template-rows:0 56px}
   :root[data-theme="neon"][data-view="machine"] .brand{transform:translateY(-150px) scale(.32)}
-  :root[data-theme="neon"][data-view="machine"] .archive-neon-brand{margin-left:5px}
+  :root[data-theme="neon"] .archive-neon-brand{position:absolute;z-index:3;right:auto;bottom:16px;left:calc(50% - 19.5px);margin-left:0}
   :root[data-theme="neon"][data-view="machine"] .view,:root[data-theme="neon"][data-view="machine"] .machine-view{height:auto;min-height:calc(100dvh - 66px)}
   :root[data-theme="neon"] .brand::after{height:25px}
   :root[data-theme="neon"] .main-nav{grid-column:1;grid-row:2;justify-self:start;justify-content:flex-start}
@@ -235,5 +264,8 @@
   :root[data-theme="neon"] .nav-button{padding-inline:9px;font-size:.7rem}
   :root[data-theme="neon"] .film-grid{gap:30px 14px}
 }
-@media(prefers-reduced-motion:reduce){.theme-toggle{transition:none}:root[data-theme="neon"] .topbar,:root[data-theme="neon"] .brand,:root[data-theme="neon"] .archive-neon-brand,:root[data-theme="neon"] .cinema-view::before,:root[data-theme="neon"] .cinema-view::after{animation:none;transition:none}}
+@media(max-width:380px){
+  :root[data-theme="neon"] .nav-button{padding-inline:5px;font-size:.64rem}
+}
+@media(prefers-reduced-motion:reduce){.theme-toggle{transition:none}:root[data-theme="neon"] .topbar,:root[data-theme="neon"] .brand,:root[data-theme="neon"] .archive-neon-brand,:root[data-theme="neon"] .genre-filter-region,:root[data-theme="neon"] .cinema-view::before,:root[data-theme="neon"] .cinema-view::after{animation:none;transition:none}}
 @media(forced-colors:active){:root[data-theme="neon"] .cinema-view::before,:root[data-theme="neon"] .cinema-view::after{display:none}}

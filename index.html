@@ -11,8 +11,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260914-1">
-  <link rel="stylesheet" href="videothek-neon.css?v=20260914-1">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260914-16">
+  <link rel="stylesheet" href="videothek-neon.css?v=20260914-20">
 </head>
 <body>
   <datalist id="languageOptions"><option value="Deutsch"><option value="Englisch"><option value="Französisch"><option value="Spanisch"><option value="Italienisch"><option value="Japanisch"><option value="Koreanisch"><option value="Chinesisch"><option value="Russisch"><option value="Portugiesisch"></datalist>
@@ -24,8 +24,8 @@
         <img class="neon-brand-sign" src="assets/videothek-neon-sign.png" alt="">
       </button>
       <nav class="main-nav" aria-label="Hauptnavigation">
-        <button class="nav-button is-active" type="button" data-view="cinema">Entdecken</button>
-        <button class="nav-button" type="button" data-view="machine">Archive</button>
+        <button class="nav-button is-active" type="button" data-view="cinema">Auswahl</button>
+        <button class="nav-button" type="button" data-view="machine">Archiv</button>
         <button id="archiveBrandButton" class="archive-neon-brand" type="button" aria-label="Neon V unterstützen"><img src="assets/videothek-neon-v-favicon-32.png" alt=""></button>
       </nav>
       <div class="top-actions">
@@ -52,13 +52,13 @@
             </div>
           </div>
           <div id="filmGrid" class="film-grid"></div>
-          <div id="emptyState" class="empty-state" hidden><strong>Hier ist noch Platz für Filme.</strong><span>In den Archiven kannst du Verweise und Cover anlegen.</span><button type="button" data-open-machine>Archive öffnen</button></div>
+          <div id="emptyState" class="empty-state" hidden><strong>Hier ist noch Platz für Filme.</strong><span>Im Archiv kannst du Verweise und Cover anlegen.</span><button type="button" data-open-machine>Archiv öffnen</button></div>
         </section>
       </section>
 
       <section id="machineView" class="view machine-view" hidden>
         <aside class="project-sidebar">
-          <p class="eyebrow archive-label">Archive</p>
+          <p class="eyebrow archive-label">Archiv</p>
           <div class="archive-tabs" role="tablist" aria-label="Archivbereiche"><button class="archive-tab is-active" type="button" role="tab" aria-selected="true" data-archive-section="projects">Projekte</button><button class="archive-tab" type="button" role="tab" aria-selected="false" data-archive-section="playlists">Playlisten</button></div>
           <div id="projectsSidebarPane" class="archive-sidebar-pane">
             <div class="sidebar-head"><h1>Projekte</h1><div class="project-menu-wrap"><button id="projectMenuButton" class="square-button project-menu-button" type="button" aria-label="Projektmenü öffnen" aria-expanded="false" aria-controls="projectMenu">⋮</button><div id="projectMenu" class="project-menu" hidden><button id="addProjectButton" type="button">Projekt hinzufügen</button><button id="importButton" type="button">Importieren</button><button id="pasteImportButton" type="button">Liste einfügen</button><button id="exportButton" type="button">Exportieren</button><button id="smartImportButton" type="button">Smart Import</button></div></div></div>
@@ -79,14 +79,15 @@
           <div class="notice"><span aria-hidden="true">↗</span><p><strong>Die Videothek speichert keine Filmdateien.</strong><br>Gesichert werden nur Projekte, Metadaten, Cover-Verweise und Links zu deinen Speicherorten.</p></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Titel</th><th>Jahr</th><th>Genre</th><th>Speicherort</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead>
+              <thead><tr><th>Titel</th><th>Jahr</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead>
               <tbody id="filmTableBody"></tbody>
             </table>
           </div>
         </div>
         <div id="playlistsContent" class="machine-content" hidden>
-          <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div></div>
-          <div class="playlist-empty"><strong id="playlistEmptyTitle">Filme für einen Abend zusammenstellen</strong><span id="playlistEmptyText">Lege links deine erste Playlist an.</span></div>
+          <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div><button id="playlistAddFilmButton" class="primary-button" type="button">+ Film hinzufügen</button></div>
+          <div id="playlistTableWrap" class="table-wrap"><table><thead><tr><th>Titel</th><th>Jahr</th><th>Details</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="playlistItems"></tbody></table></div>
+          <div id="playlistArchiveEmpty" class="playlist-empty"><strong id="playlistEmptyTitle">Filme für einen Abend zusammenstellen</strong><span id="playlistEmptyText">Lege links deine erste Playlist an.</span></div>
         </div>
       </section>
     </main>
@@ -94,7 +95,7 @@
 
   <div id="catalogBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
   <aside id="catalogDrawer" class="catalog-drawer" aria-hidden="true" aria-labelledby="catalogDrawerTitle">
-    <div class="catalog-drawer-head"><div><p class="eyebrow">Entdecken</p><h2 id="catalogDrawerTitle">Auswahl &amp; Anordnung</h2></div><button id="catalogDrawerClose" type="button" aria-label="Seitenmenü schließen">×</button></div>
+    <div class="catalog-drawer-head"><div><p class="eyebrow">Auswahl</p><h2 id="catalogDrawerTitle">Auswahl &amp; Anordnung</h2></div><button id="catalogDrawerClose" type="button" aria-label="Seitenmenü schließen">×</button></div>
     <div class="catalog-settings-tabs" role="tablist" aria-label="Einstellungsbereiche"><button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-settings-tab="filters">Filter</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="display">Darstellung</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="info">Info</button></div>
     <div id="catalogFilterPanel" class="catalog-drawer-fields" role="tabpanel">
       <label>Projekt<select id="projectSelect"></select></label>
@@ -139,18 +140,19 @@
       <section class="tmdb-panel" aria-labelledby="tmdbPanelTitle">
         <div class="tmdb-panel-head">
           <div><strong id="tmdbPanelTitle">Filminformationen &amp; IDs</strong></div>
-          <div class="tmdb-panel-actions"><button id="identifyIdsButton" class="secondary-action" type="button">IDs ergänzen</button></div>
-        </div>
-        <div id="tmdbTokenRow" class="tmdb-token-row" hidden>
-          <label>TMDB API Read Access Token<input id="tmdbTokenInput" type="password" autocomplete="off" placeholder="Bearer Token eingeben"></label>
-          <button id="tmdbTokenSaveButton" class="secondary-action" type="button">Token speichern</button>
-          <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener noreferrer">API-Einstellungen öffnen</a>
+          <div class="tmdb-panel-actions">
+            <fieldset class="media-type-switch" aria-label="Medientyp">
+              <label><input type="radio" name="filmMediaType" value="movie" checked><span>Film</span></label>
+              <label><input type="radio" name="filmMediaType" value="tv"><span>Serie</span></label>
+            </fieldset>
+            <button id="identifyIdsButton" class="secondary-action" type="button">IDs ergänzen</button>
+          </div>
         </div>
         <p id="tmdbStatus" class="tmdb-status" role="status" aria-live="polite"></p>
         <section class="film-identifiers" aria-labelledby="filmIdentifiersTitle">
           <div class="film-id-list">
-            <div class="film-id-row film-id-source-tmdb" data-id-row="tmdb"><label>TMDB-ID<input id="filmTmdbId" data-film-id="tmdb" maxlength="20" placeholder="z. B. 47557"></label><span class="film-id-status" data-id-status="tmdb" aria-label="TMDB-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="tmdb">Beziehen</button></div>
-            <div class="film-id-row" data-id-row="imdb"><label>IMDb-ID<input id="filmImdbId" data-film-id="imdb" maxlength="20" placeholder="z. B. tt0133093"></label><span class="film-id-status" data-id-status="imdb" aria-label="IMDb-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="imdb">Beziehen</button></div>
+            <div class="film-id-row film-id-source-tmdb" data-id-row="tmdb"><label>TMDB-ID<input id="filmTmdbId" data-film-id="tmdb" maxlength="20" placeholder="z. B. 47557"></label><span class="film-id-status" data-id-status="tmdb" aria-label="TMDB-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="tmdb">Beziehen</button><button type="button" class="api-key-button" data-api-config="tmdb" aria-label="TMDB-API-Zugang einrichten" title="TMDB-API-Zugang einrichten"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="4"></circle><path d="M12 12h9m-3 0v3m-3-3v2"></path></svg></button></div>
+            <div class="film-id-row" data-id-row="imdb"><label>IMDb-ID<input id="filmImdbId" data-film-id="imdb" maxlength="20" placeholder="z. B. tt0133093"></label><span class="film-id-status" data-id-status="imdb" aria-label="IMDb-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="imdb">Beziehen</button><button type="button" class="api-key-button" data-api-config="omdb" aria-label="OMDb-API-Zugang einrichten" title="OMDb-API-Zugang einrichten"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="4"></circle><path d="M12 12h9m-3 0v3m-3-3v2"></path></svg></button></div>
             <div class="film-id-row film-id-source-wikidata" data-id-row="wikidata"><label>Wikidata-ID<input id="filmWikidataId" data-film-id="wikidata" maxlength="30" placeholder="z. B. Q83495"></label><span class="film-id-status" data-id-status="wikidata" aria-label="Wikidata-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="wikidata">Beziehen</button></div>
             <div class="film-id-row" data-id-row="tvdb"><label>TVDB-ID<input id="filmTvdbId" data-film-id="tvdb" maxlength="30" placeholder="z. B. 81189"></label><span class="film-id-status" data-id-status="tvdb" aria-label="TVDB-ID fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="tvdb">Beziehen</button></div>
             <div class="film-id-row" data-id-row="eidr"><label>EIDR<input id="filmEidr" data-film-id="eidr" maxlength="80" placeholder="EIDR-Kennung"></label><span class="film-id-status" data-id-status="eidr" aria-label="EIDR fehlt">–</span><button type="button" class="secondary-action" data-fetch-id="eidr">Beziehen</button></div>
@@ -164,9 +166,13 @@
       <div class="form-grid">
         <label class="span-2">Titel<input id="filmTitle" required maxlength="160"></label>
         <label class="span-2">Originaltitel<input id="filmOriginalTitle" maxlength="200"></label>
-        <label>Jahr<input id="filmYear" type="number" min="1800" max="2200"></label>
-        <label>Laufzeit (h:mm:ss)<input id="filmRuntime" type="text" inputmode="numeric" pattern="[0-9]{1,3}:[0-5][0-9]:[0-5][0-9]" placeholder="1:42:30" title="Bitte im Format Stunden:Minuten:Sekunden eingeben, z. B. 1:42:30"></label>
-        <label>Regie<input id="filmDirector" maxlength="120"></label>
+        <label><span id="filmYearLabel">Jahr</span><input id="filmYear" type="number" min="1800" max="2200"></label>
+        <label><span id="filmRuntimeLabel">Laufzeit (h:mm:ss)</span><input id="filmRuntime" type="text" inputmode="numeric" pattern="[0-9]{1,3}:[0-5][0-9]:[0-5][0-9]" placeholder="1:42:30" title="Bitte im Format Stunden:Minuten:Sekunden eingeben, z. B. 1:42:30"></label>
+        <label data-series-field hidden>Endjahr<input id="filmEndYear" type="number" min="1800" max="2200"></label>
+        <label data-series-field hidden>Staffeln<input id="filmSeasons" type="number" min="0" max="9999"></label>
+        <label data-series-field hidden>Episoden<input id="filmEpisodes" type="number" min="0" max="99999"></label>
+        <label data-series-field hidden>Sender / Plattform<input id="filmNetwork" maxlength="200"></label>
+        <label><span id="filmDirectorLabel">Regie</span><input id="filmDirector" maxlength="240"></label>
         <label class="span-2">Schauspieler<input id="filmCast" maxlength="600" placeholder="Namen, durch Kommas getrennt"></label>
         <label>Genre<input id="filmGenre" maxlength="120" placeholder="Drama, Dokumentarfilm"></label>
         <label>Länder<input id="filmCountries" maxlength="240" placeholder="z. B. Frankreich, Deutschland"></label>
@@ -190,6 +196,16 @@
     </form>
   </dialog>
 
+  <dialog id="apiConfigDialog" class="dialog small-dialog api-config-dialog">
+    <form method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">API-Zugang</p><h2 id="apiConfigTitle">Zugang einrichten</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <label><span id="apiConfigLabel">API-Key</span><input id="apiConfigInput" type="password" autocomplete="off"></label>
+      <a id="apiConfigHelp" target="_blank" rel="noopener noreferrer">Schlüsselverwaltung öffnen</a>
+      <p id="apiConfigStatus" class="tmdb-status" role="status" aria-live="polite"></p>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel">Abbrechen</button><button id="apiConfigSave" class="primary-button" type="button">Speichern</button></div>
+    </form>
+  </dialog>
+
   <dialog id="projectDialog" class="dialog small-dialog">
     <form id="projectForm" method="dialog">
       <div class="dialog-head"><div><p class="eyebrow">Neue Sammlung</p><h2>Projekt anlegen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
@@ -205,6 +221,24 @@
       <label>Playlistname<input id="playlistName" required maxlength="100" placeholder="z. B. Freitagabend"></label>
       <label>Beschreibung<textarea id="playlistDescription" rows="3" maxlength="800"></textarea></label>
       <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Anlegen</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="playlistFilmDialog" class="dialog playlist-film-dialog">
+    <form method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistFilmDialogTitle">Film hinzufügen</h2></div><button class="dialog-close" value="cancel" aria-label="Schließen">×</button></div>
+      <div class="playlist-film-tabs" role="tablist" aria-label="Film zur Playlist hinzufügen"><button class="is-active" type="button" role="tab" aria-selected="true" data-playlist-film-tab="archive">Archiv auswählen</button><button type="button" role="tab" aria-selected="false" data-playlist-film-tab="manual">Manuell eintragen</button></div>
+      <div id="playlistFilmArchivePanel" class="playlist-film-panel" role="tabpanel">
+        <label class="playlist-film-search">Archiv durchsuchen<input id="playlistFilmSearch" type="search" placeholder="Titel, Regie oder Darsteller …" autocomplete="off"></label>
+        <div id="playlistFilmResults" class="playlist-film-results"></div>
+      </div>
+      <div id="playlistFilmManualPanel" class="playlist-film-panel playlist-manual-grid" role="tabpanel" hidden>
+        <label class="span-2">TMDB-, IMDb- oder Wikidata-ID<input id="playlistEntryIdentifier" autocomplete="off" placeholder="47557, tt0133093 oder Q83495"></label>
+        <label class="span-2">Details / Notiz<input id="playlistEntryDetails" maxlength="240" placeholder="z. B. Beste weibliche Hauptrolle 1965"></label>
+        <label>Sammlungsnummer<input id="playlistEntryNumber" maxlength="6" placeholder="z. B. 123"></label>
+      </div>
+      <p id="playlistFilmStatus" class="tmdb-status" role="status" aria-live="polite"></p>
+      <div class="dialog-actions"><button id="playlistEntryDelete" class="danger-button" type="button" hidden>Aus Playlist entfernen</button><span></span><button value="cancel">Abbrechen</button><button id="playlistEntrySave" class="primary-button" type="button">Zur Playlist hinzufügen</button></div>
     </form>
   </dialog>
 
@@ -238,9 +272,10 @@
   <dialog id="trailerDialog" class="trailer-dialog"><div class="trailer-dialog-head"><strong>Trailer</strong><button id="trailerDialogClose" class="dialog-close" type="button" aria-label="Trailer schließen">×</button></div><div id="trailerFrameHost" class="trailer-frame-host"></div><a id="trailerExternalLink" class="secondary-action trailer-external-link" target="_blank" rel="noopener noreferrer">Auf YouTube öffnen</a></dialog>
   <dialog id="detailDialog" class="detail-dialog"><div id="detailContent"></div></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="videothek-reference-catalog.js?v=20260913-2"></script>
+  <script src="videothek-reference-catalog.js?v=20260914-3"></script>
   <script src="videothek-import.js?v=20260912-2"></script>
-  <script src="videothek.js?v=20260914-2"></script>
+  <script src="videothek-curated-playlists.js?v=20260914-1"></script>
+  <script src="videothek.js?v=20260914-28"></script>
 </body>
 </html>
 
