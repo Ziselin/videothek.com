@@ -144,6 +144,9 @@
 :root[data-theme="neon"] td{color:#d7d0df;border-color:#292538}
 :root[data-theme="neon"] tbody tr:hover{background:#171421}
 :root[data-theme="neon"] .link-cell{color:#6ddad3}
+:root[data-theme="neon"] .archive-film-link,:root[data-theme="neon"] .archive-link-count{color:#6ddad3}
+:root[data-theme="neon"] .film-row-delete{color:#9b8ca3}
+:root[data-theme="neon"] .film-row-delete:hover,:root[data-theme="neon"] .film-row-delete:focus-visible{background:rgba(255,79,154,.12);color:#ff8faf}
 :root[data-theme="neon"] .status{background:#153331;color:#7be1d9}
 :root[data-theme="neon"] .status[data-status="prüfen"]{background:#3a2b16;color:#f2c66e}
 :root[data-theme="neon"] .status[data-status="nicht verfügbar"]{background:#391a29;color:#ff8dbb}
@@ -206,6 +209,9 @@
 :root[data-theme="neon"] .export-options label{background:#171421;border-color:#373144;color:#d8d1df}
 :root[data-theme="neon"] .export-summary,:root[data-theme="neon"] .export-options small{color:#aaa3b7}
 :root[data-theme="neon"] .copy-password-field::after{color:#aaa3b7}
+:root[data-theme="neon"] .copy-storage-switch{border-color:#40384f;background:#0d0b15}
+:root[data-theme="neon"] .copy-storage-switch button{color:#8f879b}
+:root[data-theme="neon"] .copy-storage-switch button.is-active{background:#282137;color:#fff6e8;box-shadow:0 0 10px rgba(26,240,232,.12)}
 :root[data-theme="neon"] .film-identifiers{background:#171421;border-color:#373144}
 :root[data-theme="neon"] .tmdb-panel-actions{display:flex}
 :root[data-theme="neon"] .film-identifiers-head small,:root[data-theme="neon"] .film-id-row label{color:#aaa3b7}
