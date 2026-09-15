@@ -278,7 +278,7 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .playlist-film-tabs { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-bottom:16px; padding:4px; border-radius:8px; background:#efede8; }
 .playlist-film-tabs button { padding:9px 12px; border:0; background:transparent; }
 .playlist-film-tabs button.is-active { background:#fff; box-shadow:0 2px 8px rgba(35,31,27,.09); }
-.playlist-manual-grid { grid-template-columns:1fr 1fr; gap:14px; }
+.playlist-manual-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
 .playlist-manual-grid:not([hidden]) { display:grid; }
 .playlist-manual-grid .span-2 { grid-column:1/-1; }
 .playlist-items { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:18px; margin-top:26px; }
@@ -297,6 +297,13 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .playlist-placeholder-poster { display:grid; place-items:center; width:42px; height:58px; border:1px solid #c9c6c0; border-radius:3px; background:linear-gradient(145deg,#d7d7d4,#aaa9a5); color:#555; font-family:Garamond,serif; font-size:.72rem; }
 .playlist-placeholder-row .status { white-space:nowrap; background:#e5e3df; color:#686660; }
 .playlist-details-cell { max-width:360px; white-space:normal; line-height:1.35; }
+.playlist-number-cell { width:1%; min-width:44px; white-space:nowrap; text-align:right; font-variant-numeric:tabular-nums; }
+.table-sort-button { display:inline-flex; align-items:center; gap:5px; padding:3px 0; border:0; background:transparent; color:inherit; font:inherit; font-weight:inherit; letter-spacing:inherit; text-transform:inherit; cursor:pointer; }
+.table-sort-button::after { content:"↕"; color:#aaa39a; font-size:.72em; opacity:.55; }
+.table-sort-button[data-direction="asc"]::after { content:"↑"; color:currentColor; opacity:1; }
+.table-sort-button[data-direction="desc"]::after { content:"↓"; color:currentColor; opacity:1; }
+.table-sort-button:hover,.table-sort-button:focus-visible { color:var(--accent,#743b43); }
+.playlist-number-cell .table-sort-button { margin-left:auto; }
 @media (max-width:650px) { .playlist-manual-grid { grid-template-columns:1fr; } .playlist-manual-grid .span-2 { grid-column:auto; } }
 .tmdb-result { width:100%; display:grid; grid-template-columns:46px minmax(0,1fr) auto; align-items:center; gap:11px; padding:8px; border:1px solid #dedbd4; border-radius:6px; background:#fff; color:#302f2c; text-align:left; }
 .tmdb-result:hover,.tmdb-result:focus-visible { border-color:#9c777d; background:#fdfafa; }

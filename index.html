@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260914-16">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260915-18">
   <link rel="stylesheet" href="videothek-neon.css?v=20260914-20">
 </head>
 <body>
@@ -86,7 +86,7 @@
         </div>
         <div id="playlistsContent" class="machine-content" hidden>
           <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div><button id="playlistAddFilmButton" class="primary-button" type="button">+ Film hinzufügen</button></div>
-          <div id="playlistTableWrap" class="table-wrap"><table><thead><tr><th>Titel</th><th>Jahr</th><th>Details</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="playlistItems"></tbody></table></div>
+          <div id="playlistTableWrap" class="table-wrap"><table><thead><tr><th class="playlist-number-cell"><button class="table-sort-button" type="button" data-playlist-sort="number">#</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="title">Titel</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="year">Jahr</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="details">Details</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="status">Status</button></th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="playlistItems"></tbody></table></div>
           <div id="playlistArchiveEmpty" class="playlist-empty"><strong id="playlistEmptyTitle">Filme für einen Abend zusammenstellen</strong><span id="playlistEmptyText">Lege links deine erste Playlist an.</span></div>
         </div>
       </section>
@@ -233,7 +233,9 @@
         <div id="playlistFilmResults" class="playlist-film-results"></div>
       </div>
       <div id="playlistFilmManualPanel" class="playlist-film-panel playlist-manual-grid" role="tabpanel" hidden>
-        <label class="span-2">TMDB-, IMDb- oder Wikidata-ID<input id="playlistEntryIdentifier" autocomplete="off" placeholder="47557, tt0133093 oder Q83495"></label>
+        <label>TMDB-ID<input id="playlistEntryTmdbId" inputmode="numeric" autocomplete="off" placeholder="z. B. 47557"></label>
+        <label>IMDb-ID<input id="playlistEntryImdbId" autocomplete="off" placeholder="z. B. tt0133093"></label>
+        <label>Wikidata-ID<input id="playlistEntryWikidataId" autocomplete="off" placeholder="z. B. Q83495"></label>
         <label class="span-2">Details / Notiz<input id="playlistEntryDetails" maxlength="240" placeholder="z. B. Beste weibliche Hauptrolle 1965"></label>
         <label>Sammlungsnummer<input id="playlistEntryNumber" maxlength="6" placeholder="z. B. 123"></label>
       </div>
@@ -274,8 +276,8 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="videothek-reference-catalog.js?v=20260914-3"></script>
   <script src="videothek-import.js?v=20260912-2"></script>
-  <script src="videothek-curated-playlists.js?v=20260914-1"></script>
-  <script src="videothek.js?v=20260914-28"></script>
+  <script src="videothek-curated-playlists.js?v=20260915-2"></script>
+  <script src="videothek.js?v=20260915-31"></script>
 </body>
 </html>
 
