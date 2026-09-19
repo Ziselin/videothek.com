@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#090914">
   <meta name="description" content="Videothek verwaltet kuratierte Filmprojekte und Verweise auf externe Speicherorte.">
   <title>Videothek</title>
-  <script>try{document.documentElement.dataset.theme=localStorage.getItem("videothek-theme-v1")==="default"?"default":"neon";document.documentElement.lang=localStorage.getItem("videothek-app-language-v1")==="de"?"de":"en"}catch{document.documentElement.dataset.theme="neon";document.documentElement.lang="en"}</script>
+  <script>document.documentElement.dataset.storageLoading="true";setTimeout(()=>delete document.documentElement.dataset.storageLoading,1500);try{document.documentElement.dataset.theme=localStorage.getItem("videothek-theme-v1")==="default"?"default":"neon";document.documentElement.lang=localStorage.getItem("videothek-app-language-v1")==="de"?"de":"en"}catch{document.documentElement.dataset.theme="neon";document.documentElement.lang="en"}</script>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/videothek-neon-v-favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260915-19">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260919-21">
   <link rel="stylesheet" href="videothek-neon.css?v=20260915-21">
 </head>
 <body>
@@ -52,6 +52,7 @@
             </div>
           </div>
           <div id="filmGrid" class="film-grid"></div>
+          <div id="catalogRenderSentinel" class="catalog-render-sentinel" aria-hidden="true"></div>
           <div id="emptyState" class="empty-state" hidden><strong>Hier ist noch Platz für Filme.</strong><span>Im Archiv kannst du Verweise und Cover anlegen.</span><button type="button" data-open-machine>Archiv öffnen</button></div>
         </section>
       </section>
@@ -59,15 +60,18 @@
       <section id="machineView" class="view machine-view" hidden>
         <aside class="project-sidebar">
           <p class="eyebrow archive-label">Archiv</p>
-          <div class="archive-tabs" role="tablist" aria-label="Archivbereiche"><button class="archive-tab is-active" type="button" role="tab" aria-selected="true" data-archive-section="projects">Projekte</button><button class="archive-tab" type="button" role="tab" aria-selected="false" data-archive-section="playlists">Playlisten</button></div>
+          <div class="archive-tabs" role="tablist" aria-label="Archivbereiche"><button class="archive-tab is-active" type="button" role="tab" aria-selected="true" data-archive-section="projects">Projekte</button><button class="archive-tab" type="button" role="tab" aria-selected="false" data-archive-section="playlists">Listen</button></div>
           <div id="projectsSidebarPane" class="archive-sidebar-pane">
             <div class="sidebar-head"><h1>Projekte</h1><div class="project-menu-wrap"><button id="projectMenuButton" class="square-button project-menu-button" type="button" aria-label="Projektmenü öffnen" aria-expanded="false" aria-controls="projectMenu">⋮</button><div id="projectMenu" class="project-menu" hidden><button id="addProjectButton" type="button">Projekt hinzufügen</button><button id="importButton" type="button">Importieren</button><button id="pasteImportButton" type="button">Liste einfügen</button><button id="exportButton" type="button">Exportieren</button><button id="smartImportButton" type="button">Smart Import</button></div></div></div>
             <div id="projectList" class="project-list"></div>
           </div>
           <div id="playlistsSidebarPane" class="archive-sidebar-pane" hidden>
-            <div class="sidebar-head"><h1>Playlisten</h1></div>
+            <div class="sidebar-head"><h1>Listen</h1></div>
+            <h2 class="archive-list-group-title">Playlisten</h2>
             <div id="playlistList" class="project-list"></div>
             <button id="addPlaylistButton" class="add-project-button" type="button">Playlist hinzufügen</button>
+            <h2 class="archive-list-group-title archive-collections-title">Sammlungen</h2>
+            <div id="collectionList" class="project-list"></div>
           </div>
           <input id="importInput" type="file" accept="text/csv,application/json,.csv,.json" hidden>
         </aside>
@@ -277,7 +281,8 @@
   <script src="videothek-reference-catalog.js?v=20260914-3"></script>
   <script src="videothek-import.js?v=20260912-2"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
-  <script src="videothek.js?v=20260915-50"></script>
+  <script src="videothek-storage.js?v=20260919-5"></script>
+  <script src="videothek.js?v=20260919-68"></script>
 </body>
 </html>
 
