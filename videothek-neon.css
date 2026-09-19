@@ -124,6 +124,10 @@
 :root[data-theme="neon"] .archive-tab.is-active{color:#fff;background:#21162b;box-shadow:inset 0 -2px #ff4f9a}
 :root[data-theme="neon"] .sidebar-head h1,:root[data-theme="neon"] .machine-head h2{color:#fff1dc;font-family:Garamond,serif;font-style:italic;letter-spacing:.015em}
 :root[data-theme="neon"] .project-row.is-active{background:#21172a;box-shadow:inset 3px 0 #ff4f9a}
+:root[data-theme="neon"] .project-row:is(:hover,:focus-within):not(.is-active):not(.is-project-drag-source):not(.is-project-drop-target){background:#191522}
+:root[data-theme="neon"] .project-row.is-project-drag-source{background:#21172a;box-shadow:inset 3px 0 #ff4f9a,0 0 18px rgba(255,79,154,.16)}
+:root[data-theme="neon"] .project-row.is-project-drop-target{background:rgba(40,222,209,.075);box-shadow:inset 0 0 0 1px rgba(40,222,209,.7),0 0 20px rgba(40,222,209,.12)!important}
+:root[data-theme="neon"] .project-row.is-project-merging{background:rgba(40,222,209,.07);box-shadow:inset 0 0 0 1px rgba(40,222,209,.58),0 0 18px rgba(40,222,209,.1)!important}
 :root[data-theme="neon"] .project-item{color:#aaa4b7}
 :root[data-theme="neon"] .project-row.is-active .project-item{color:#fff4e3}
 :root[data-theme="neon"] .project-row-menu-button:hover,:root[data-theme="neon"] .project-row-menu-button[aria-expanded="true"]{background:#30243a;color:#28ded1}
@@ -234,6 +238,8 @@
 :root[data-theme="neon"] .tmdb-panel-head strong,:root[data-theme="neon"] .copies-head strong{color:#fff2df}
 :root[data-theme="neon"] .tmdb-panel-head small,:root[data-theme="neon"] .tmdb-status,:root[data-theme="neon"] .copies-head small,:root[data-theme="neon"] .film-playlist-option small,:root[data-theme="neon"] .copy-action small{color:#aaa3b7}
 :root[data-theme="neon"] .copy-action.is-verified>span{color:#68e39a;text-shadow:0 0 8px rgba(104,227,154,.25)}
+:root[data-theme="neon"] .copy-action.is-review>span{color:#ffd166;text-shadow:0 0 8px rgba(255,209,102,.25)}
+:root[data-theme="neon"] .copy-action.is-unavailable>span{color:#ff6b82;text-shadow:0 0 8px rgba(255,107,130,.25)}
 :root[data-theme="neon"] .tmdb-token-row a{color:#52e5db}
 :root[data-theme="neon"] .tmdb-result{color:#eee7f0;background:#100e19;border-color:#393247}
 :root[data-theme="neon"] .tmdb-result:hover,:root[data-theme="neon"] .tmdb-result:focus-visible{background:#1b1425;border-color:#ff5ca2}

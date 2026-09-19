@@ -1,5 +1,23 @@
 # Changelog
 
+- „Meine Fassungen“ kennzeichnet nun alle drei Prüfzustände: geprüft/verfügbar grün, zu prüfen gelb und nicht verfügbar rot. Die Links erhalten zusätzlich eine passende barrierearme Beschriftung.
+
+- Große JSON-Projekte werden beim Import direkt und atomar in IndexedDB gespeichert. Eine gültige Datei kann dadurch nicht mehr wegen eines nachgelagerten `localStorage`-Fehlers als ungültig gemeldet werden; Validierungs-, Speicher- und Metadatenfehler werden getrennt behandelt und fehlgeschlagene Erstimporte sauber zurückgenommen.
+
+- Automatisch erzeugte Fassungen und importierte Links erhalten ausschließlich den Status „prüfen“. „Verfügbar/geprüft“ wird weder durch Importe, neue Fassungen, öffentliche Exporte noch durch Werkzeuge automatisch vergeben und bleibt einer ausdrücklichen manuellen Auswahl vorbehalten.
+
+- Große Projektordner werden nun atomar in IndexedDB zusammengeführt, ohne den vollständigen Bestand in `localStorage` zu serialisieren. Der Quellordner wird erst mit erfolgreichem Transaktionsabschluss entfernt; bei Fehlern stellt die App beide Projekte wieder her. Der doppelte ältere Drop-Handler wurde entfernt.
+
+- Nicht eindeutige Titel-/Jahr-Suchen verwenden nun Wikidata als zweiten Abgleich. Bezeichnungen und mehrsprachige Alternativtitel werden mit dem Erscheinungsjahr geprüft; anschließend führen hinterlegte IMDb- oder TMDB-IDs zurück zum eindeutigen Filmdatensatz.
+
+- Die IMDb-/OMDb-Suche priorisiert nun exakte Kombinationen aus Titel und Jahr, berücksichtigt Originaltitel sowie vertauschte „… and …“-Titelvarianten und zeigt bis zu zwölf Treffer. Auch die automatische TMDB-Zuordnung bewertet Jahresgleichheit und sprachlich abweichende Titelvarianten robuster.
+
+- Die Cover-Synchronisierung speichert aktualisierte Filme nun einzeln in IndexedDB. Dadurch lösen große Projektordner weder nach jedem Film eine vollständige Archivspeicherung noch einen pauschalen Synchronisierungsabbruch wegen begrenztem Browser-Speicher aus.
+
+- Große Projektordner wechseln nun ohne vollständige Neuspeicherung des Archivs. Die Filmtabelle wird in Portionen aufgebaut und Cover werden erst bei Bedarf geladen, sodass Projekte mit mehreren hundert oder tausend Einträgen deutlich schneller reagieren.
+
+- Der Projektbestand nutzt nun die gesamte verfügbare Breite bis zum rechten Fensterrand. „Film hinzufügen“ bleibt als priorisierte, nicht umbrechende Aktion sichtbar; daneben gleicht „Synchronisieren“ gezielt Filme ohne Cover erneut mit TMDB ab und zeigt den Fortschritt direkt im Button an. TMDB-Anfragen werden global gedrosselt, in kleinen Portionen verarbeitet und bei einer 429-Antwort kontrolliert wiederholt.
+
 ## 0.17.0 – 2026-09-13
 - Wikidata-Abgleich ergänzt IMDb, TMDB, EIDR, ISAN, Letterboxd und Rotten Tomatoes automatisch.
 - Letterboxd- und Rotten-Tomatoes-IDs im kompakten ID-Block ergänzt.

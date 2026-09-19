@@ -139,7 +139,7 @@
       const titlePart = cleanPastedLine(original.replace(/https?:\/\/[^\s"<>]+/gi, ""));
       if (urls.length && !titlePart && films.length && !films[films.length - 1].link) {
         films[films.length - 1].link = urls[0];
-        films[films.length - 1].status = "verfügbar";
+        films[films.length - 1].status = "prüfen";
         continue;
       }
       if (!isProbableTitle(titlePart)) { ignored += 1; continue; }

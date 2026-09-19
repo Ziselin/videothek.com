@@ -11,8 +11,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260919-21">
-  <link rel="stylesheet" href="videothek-neon.css?v=20260915-21">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260919-26">
+  <link rel="stylesheet" href="videothek-neon.css?v=20260919-25">
 </head>
 <body>
   <datalist id="languageOptions"><option value="Deutsch"><option value="Englisch"><option value="Französisch"><option value="Spanisch"><option value="Italienisch"><option value="Japanisch"><option value="Koreanisch"><option value="Chinesisch"><option value="Russisch"><option value="Portugiesisch"></datalist>
@@ -78,7 +78,7 @@
         <div id="projectsContent" class="machine-content">
           <div class="machine-head">
             <div><p class="eyebrow">Projektbestand</p><h2 id="machineProjectTitle">Filmarchiv</h2><p id="projectSummary" class="muted"></p></div>
-            <button id="addFilmButton" class="primary-button" type="button">+ Film anlegen</button>
+            <div class="machine-head-actions"><button id="addFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><div class="sync-control"><button id="syncProjectButton" class="secondary-action" type="button" aria-describedby="syncProjectStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncProjectStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div>
           </div>
           <div class="notice"><span aria-hidden="true">↗</span><p><strong>Die Videothek speichert keine Filmdateien.</strong><br>Gesichert werden nur Projekte, Metadaten, Cover-Verweise und Links zu deinen Speicherorten.</p></div>
           <div class="table-wrap">
@@ -279,10 +279,10 @@
   <dialog id="detailDialog" class="detail-dialog"><div id="detailContent"></div></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="videothek-reference-catalog.js?v=20260914-3"></script>
-  <script src="videothek-import.js?v=20260912-2"></script>
+  <script src="videothek-import.js?v=20260919-3"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
-  <script src="videothek-storage.js?v=20260919-5"></script>
-  <script src="videothek.js?v=20260919-68"></script>
+  <script src="videothek-storage.js?v=20260919-9"></script>
+  <script src="videothek.js?v=20260919-80"></script>
 </body>
 </html>
 
