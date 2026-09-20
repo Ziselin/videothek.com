@@ -276,6 +276,11 @@
   :root[data-theme="neon"] .nav-button{padding-inline:9px;font-size:.7rem}
   :root[data-theme="neon"] .film-grid{gap:30px 14px}
 }
+@media(max-width:800px){
+  :root[data-theme="neon"] .project-row{border-color:#302b42;background:#0e0c17}
+  :root[data-theme="neon"] .project-row.is-active{background:#21172a;box-shadow:inset 0 -2px #ff4f9a}
+  :root[data-theme="neon"] .project-list{scrollbar-color:#51455f transparent}
+}
 @media(max-width:380px){
   :root[data-theme="neon"] .nav-button{padding-inline:5px;font-size:.64rem}
 }

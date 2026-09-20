@@ -11,8 +11,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260919-26">
-  <link rel="stylesheet" href="videothek-neon.css?v=20260919-25">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260920-33">
+  <link rel="stylesheet" href="videothek-neon.css?v=20260920-26">
 </head>
 <body>
   <datalist id="languageOptions"><option value="Deutsch"><option value="Englisch"><option value="Französisch"><option value="Spanisch"><option value="Italienisch"><option value="Japanisch"><option value="Koreanisch"><option value="Chinesisch"><option value="Russisch"><option value="Portugiesisch"></datalist>
@@ -20,7 +20,7 @@
     <header class="topbar">
       <button id="supportMessageButton" class="brand" type="button" aria-label="Neon V unterstützen">
         <img class="arthouse-brand-icon" src="assets/videothek-neon-v-favicon-32.png" alt="">
-        <span>Neon V</span>
+        <span class="arthouse-wordmark" aria-hidden="true"><span class="arthouse-wordmark-name">Neon</span><img class="arthouse-wordmark-v" src="assets/arthouse-v-mark.png?v=20260920-2" alt=""></span>
         <img class="neon-brand-sign" src="assets/videothek-neon-sign.png" alt="">
       </button>
       <nav class="main-nav" aria-label="Hauptnavigation">
@@ -31,7 +31,12 @@
       <div class="top-actions">
         <label class="search"><span class="sr-only">Filme suchen</span><input id="searchInput" type="search" placeholder="Titel, Regie, Genre …" spellcheck="false" autocomplete="off"></label>
         <div class="header-tools">
-          <button id="catalogMenuButton" class="catalog-menu-button" type="button" aria-label="Auswahl und Sortierung öffnen. Mit der Tab-Taste öffnen und schließen." title="Mit der Tab-Taste öffnen und schließen" aria-expanded="false" aria-controls="catalogDrawer"><span aria-hidden="true">☰</span></button>
+          <button id="catalogMenuButton" class="catalog-menu-button" type="button" aria-label="Auswahl und Sortierung öffnen. Mit der Tab-Taste öffnen und schließen." title="Mit der Tab-Taste öffnen und schließen" aria-expanded="false" aria-controls="catalogDrawer">
+            <svg class="catalog-menu-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M2 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
+              <path d="M13 4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z" />
+            </svg>
+          </button>
         </div>
       </div>
     </header>
@@ -77,10 +82,10 @@
         </aside>
         <div id="projectsContent" class="machine-content">
           <div class="machine-head">
-            <div><p class="eyebrow">Projektbestand</p><h2 id="machineProjectTitle">Filmarchiv</h2><p id="projectSummary" class="muted"></p></div>
+            <div class="machine-project-heading"><p class="eyebrow">Projektbestand</p><h2 id="machineProjectTitle">Filmarchiv</h2><p id="projectSummary" class="muted"></p></div>
             <div class="machine-head-actions"><button id="addFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><div class="sync-control"><button id="syncProjectButton" class="secondary-action" type="button" aria-describedby="syncProjectStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncProjectStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div>
           </div>
-          <div class="notice"><span aria-hidden="true">↗</span><p><strong>Die Videothek speichert keine Filmdateien.</strong><br>Gesichert werden nur Projekte, Metadaten, Cover-Verweise und Links zu deinen Speicherorten.</p></div>
+          <div class="notice archive-data-notice"><span aria-hidden="true">↗</span><p><strong>Die Videothek speichert keine Filmdateien.</strong><br>Gesichert werden nur Projekte, Metadaten, Cover-Verweise und Links zu deinen Speicherorten.</p></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Titel</th><th>Jahr</th><th>Link</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead>
@@ -105,6 +110,12 @@
       <label>Projekt<select id="projectSelect"></select></label>
       <label>Playlist<select id="catalogPlaylistSelect"><option value="all">Alle Playlisten</option></select></label>
       <label>Anordnung<select id="catalogSortSelect"><option value="alphabetical">Alphabetisch</option><option value="year-desc">Jahr · neu nach alt</option><option value="year-asc">Jahr · alt nach neu</option><option value="genre">Genre</option><option value="collection-number">Nach Sammlungsnummer</option><option value="random">Zufällig</option></select></label>
+      <fieldset class="catalog-year-range" aria-labelledby="catalogYearRangeTitle">
+        <legend id="catalogYearRangeTitle">Erscheinungsjahr</legend>
+        <label>Von<input id="catalogYearFrom" type="number" inputmode="numeric" min="1880" max="2100" step="1" placeholder="1880"></label>
+        <span aria-hidden="true">–</span>
+        <label>Bis<input id="catalogYearTo" type="number" inputmode="numeric" min="1880" max="2100" step="1" placeholder="Heute"></label>
+      </fieldset>
       <label class="drawer-toggle"><input id="catalogOriginalTitleToggle" type="checkbox"><span>Originaltitel anzeigen</span></label>
       <section class="drawer-language-section" aria-labelledby="drawerLanguageTitle">
         <div><strong id="drawerLanguageTitle">Sprachen</strong><small>Keine Auswahl zeigt alle Filme.</small></div>
@@ -281,8 +292,8 @@
   <script src="videothek-reference-catalog.js?v=20260914-3"></script>
   <script src="videothek-import.js?v=20260919-3"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
-  <script src="videothek-storage.js?v=20260919-9"></script>
-  <script src="videothek.js?v=20260919-80"></script>
+  <script src="videothek-storage.js?v=20260920-11"></script>
+  <script src="videothek.js?v=20260920-87"></script>
 </body>
 </html>
 
