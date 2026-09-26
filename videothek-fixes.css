@@ -552,6 +552,24 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .afd-result { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:8px; }
 .afd-result>a { padding:8px 4px; color:var(--accent); font-size:.78rem; font-weight:700; white-space:nowrap; }
 .afd-result .wikidata-result-mark { font-size:.65rem; letter-spacing:.03em; }
+.series-season-plan { padding:14px; border:1px solid var(--line); border-radius:8px; background:color-mix(in srgb,var(--panel) 72%,transparent); }
+.series-season-plan-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:12px; }
+.series-season-plan-head small { color:var(--muted); }
+.series-season-counts { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:9px; }
+.series-season-tabs { display:flex; gap:6px; margin:16px 0 12px; overflow-x:auto; padding-bottom:4px; }
+.series-season-tabs button { flex:0 0 auto; min-height:38px; padding:8px 14px; border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--muted); }
+.series-season-tabs button.is-active { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent); color:var(--text); }
+.series-episode-list { display:grid; gap:7px; }
+.series-episode-list>button { width:100%; display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:54px; padding:9px 12px; border:1px solid var(--line); border-radius:8px; background:transparent; color:var(--text); text-align:left; }
+.series-episode-list>button:hover { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 8%,transparent); }
+.series-episode-list>button span { display:flex; align-items:center; gap:11px; min-width:0; }
+.series-episode-list>button b { display:grid; place-items:center; width:30px; height:30px; border-radius:50%; background:color-mix(in srgb,var(--accent) 14%,transparent); color:var(--accent); }
+.series-episode-list>button strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.series-episode-list>button small { color:var(--muted); white-space:nowrap; }
+.episode-dialog { width:min(760px,calc(100vw - 24px)); }
+.episode-copies-list { display:grid; gap:10px; margin-top:12px; }
+.episode-copy { padding:12px; border:1px solid var(--line); border-radius:8px; }
+@media(max-width:620px){.machine-head-actions{grid-template-columns:1fr 1fr}.machine-head-actions .sync-control{grid-column:1/-1}.series-season-plan-head{align-items:flex-start;flex-direction:column}.series-episode-list>button{align-items:flex-start;flex-direction:column}.series-episode-list>button small{padding-left:41px}}
 @media (max-width:650px) { .afd-result { grid-template-columns:1fr; } .afd-result>a { justify-self:end; padding-top:0; } }
 @media (max-width:650px) { .tmdb-panel-head { align-items:stretch; flex-direction:column; } .tmdb-token-row { grid-template-columns:1fr; align-items:stretch; } .tmdb-result { grid-template-columns:40px minmax(0,1fr); } .tmdb-result img,.tmdb-result-placeholder { width:40px; height:60px; } .wikidata-result-mark { width:40px; height:40px; } .tmdb-result b { grid-column:2; } }
 

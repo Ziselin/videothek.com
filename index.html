@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-36">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-37">
   <link rel="stylesheet" href="videothek-neon.css?v=20260926-28">
 </head>
 <body>
@@ -83,7 +83,7 @@
         <div id="projectsContent" class="machine-content">
           <div class="machine-head">
             <div class="machine-project-heading"><p class="eyebrow">Projektbestand</p><h2 id="machineProjectTitle">Filmarchiv</h2><p id="projectSummary" class="muted"></p></div>
-            <div class="machine-head-actions"><button id="addFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><div class="sync-control"><button id="syncProjectButton" class="secondary-action" type="button" aria-describedby="syncProjectStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncProjectStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div>
+            <div class="machine-head-actions"><button id="addFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><button id="addSeriesButton" class="secondary-action" type="button">+ Serie hinzufügen</button><div class="sync-control"><button id="syncProjectButton" class="secondary-action" type="button" aria-describedby="syncProjectStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncProjectStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div>
           </div>
           <div class="notice archive-data-notice"><span aria-hidden="true">↗</span><p><strong>Die Videothek speichert keine Filmdateien.</strong><br>Gesichert werden nur Projekte, Metadaten, Cover-Verweise und Links zu deinen Speicherorten.</p></div>
           <div class="table-wrap">
@@ -150,7 +150,8 @@
       <div class="dialog-head"><div><p class="eyebrow">Filmeintrag</p><h2 id="filmDialogTitle">Film bearbeiten</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
       <input id="filmId" type="hidden">
       <div class="film-editor-tabs" role="tablist" aria-label="Bereiche des Filmeintrags">
-        <button class="is-active" type="button" role="tab" aria-selected="true" data-film-tab="general">Filminformationen</button>
+        <button id="filmGeneralTab" class="is-active" type="button" role="tab" aria-selected="true" data-film-tab="general">Filminformationen</button>
+        <button id="seriesEpisodesTab" type="button" role="tab" aria-selected="false" data-film-tab="episodes" hidden>Einzelfolgen <span id="seriesEpisodeCount">0</span></button>
         <button type="button" role="tab" aria-selected="false" data-film-tab="copies">Meine Fassungen <span id="filmCopyCount">0</span></button>
         <button type="button" role="tab" aria-selected="false" data-film-tab="playlists">Playlisten <span id="filmPlaylistCount">0</span></button>
       </div>
@@ -190,6 +191,7 @@
         <label data-series-field hidden>Endjahr<input id="filmEndYear" type="number" min="1800" max="2200"></label>
         <label data-series-field hidden>Staffeln<input id="filmSeasons" type="number" min="0" max="9999"></label>
         <label data-series-field hidden>Episoden<input id="filmEpisodes" type="number" min="0" max="99999"></label>
+        <section id="seriesSeasonPlan" class="series-season-plan span-2" data-series-field hidden></section>
         <label data-series-field hidden>Sender / Plattform<input id="filmNetwork" maxlength="200"></label>
         <label><span id="filmDirectorLabel">Regie</span><input id="filmDirector" maxlength="240"></label>
         <label class="span-2">Schauspieler<input id="filmCast" maxlength="600" placeholder="Namen, durch Kommas getrennt"></label>
@@ -200,6 +202,12 @@
         <label>Altersfreigabe<input id="filmRating" maxlength="20" placeholder="FSK 12"></label>
         <label class="span-2">Beschreibung<textarea id="filmDescription" rows="4"></textarea></label>
       </div>
+      </div>
+      <div id="seriesEpisodesPanel" class="film-tab-panel" role="tabpanel" hidden>
+        <div class="copies-head"><div><strong>Einzelfolgen</strong><small>Staffeln auswählen und einzelne Folgen bearbeiten.</small></div></div>
+        <div id="seriesSeasonTabs" class="series-season-tabs" role="tablist"></div>
+        <div id="seriesEpisodeList" class="series-episode-list"></div>
+        <div id="seriesEpisodesEmpty" class="copies-empty">Lege zunächst unter Serieninformationen Staffeln und Folgen fest.</div>
       </div>
       <div id="filmCopiesPanel" class="film-tab-panel" role="tabpanel" hidden>
         <div class="copies-head"><div><strong>Meine Fassungen</strong><small>Links und technische Eigenschaften deiner eigenen Kopien.</small></div><button id="addFilmCopyButton" class="secondary-action" type="button">Fassung hinzufügen</button></div>
@@ -212,6 +220,23 @@
         <div id="filmPlaylistsEmpty" class="copies-empty">Noch keine Playlist angelegt.</div>
       </div>
       <div class="dialog-actions"><button id="deleteFilmButton" class="danger-button" type="button">Film löschen</button><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Speichern</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="episodeDialog" class="dialog episode-dialog">
+    <form id="episodeForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Einzelfolge</p><h2 id="episodeDialogTitle">Folge bearbeiten</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <input id="episodeSeasonNumber" type="hidden"><input id="episodeNumber" type="hidden">
+      <div class="form-grid">
+        <label class="span-2">Titel<input id="episodeTitle" maxlength="200"></label>
+        <label class="span-2">Originaltitel<input id="episodeOriginalTitle" maxlength="200"></label>
+        <label>Ausstrahlung<input id="episodeAirDate" type="date"></label>
+        <label>Laufzeit (h:mm:ss)<input id="episodeRuntime" pattern="[0-9]{1,3}:[0-5][0-9]:[0-5][0-9]" placeholder="0:45:00"></label>
+        <label class="span-2">Beschreibung<textarea id="episodeDescription" rows="4"></textarea></label>
+      </div>
+      <div class="copies-head"><div><strong>Fassungen dieser Folge</strong><small>Mehrere Streams oder physische Fassungen sind möglich.</small></div><button id="addEpisodeCopyButton" class="secondary-action" type="button">Fassung hinzufügen</button></div>
+      <div id="episodeCopiesList" class="episode-copies-list"></div>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Folge speichern</button></div>
     </form>
   </dialog>
 
@@ -297,7 +322,7 @@
   <script src="videothek-import.js?v=20260919-3"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
   <script src="videothek-storage.js?v=20260925-12"></script>
-  <script src="videothek.js?v=20260926-96"></script>
+  <script src="videothek.js?v=20260926-97"></script>
 </body>
 </html>
 
