@@ -721,6 +721,12 @@ input[readonly],textarea[readonly],.auto-filled-field {
 .detail-franchise { margin:10px 0 0!important; }
 .detail-franchise button { padding:5px 9px; border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line)); border-radius:8px; background:color-mix(in srgb,var(--accent) 9%,transparent); color:var(--accent); font-weight:700; }
 .detail-franchise button:hover { background:color-mix(in srgb,var(--accent) 16%,transparent); }
+.series-format-switch { display:flex; margin:0; padding:2px; border:1px solid var(--line); border-radius:9px; background:color-mix(in srgb,var(--panel2) 72%,transparent); }
+.series-format-switch[hidden] { display:none; }
+.series-format-switch label { display:block; }
+.series-format-switch input { position:absolute; opacity:0; pointer-events:none; }
+.series-format-switch span { display:block; padding:8px 11px; border-radius:7px; color:var(--muted); font-size:.88rem; font-weight:680; cursor:pointer; }
+.series-format-switch input:checked+span { background:var(--accent); color:var(--bg); }
 .detail-dialog .detail-body { min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; }
 .detail-dialog.is-player { width:min(1180px,calc(100vw - 28px)); max-width:1180px; background:#09090b; overflow:hidden; }
 .detail-dialog.is-player #detailContent,.detail-dialog.is-player .archive-player-view { height:100%; min-height:0; }

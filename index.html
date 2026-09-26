@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-47">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-48">
   <link rel="stylesheet" href="videothek-neon.css?v=20260926-28">
 </head>
 <body>
@@ -163,6 +163,10 @@
           <div class="tmdb-panel-actions">
             <input type="radio" name="filmMediaType" value="movie" checked hidden>
             <input type="radio" name="filmMediaType" value="tv" hidden>
+            <fieldset id="seriesFormatSwitch" class="series-format-switch" aria-label="Serienformat" hidden>
+              <label><input type="radio" name="seriesFormat" value="series" checked><span>Serie</span></label>
+              <label><input type="radio" name="seriesFormat" value="serial"><span>Kino-Serial</span></label>
+            </fieldset>
             <button id="identifyIdsButton" class="secondary-action" type="button">IDs ergänzen</button>
           </div>
         </div>
@@ -329,7 +333,7 @@
   <script src="videothek-import.js?v=20260919-3"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
   <script src="videothek-storage.js?v=20260925-12"></script>
-  <script src="videothek.js?v=20260926-112"></script>
+  <script src="videothek.js?v=20260926-115"></script>
 </body>
 </html>
 
