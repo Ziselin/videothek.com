@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-35">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-36">
   <link rel="stylesheet" href="videothek-neon.css?v=20260926-28">
 </head>
 <body>
@@ -107,7 +107,10 @@
     <div class="catalog-drawer-head"><div><p class="eyebrow">Auswahl</p><h2 id="catalogDrawerTitle">Auswahl &amp; Anordnung</h2></div><button id="catalogDrawerClose" type="button" aria-label="Seitenmenü schließen">×</button></div>
     <div class="catalog-settings-tabs" role="tablist" aria-label="Einstellungsbereiche"><button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-settings-tab="filters">Filter</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="display">Darstellung</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="info">Info</button></div>
     <div id="catalogFilterPanel" class="catalog-drawer-fields" role="tabpanel">
-      <label>Projekt<select id="projectSelect"></select></label>
+      <section class="drawer-language-section catalog-project-section" aria-labelledby="catalogProjectsTitle">
+        <div><strong id="catalogProjectsTitle">Projekte</strong><small>Keine Auswahl zeigt alle Projekte.</small></div>
+        <div id="projectSelect" class="drawer-language-filters catalog-project-filters"></div>
+      </section>
       <label>Playlist<select id="catalogPlaylistSelect"><option value="all">Alle Playlisten</option></select></label>
       <label>Anordnung<select id="catalogSortSelect"><option value="alphabetical">Alphabetisch</option><option value="year-desc">Jahr · neu nach alt</option><option value="year-asc">Jahr · alt nach neu</option><option value="genre">Genre</option><option value="collection-number">Nach Sammlungsnummer</option><option value="random">Zufällig</option></select></label>
       <fieldset class="catalog-year-range" aria-labelledby="catalogYearRangeTitle">
@@ -180,7 +183,7 @@
         <div id="tmdbResults" class="tmdb-results" hidden></div>
       </section>
       <div class="form-grid">
-        <label class="span-2">Titel<input id="filmTitle" required maxlength="160"></label>
+        <label class="span-2">Titel<input id="filmTitle" maxlength="160"></label>
         <label class="span-2">Originaltitel<input id="filmOriginalTitle" maxlength="200"></label>
         <label><span id="filmYearLabel">Jahr</span><input id="filmYear" type="number" min="1800" max="2200"></label>
         <label><span id="filmRuntimeLabel">Laufzeit (h:mm:ss)</span><input id="filmRuntime" type="text" inputmode="numeric" pattern="[0-9]{1,3}:[0-5][0-9]:[0-5][0-9]" placeholder="1:42:30" title="Bitte im Format Stunden:Minuten:Sekunden eingeben, z. B. 1:42:30"></label>
@@ -294,7 +297,7 @@
   <script src="videothek-import.js?v=20260919-3"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
   <script src="videothek-storage.js?v=20260925-12"></script>
-  <script src="videothek.js?v=20260926-93"></script>
+  <script src="videothek.js?v=20260926-95"></script>
 </body>
 </html>
 
