@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-37">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-47">
   <link rel="stylesheet" href="videothek-neon.css?v=20260926-28">
 </head>
 <body>
@@ -29,7 +29,7 @@
         <button id="archiveBrandButton" class="archive-neon-brand" type="button" aria-label="Neon V unterstützen"><img src="assets/videothek-neon-v-favicon-32.png" alt=""></button>
       </nav>
       <div class="top-actions">
-        <label class="search"><span class="sr-only">Filme suchen</span><input id="searchInput" type="search" placeholder="Titel, Regie, Genre …" spellcheck="false" autocomplete="off"></label>
+        <label class="search"><span class="sr-only">Filme suchen</span><input id="searchInput" type="search" placeholder="Titel, Regie, Genre, #Franchise …" spellcheck="false" autocomplete="off"></label>
         <div class="header-tools">
           <button id="catalogMenuButton" class="catalog-menu-button" type="button" aria-label="Auswahl und Sortierung öffnen. Mit der Tab-Taste öffnen und schließen." title="Mit der Tab-Taste öffnen und schließen" aria-expanded="false" aria-controls="catalogDrawer">
             <svg class="catalog-menu-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
@@ -83,7 +83,7 @@
         <div id="projectsContent" class="machine-content">
           <div class="machine-head">
             <div class="machine-project-heading"><p class="eyebrow">Projektbestand</p><h2 id="machineProjectTitle">Filmarchiv</h2><p id="projectSummary" class="muted"></p></div>
-            <div class="machine-head-actions"><button id="addFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><button id="addSeriesButton" class="secondary-action" type="button">+ Serie hinzufügen</button><div class="sync-control"><button id="syncProjectButton" class="secondary-action" type="button" aria-describedby="syncProjectStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncProjectStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div>
+            <div class="machine-head-actions"><button id="addFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><button id="addSeriesButton" class="primary-button" type="button">+ Serie hinzufügen</button><div class="sync-control"><button id="syncProjectButton" class="secondary-action" type="button" aria-describedby="syncProjectStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncProjectStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div>
           </div>
           <div class="notice archive-data-notice"><span aria-hidden="true">↗</span><p><strong>Die Videothek speichert keine Filmdateien.</strong><br>Gesichert werden nur Projekte, Metadaten, Cover-Verweise und Links zu deinen Speicherorten.</p></div>
           <div class="table-wrap">
@@ -147,12 +147,13 @@
 
   <dialog id="filmDialog" class="dialog">
     <form id="filmForm" method="dialog">
-      <div class="dialog-head"><div><p class="eyebrow">Filmeintrag</p><h2 id="filmDialogTitle">Film bearbeiten</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <div class="dialog-head"><div><p id="filmDialogEyebrow" class="eyebrow">Filmeintrag</p><h2 id="filmDialogTitle">Film bearbeiten</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
       <input id="filmId" type="hidden">
       <div class="film-editor-tabs" role="tablist" aria-label="Bereiche des Filmeintrags">
         <button id="filmGeneralTab" class="is-active" type="button" role="tab" aria-selected="true" data-film-tab="general">Filminformationen</button>
         <button id="seriesEpisodesTab" type="button" role="tab" aria-selected="false" data-film-tab="episodes" hidden>Einzelfolgen <span id="seriesEpisodeCount">0</span></button>
         <button type="button" role="tab" aria-selected="false" data-film-tab="copies">Meine Fassungen <span id="filmCopyCount">0</span></button>
+        <button type="button" role="tab" aria-selected="false" data-film-tab="bonus">Bonus <span id="filmBonusCount">0</span></button>
         <button type="button" role="tab" aria-selected="false" data-film-tab="playlists">Playlisten <span id="filmPlaylistCount">0</span></button>
       </div>
       <div id="filmGeneralPanel" class="film-tab-panel" role="tabpanel">
@@ -160,10 +161,8 @@
         <div class="tmdb-panel-head">
           <div><strong id="tmdbPanelTitle">Filminformationen &amp; IDs</strong></div>
           <div class="tmdb-panel-actions">
-            <fieldset class="media-type-switch" aria-label="Medientyp">
-              <label><input type="radio" name="filmMediaType" value="movie" checked><span>Film</span></label>
-              <label><input type="radio" name="filmMediaType" value="tv"><span>Serie</span></label>
-            </fieldset>
+            <input type="radio" name="filmMediaType" value="movie" checked hidden>
+            <input type="radio" name="filmMediaType" value="tv" hidden>
             <button id="identifyIdsButton" class="secondary-action" type="button">IDs ergänzen</button>
           </div>
         </div>
@@ -197,7 +196,8 @@
         <label class="span-2">Schauspieler<input id="filmCast" maxlength="600" placeholder="Namen, durch Kommas getrennt"></label>
         <label>Genre<input id="filmGenre" maxlength="120" placeholder="Drama, Dokumentarfilm"></label>
         <label>Länder<input id="filmCountries" maxlength="240" placeholder="z. B. Frankreich, Deutschland"></label>
-        <label class="span-2">Trailer-Link<input id="filmTrailer" type="url" placeholder="https://…"></label>
+        <label class="span-2">Filmreihe / Franchise<span class="franchise-input"><span aria-hidden="true">#</span><input id="filmFranchise" maxlength="160" placeholder="z. B. Alien" autocomplete="off"></span></label>
+        <input id="filmTrailer" type="hidden">
         <label class="span-2">Cover-Link<input id="filmCover" type="url" placeholder="https://…"></label>
         <label>Altersfreigabe<input id="filmRating" maxlength="20" placeholder="FSK 12"></label>
         <label class="span-2">Beschreibung<textarea id="filmDescription" rows="4"></textarea></label>
@@ -213,6 +213,11 @@
         <div class="copies-head"><div><strong>Meine Fassungen</strong><small>Links und technische Eigenschaften deiner eigenen Kopien.</small></div><button id="addFilmCopyButton" class="secondary-action" type="button">Fassung hinzufügen</button></div>
         <div id="filmCopiesList" class="film-copies-list"></div>
         <div id="filmCopiesEmpty" class="copies-empty">Noch keine eigene Fassung hinterlegt.</div>
+      </div>
+      <div id="filmBonusPanel" class="film-tab-panel" role="tabpanel" hidden>
+        <div class="copies-head"><div><strong>Bonusmaterial</strong><small>Interviews, Making-ofs, Extras und weitere Begleitmaterialien.</small></div><button id="addBonusMaterialButton" class="secondary-action" type="button">Bonus hinzufügen</button></div>
+        <div id="filmBonusList" class="film-bonus-list"></div>
+        <div id="filmBonusEmpty" class="copies-empty">Noch kein Bonusmaterial hinterlegt.</div>
       </div>
       <div id="filmPlaylistsPanel" class="film-tab-panel" role="tabpanel" hidden>
         <div class="copies-head"><div><strong>Playlisten</strong><small>Wähle aus, auf welchen Playlists dieser Film erscheinen soll.</small></div></div>
@@ -232,7 +237,9 @@
         <label class="span-2">Originaltitel<input id="episodeOriginalTitle" maxlength="200"></label>
         <label>Ausstrahlung<input id="episodeAirDate" type="date"></label>
         <label>Laufzeit (h:mm:ss)<input id="episodeRuntime" pattern="[0-9]{1,3}:[0-5][0-9]:[0-5][0-9]" placeholder="0:45:00"></label>
-        <label class="span-2">Beschreibung<textarea id="episodeDescription" rows="4"></textarea></label>
+        <label class="span-2">Regie<input id="episodeDirector" maxlength="300" placeholder="Namen mit Komma trennen"></label>
+        <label class="span-2">Schauspieler<input id="episodeCast" maxlength="1000" placeholder="Namen mit Komma trennen"></label>
+        <label class="span-2">Kurzbeschreibung<textarea id="episodeDescription" rows="4"></textarea></label>
       </div>
       <div class="copies-head"><div><strong>Fassungen dieser Folge</strong><small>Mehrere Streams oder physische Fassungen sind möglich.</small></div><button id="addEpisodeCopyButton" class="secondary-action" type="button">Fassung hinzufügen</button></div>
       <div id="episodeCopiesList" class="episode-copies-list"></div>
@@ -322,7 +329,7 @@
   <script src="videothek-import.js?v=20260919-3"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
   <script src="videothek-storage.js?v=20260925-12"></script>
-  <script src="videothek.js?v=20260926-97"></script>
+  <script src="videothek.js?v=20260926-112"></script>
 </body>
 </html>
 
