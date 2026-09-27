@@ -34,6 +34,9 @@
 :root[data-theme="neon"] .brand::after{content:"";display:block;position:absolute;z-index:2;right:0;bottom:-1px;left:0;height:38px;pointer-events:none;background:linear-gradient(180deg,rgba(8,7,19,0),rgba(8,7,19,.3) 38%,rgba(8,7,19,.82) 78%,#080713 100%)}
 :root[data-theme="neon"] .brand>img:not(.neon-brand-sign),:root[data-theme="neon"] .brand span{display:none}
 :root[data-theme="neon"] .brand .neon-brand-sign{display:block;width:100%;height:100%;object-fit:cover;object-position:center 51%;filter:saturate(1.08) contrast(1.04)}
+:root[data-theme="neon"][data-touch-header-motion="true"] .topbar{backdrop-filter:none;transition:height .28s cubic-bezier(.2,.72,.25,1),grid-template-rows .28s cubic-bezier(.2,.72,.25,1)}
+:root[data-theme="neon"][data-touch-header-motion="true"] .brand{filter:none;will-change:transform,opacity;transition:transform .28s cubic-bezier(.2,.72,.25,1),opacity .18s linear}
+:root[data-theme="neon"][data-touch-header-motion="true"] .genre-filter-region{will-change:auto;transition:none}
 :root[data-theme="neon"] .main-nav{grid-column:1;grid-row:2;justify-self:start;gap:2px}
 :root[data-theme="neon"] .archive-neon-brand{display:flex;align-items:center;justify-content:center;width:39px;height:39px;margin-left:12px;padding:2px;border:0;background:transparent;opacity:0;transform:none;pointer-events:none;transition:opacity .2s ease}
 :root[data-theme="neon"] .archive-neon-brand img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 7px rgba(255,58,160,.7))}
