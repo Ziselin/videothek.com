@@ -583,6 +583,20 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .subtitle-reference-note { display:grid; gap:4px; margin:0 25px 14px; padding:12px 14px; border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line)); border-radius:8px; background:color-mix(in srgb,var(--accent) 6%,var(--panel)); }
 .subtitle-reference-note strong { color:var(--text); font-size:.86rem; }
 .subtitle-reference-note span { color:var(--muted); font-size:.78rem; line-height:1.45; }
+.subtitle-source-reference { display:grid; gap:10px; margin:0 25px 16px; padding:13px 14px; border:1px solid var(--line); border-radius:9px; background:color-mix(in srgb,var(--panel2) 72%,transparent); }
+.subtitle-source-head { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.subtitle-source-head>div { display:grid; gap:3px; }
+.subtitle-source-head strong { color:var(--text); font-size:.86rem; }
+.subtitle-source-head span { color:var(--muted); font-size:.76rem; }
+.subtitle-source-head button { white-space:nowrap; }
+.subtitle-source-list { display:grid; gap:8px; }
+.subtitle-source-row { display:grid; grid-template-columns:minmax(145px,.8fr) minmax(0,1.7fr) auto auto; align-items:end; gap:8px; padding-top:10px; border-top:1px solid color-mix(in srgb,var(--line) 72%,transparent); }
+.subtitle-source-row:has([data-subtitle-source-custom]:not([hidden])) { grid-template-columns:minmax(135px,.7fr) minmax(135px,.8fr) minmax(0,1.5fr) auto auto; }
+.subtitle-source-row label { display:grid; gap:5px; color:var(--muted); font-size:.74rem; }
+.subtitle-source-open[aria-disabled="true"] { opacity:.45; pointer-events:none; }
+.subtitle-source-row>button { min-height:38px; padding:7px 9px; border:1px solid color-mix(in srgb,var(--danger,#a44343) 28%,var(--line)); border-radius:7px; background:transparent; color:var(--danger,#a44343); }
+@media(max-width:760px){.subtitle-source-head{align-items:stretch;flex-direction:column}.subtitle-source-head button{width:100%}.subtitle-source-row,.subtitle-source-row:has([data-subtitle-source-custom]:not([hidden])){grid-template-columns:1fr 1fr}.subtitle-source-url{grid-column:1/-1}.subtitle-source-open,.subtitle-source-row>button{width:100%}}
+@media(max-width:480px){.subtitle-source-row,.subtitle-source-row:has([data-subtitle-source-custom]:not([hidden])){grid-template-columns:1fr}.subtitle-source-url{grid-column:auto}}
 .film-subtitle-list { display:grid; gap:10px; padding:0 25px 4px; }
 .subtitle-editor-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; align-items:start; padding:14px; border:1px solid var(--line); border-radius:9px; background:var(--panel2); }
 .subtitle-editor-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }

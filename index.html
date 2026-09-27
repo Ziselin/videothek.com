@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260927-58">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260927-59">
   <link rel="stylesheet" href="videothek-neon.css?v=20260926-28">
 </head>
 <body>
@@ -222,6 +222,7 @@
       <div id="filmSubtitlesPanel" class="film-tab-panel" role="tabpanel" hidden>
         <div class="copies-head"><div><strong>Untertitel</strong><small>Speichere mindestens eine Originalsprach-Spur als Referenz für Wiedergabe und spätere Übersetzungen.</small></div><button id="addSubtitleTrackButton" class="secondary-action" type="button">Untertitel hinzufügen</button></div>
         <div class="subtitle-reference-note"><strong>Empfohlener Ausgangspunkt</strong><span>Eine zeitlich passende SRT- oder VTT-Datei in der Originalsprache. Die Datei wird als Text im Filmeintrag gesichert.</span></div>
+        <section class="subtitle-source-reference" aria-labelledby="subtitleSourceTitle"><div class="subtitle-source-head"><div><strong id="subtitleSourceTitle">Quellreferenzen</strong><span>Speichere konkrete Fund- oder Downloadseiten, damit du sie später nicht erneut suchen musst.</span></div><button id="addSubtitleSourceButton" class="secondary-action" type="button">Weitere Quelle hinzufügen</button></div><div id="filmSubtitleSourceList" class="subtitle-source-list"></div></section>
         <div id="filmSubtitleList" class="film-subtitle-list"></div>
         <div id="filmSubtitleEmpty" class="copies-empty">Noch keine Untertitelspur hinterlegt.</div>
       </div>
@@ -256,7 +257,7 @@
           <span id="subtitleSyncPosition">00:00:00.000</span>
           <input id="subtitleSyncSeek" type="range" min="0" max="1000" value="0" aria-label="Filmposition">
         </div>
-        <div class="subtitle-sync-options"><label class="subtitle-sync-preview"><input id="subtitleSyncPreview" type="checkbox"><span>Untertitel im Film anzeigen</span></label><label class="subtitle-sync-preview"><input id="subtitleSyncAutoUpdate" type="checkbox" checked><span>Automatisch aktualisieren</span></label></div>
+        <div class="subtitle-sync-options"><label class="subtitle-sync-preview"><input id="subtitleSyncPreview" type="checkbox"><span>Untertitel im Film anzeigen</span></label><label class="subtitle-sync-preview"><input id="subtitleSyncAutoUpdate" type="checkbox" checked><span>Automatisch aktualisieren</span></label><label class="subtitle-sync-preview"><input id="subtitleSyncFollowCue" type="checkbox" checked><span>Filmposition mitspringen</span></label></div>
         <div class="subtitle-sync-cue">
           <div class="subtitle-sync-cue-nav"><button id="subtitleSyncPrevious" type="button" aria-label="Vorheriger Untertitel">←</button><strong id="subtitleSyncCueNumber">1 / 1</strong><button id="subtitleSyncNext" type="button" aria-label="Nächster Untertitel">→</button></div>
           <p id="subtitleSyncCueText"></p>
@@ -371,7 +372,7 @@
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
   <script src="videothek-imdb-top250.js?v=20260820-1"></script>
   <script src="videothek-storage.js?v=20260926-13"></script>
-  <script src="videothek.js?v=20260927-128"></script>
+  <script src="videothek.js?v=20260927-131"></script>
 </body>
 </html>
 
