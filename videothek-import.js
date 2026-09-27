@@ -91,10 +91,7 @@
     };
   }
 
-  function parseLibrary(text, type) {
-    let records;
-    if (type === "json") records = collectJsonRecords(JSON.parse(text));
-    else records = parseCsv(text);
+  function parseRecords(records) {
     const seen = new Set();
     const films = [];
     let duplicates = 0;
@@ -106,6 +103,14 @@
       seen.add(identity); films.push(film);
     }
     return { films, duplicates, examined: records.length };
+  }
+
+  function parseLibraryData(data) {
+    return parseRecords(collectJsonRecords(data));
+  }
+
+  function parseLibrary(text, type) {
+    return parseRecords(type === "json" ? collectJsonRecords(JSON.parse(text)) : parseCsv(text));
   }
 
   const PASTE_NOISE = new Set([
@@ -152,7 +157,7 @@
     return { films, ignored, examined: lines.length };
   }
 
-  const api = { parseCsv, collectJsonRecords, normalizeRecord, parseLibrary, parsePastedLibrary };
+  const api = { parseCsv, collectJsonRecords, normalizeRecord, parseLibraryData, parseLibrary, parsePastedLibrary };
   root.VideothekImport = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

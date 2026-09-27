@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260927-59">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260927-62">
   <link rel="stylesheet" href="videothek-neon.css?v=20260926-28">
 </head>
 <body>
@@ -222,7 +222,7 @@
       <div id="filmSubtitlesPanel" class="film-tab-panel" role="tabpanel" hidden>
         <div class="copies-head"><div><strong>Untertitel</strong><small>Speichere mindestens eine Originalsprach-Spur als Referenz für Wiedergabe und spätere Übersetzungen.</small></div><button id="addSubtitleTrackButton" class="secondary-action" type="button">Untertitel hinzufügen</button></div>
         <div class="subtitle-reference-note"><strong>Empfohlener Ausgangspunkt</strong><span>Eine zeitlich passende SRT- oder VTT-Datei in der Originalsprache. Die Datei wird als Text im Filmeintrag gesichert.</span></div>
-        <section class="subtitle-source-reference" aria-labelledby="subtitleSourceTitle"><div class="subtitle-source-head"><div><strong id="subtitleSourceTitle">Quellreferenzen</strong><span>Speichere konkrete Fund- oder Downloadseiten, damit du sie später nicht erneut suchen musst.</span></div><button id="addSubtitleSourceButton" class="secondary-action" type="button">Weitere Quelle hinzufügen</button></div><div id="filmSubtitleSourceList" class="subtitle-source-list"></div></section>
+        <details class="subtitle-source-reference"><summary><span><strong id="subtitleSourceTitle">Quellreferenzen</strong><small>Gespeicherte Fund- und Downloadseiten</small></span><i aria-hidden="true">⌄</i></summary><div class="subtitle-source-content"><div class="subtitle-source-head"><span>Speichere konkrete Fund- oder Downloadseiten, damit du sie später nicht erneut suchen musst.</span><button id="addSubtitleSourceButton" class="secondary-action" type="button">Weitere Quelle hinzufügen</button></div><div id="filmSubtitleSourceList" class="subtitle-source-list"></div></div></details>
         <div id="filmSubtitleList" class="film-subtitle-list"></div>
         <div id="filmSubtitleEmpty" class="copies-empty">Noch keine Untertitelspur hinterlegt.</div>
       </div>
@@ -326,6 +326,11 @@
         <div id="playlistFilmResults" class="playlist-film-results"></div>
       </div>
       <div id="playlistFilmManualPanel" class="playlist-film-panel playlist-manual-grid" role="tabpanel" hidden>
+        <section id="collectionEntryContext" class="collection-entry-context span-2" hidden>
+          <div><small>Titel</small><strong id="collectionEntryTitle"></strong></div>
+          <div><small>In diesen Sammlungen</small><div id="collectionEntryMemberships" class="collection-entry-memberships"></div></div>
+          <p id="collectionEntryIdentityNote" class="collection-entry-identity-note" hidden></p>
+        </section>
         <label>TMDB-ID<input id="playlistEntryTmdbId" inputmode="numeric" autocomplete="off" placeholder="z. B. 47557"></label>
         <label>IMDb-ID<input id="playlistEntryImdbId" autocomplete="off" placeholder="z. B. tt0133093"></label>
         <label>Wikidata-ID<input id="playlistEntryWikidataId" autocomplete="off" placeholder="z. B. Q83495"></label>
@@ -368,11 +373,13 @@
   <dialog id="detailDialog" class="detail-dialog"><div id="detailContent"></div></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="videothek-reference-catalog.js?v=20260914-3"></script>
-  <script src="videothek-import.js?v=20260919-3"></script>
+  <script src="videothek-import.js?v=20260927-4"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
   <script src="videothek-imdb-top250.js?v=20260820-1"></script>
-  <script src="videothek-storage.js?v=20260926-13"></script>
-  <script src="videothek.js?v=20260927-131"></script>
+  <script src="videothek-storage.js?v=20260927-14"></script>
+  <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
+  <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+  <script src="videothek.js?v=20260927-146"></script>
 </body>
 </html>
 
