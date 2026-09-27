@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260926-49">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260927-58">
   <link rel="stylesheet" href="videothek-neon.css?v=20260926-28">
 </head>
 <body>
@@ -151,10 +151,11 @@
       <input id="filmId" type="hidden">
       <div class="film-editor-tabs" role="tablist" aria-label="Bereiche des Filmeintrags">
         <button id="filmGeneralTab" class="is-active" type="button" role="tab" aria-selected="true" data-film-tab="general">Filminformationen</button>
-        <button id="seriesEpisodesTab" type="button" role="tab" aria-selected="false" data-film-tab="episodes" hidden>Einzelfolgen <span id="seriesEpisodeCount">0</span></button>
-        <button type="button" role="tab" aria-selected="false" data-film-tab="copies">Meine Fassungen <span id="filmCopyCount">0</span></button>
-        <button type="button" role="tab" aria-selected="false" data-film-tab="bonus">Bonus <span id="filmBonusCount">0</span></button>
-        <button type="button" role="tab" aria-selected="false" data-film-tab="playlists">Playlisten <span id="filmPlaylistCount">0</span></button>
+        <button id="seriesEpisodesTab" type="button" role="tab" aria-selected="false" data-film-tab="episodes" hidden><span class="film-tab-label">Einzelfolgen</span><span id="seriesEpisodeCount" class="film-tab-count">0</span></button>
+        <button type="button" role="tab" aria-selected="false" data-film-tab="copies"><span class="film-tab-label">Meine Fassungen</span><span id="filmCopyCount" class="film-tab-count">0</span></button>
+        <button type="button" role="tab" aria-selected="false" data-film-tab="subtitles"><span class="film-tab-label">Subs</span><span id="filmSubtitleCount" class="film-tab-count">0</span></button>
+        <button type="button" role="tab" aria-selected="false" data-film-tab="bonus"><span class="film-tab-label">Bonus</span><span id="filmBonusCount" class="film-tab-count">0</span></button>
+        <button type="button" role="tab" aria-selected="false" data-film-tab="playlists"><span class="film-tab-label">Playlisten</span><span id="filmPlaylistCount" class="film-tab-count">0</span></button>
       </div>
       <div id="filmGeneralPanel" class="film-tab-panel" role="tabpanel">
       <section class="tmdb-panel" aria-labelledby="tmdbPanelTitle">
@@ -218,6 +219,12 @@
         <div id="filmCopiesList" class="film-copies-list"></div>
         <div id="filmCopiesEmpty" class="copies-empty">Noch keine eigene Fassung hinterlegt.</div>
       </div>
+      <div id="filmSubtitlesPanel" class="film-tab-panel" role="tabpanel" hidden>
+        <div class="copies-head"><div><strong>Untertitel</strong><small>Speichere mindestens eine Originalsprach-Spur als Referenz für Wiedergabe und spätere Übersetzungen.</small></div><button id="addSubtitleTrackButton" class="secondary-action" type="button">Untertitel hinzufügen</button></div>
+        <div class="subtitle-reference-note"><strong>Empfohlener Ausgangspunkt</strong><span>Eine zeitlich passende SRT- oder VTT-Datei in der Originalsprache. Die Datei wird als Text im Filmeintrag gesichert.</span></div>
+        <div id="filmSubtitleList" class="film-subtitle-list"></div>
+        <div id="filmSubtitleEmpty" class="copies-empty">Noch keine Untertitelspur hinterlegt.</div>
+      </div>
       <div id="filmBonusPanel" class="film-tab-panel" role="tabpanel" hidden>
         <div class="copies-head"><div><strong>Bonusmaterial</strong><small>Interviews, Making-ofs, Extras und weitere Begleitmaterialien.</small></div><button id="addBonusMaterialButton" class="secondary-action" type="button">Bonus hinzufügen</button></div>
         <div id="filmBonusList" class="film-bonus-list"></div>
@@ -229,6 +236,36 @@
         <div id="filmPlaylistsEmpty" class="copies-empty">Noch keine Playlist angelegt.</div>
       </div>
       <div class="dialog-actions"><button id="deleteFilmButton" class="danger-button" type="button">Film löschen</button><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Speichern</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="subtitleSyncDialog" class="dialog subtitle-sync-dialog">
+    <form method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Untertitel synchronisieren</p><h2 id="subtitleSyncTitle">Zeitversatz festlegen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <div class="subtitle-sync-setup">
+        <label>Filmfassung<select id="subtitleSyncCopy"></select></label>
+        <button id="subtitleSyncStart" class="secondary-action" type="button">Synchronisierung starten</button>
+      </div>
+      <p id="subtitleSyncStatus" class="tmdb-status" role="status" aria-live="polite"></p>
+      <section id="subtitleSyncWorkspace" class="subtitle-sync-workspace" hidden>
+        <video id="subtitleSyncVideo" preload="metadata" playsinline></video>
+        <div class="subtitle-sync-transport">
+          <button id="subtitleSyncPlay" type="button" aria-label="Wiedergabe starten oder pausieren">▶</button>
+          <button id="subtitleSyncRewind" class="subtitle-sync-scan" type="button" aria-label="Live zurückspulen" title="Gedrückt halten zum Zurückspulen">−1</button>
+          <button id="subtitleSyncForward" class="subtitle-sync-scan" type="button" aria-label="Live vorspulen" title="Gedrückt halten zum Vorspulen">+1</button>
+          <span id="subtitleSyncPosition">00:00:00.000</span>
+          <input id="subtitleSyncSeek" type="range" min="0" max="1000" value="0" aria-label="Filmposition">
+        </div>
+        <div class="subtitle-sync-options"><label class="subtitle-sync-preview"><input id="subtitleSyncPreview" type="checkbox"><span>Untertitel im Film anzeigen</span></label><label class="subtitle-sync-preview"><input id="subtitleSyncAutoUpdate" type="checkbox" checked><span>Automatisch aktualisieren</span></label></div>
+        <div class="subtitle-sync-cue">
+          <div class="subtitle-sync-cue-nav"><button id="subtitleSyncPrevious" type="button" aria-label="Vorheriger Untertitel">←</button><strong id="subtitleSyncCueNumber">1 / 1</strong><button id="subtitleSyncNext" type="button" aria-label="Nächster Untertitel">→</button></div>
+          <p id="subtitleSyncCueText"></p>
+          <div class="subtitle-sync-times"><span>Ursprünglicher Einsatz <strong id="subtitleSyncCueTime">00:00:00.000</strong></span><label>Korrigierter Einsatz<input id="subtitleSyncCorrectedTime" type="text" inputmode="numeric" value="00:00:00.000" pattern="[0-9]{1,3}:[0-5][0-9]:[0-5][0-9][.,][0-9]{3}"><button id="subtitleSyncCapture" class="secondary-action" type="button">Aktuelle Filmposition zuweisen</button></label></div>
+          <div class="subtitle-sync-scope"><span>Diese Korrektur anwenden auf</span><span>Nur diese Position</span><label class="subtitle-sync-switch"><input id="subtitleSyncFollowing" type="checkbox" role="switch"><i aria-hidden="true"></i><span class="sr-only">Alle folgenden Positionen umschalten</span></label><span>Alle folgenden Positionen</span></div>
+        </div>
+        <div class="subtitle-sync-offset"><span>Korrektur <strong id="subtitleSyncOffset">±00:00:00.000</strong></span></div>
+      </section>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button id="subtitleSyncSave" class="primary-button" type="button" disabled>Versatz speichern</button></div>
     </form>
   </dialog>
 
@@ -334,7 +371,7 @@
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
   <script src="videothek-imdb-top250.js?v=20260820-1"></script>
   <script src="videothek-storage.js?v=20260926-13"></script>
-  <script src="videothek.js?v=20260926-120"></script>
+  <script src="videothek.js?v=20260927-128"></script>
 </body>
 </html>
 
