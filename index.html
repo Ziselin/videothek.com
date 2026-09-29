@@ -11,8 +11,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260927-62">
-  <link rel="stylesheet" href="videothek-neon.css?v=20260927-29">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260929-65">
+  <link rel="stylesheet" href="videothek-neon.css?v=20260929-30">
 </head>
 <body>
   <datalist id="languageOptions"><option value="Deutsch"><option value="Englisch"><option value="Französisch"><option value="Spanisch"><option value="Italienisch"><option value="Japanisch"><option value="Koreanisch"><option value="Chinesisch"><option value="Russisch"><option value="Portugiesisch"></datalist>
@@ -24,6 +24,12 @@
         <img class="neon-brand-sign" src="assets/videothek-neon-sign.png" alt="">
       </button>
       <nav class="main-nav" aria-label="Hauptnavigation">
+        <button id="catalogExploreButton" class="catalog-menu-button catalog-explore-button" type="button" aria-label="Genre, Sammlungen und Franchises öffnen" aria-expanded="false" aria-controls="catalogExploreDrawer">
+          <svg class="catalog-menu-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path d="M14 2a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2z" />
+            <path d="M3 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
+          </svg>
+        </button>
         <button class="nav-button is-active" type="button" data-view="cinema">Auswahl</button>
         <button class="nav-button" type="button" data-view="machine">Archiv</button>
         <button id="archiveBrandButton" class="archive-neon-brand" type="button" aria-label="Neon V unterstützen"><img src="assets/videothek-neon-v-favicon-32.png" alt=""></button>
@@ -44,11 +50,6 @@
     <main>
       <section id="cinemaView" class="view cinema-view">
         <h1 id="projectHeading" hidden>Alle Projekte</h1>
-        <div class="genre-filter-region">
-          <div class="genre-filter-head"><button id="genreVisibilityToggle" class="genre-visibility-toggle" type="button" aria-pressed="true"><span class="switch-track" aria-hidden="true"><span></span></span><span>Genres</span></button></div>
-          <div id="genreFilters" class="chips" aria-label="Nach Genre filtern"></div>
-          <button id="genreToggle" class="genre-toggle" type="button" aria-expanded="false" aria-controls="genreFilters" hidden>Mehr Genres <span aria-hidden="true">⌄</span></button>
-        </div>
         <section aria-labelledby="allFilmsHeading">
           <div class="section-heading">
             <h2 id="allFilmsHeading">Alle Filme</h2>
@@ -101,6 +102,25 @@
       </section>
     </main>
   </div>
+
+  <div id="catalogExploreBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
+  <aside id="catalogExploreDrawer" class="catalog-drawer catalog-explore-drawer" aria-hidden="true" aria-labelledby="catalogExploreTitle">
+    <div class="catalog-drawer-head"><div><p class="eyebrow">Entdecken</p><h2 id="catalogExploreTitle">Filme erkunden</h2></div><button id="catalogExploreClose" type="button" aria-label="Entdecken-Menü schließen">×</button></div>
+    <div class="catalog-settings-tabs catalog-explore-tabs" role="tablist" aria-label="Katalogbereiche">
+      <button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-explore-tab="genres">Genre</button>
+      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="collections">Sammlung</button>
+      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="franchises">Franchise</button>
+    </div>
+    <div id="catalogExploreGenres" class="catalog-explore-panel" role="tabpanel">
+      <div class="genre-filter-region">
+        <div class="genre-filter-head"><button id="genreVisibilityToggle" class="genre-visibility-toggle" type="button" aria-pressed="true"><span class="switch-track" aria-hidden="true"><span></span></span><span>Genres</span></button></div>
+        <div id="genreFilters" class="chips" aria-label="Nach Genre filtern"></div>
+        <button id="genreToggle" class="genre-toggle" type="button" aria-expanded="false" aria-controls="genreFilters" hidden>Mehr Genres <span aria-hidden="true">⌄</span></button>
+      </div>
+    </div>
+    <div id="catalogExploreCollections" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogCollectionChoices" class="catalog-explore-list"></div></div>
+    <div id="catalogExploreFranchises" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogFranchiseChoices" class="catalog-explore-list"></div><p id="catalogFranchisesEmpty" class="drawer-language-empty" hidden>Noch keine Franchises hinterlegt.</p></div>
+  </aside>
 
   <div id="catalogBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
   <aside id="catalogDrawer" class="catalog-drawer" aria-hidden="true" aria-labelledby="catalogDrawerTitle">
@@ -368,7 +388,7 @@
   </dialog>
 
   <dialog id="smartImportDialog" class="dialog paste-dialog"><form method="dialog"><div class="dialog-head"><h2>Smart Import</h2></div><p>Diese Vorlage kannst du in eine KI kopieren. Sie erklärt das JSON-Format für den direkten Import in Videothek.</p><textarea id="smartImportPrompt" rows="14" readonly></textarea><div class="dialog-actions"><button id="copySmartImportButton" class="primary-button" type="button">Erklärung kopieren</button><button id="smartImportNextButton" class="primary-button" type="button">Weiter</button><button value="cancel">Schließen</button></div></form></dialog>
-  <dialog id="supportMessageDialog" class="dialog support-message-dialog" aria-labelledby="supportMessageTitle" aria-describedby="supportMessageLead"><form method="dialog"><span class="support-message-accent" aria-hidden="true"></span><div class="dialog-head"><div><p class="eyebrow">Ein kleiner Abspann</p><h2 id="supportMessageTitle">Filme brauchen Menschen.</h2></div><button class="dialog-close" value="cancel" aria-label="Schließen">×</button></div><p id="supportMessageLead" class="support-message-lead">Wenn dir Neon V Freude macht, kannst du seine Weiterentwicklung mit einem Kaffee unterstützen.</p><div class="support-message-actions"><a id="supportCoffeeLink" class="primary-button" href="https://buymeacoffee.com/ziselin" target="_blank" rel="noopener noreferrer" autofocus>Neon V unterstützen <span aria-hidden="true">☕</span><span class="sr-only"> – öffnet Buy Me a Coffee in einem neuen Tab</span></a><button class="support-later-button" value="cancel">Vielleicht später</button></div></form></dialog>
+  <dialog id="supportMessageDialog" class="dialog support-message-dialog" aria-label="Neon V" aria-describedby="supportMessageLead"><form method="dialog"><span class="support-message-accent" aria-hidden="true"></span><div class="dialog-head"><div><p class="eyebrow">Ein kleiner Abspann</p></div><button class="dialog-close" value="cancel" aria-label="Schließen">×</button></div><p id="supportMessageLead" class="support-message-lead">Wenn dir Neon V gefällt oder du Wünsche hast, kannst du das Projekt mit einem Kaffee unterstützen und mir dabei eine Nachricht schicken.</p><div class="support-message-actions"><a id="supportCoffeeLink" class="primary-button" href="https://buymeacoffee.com/ziselin" target="_blank" rel="noopener noreferrer" autofocus>Kaffee spendieren &amp; Nachricht schicken <span aria-hidden="true">☕</span><span class="sr-only"> – öffnet Buy Me a Coffee in einem neuen Tab</span></a><button class="support-later-button" value="cancel">Vielleicht später</button></div></form></dialog>
   <dialog id="trailerDialog" class="trailer-dialog"><div class="trailer-dialog-head"><strong>Trailer</strong><button id="trailerDialogClose" class="dialog-close" type="button" aria-label="Trailer schließen">×</button></div><div id="trailerFrameHost" class="trailer-frame-host"></div><a id="trailerExternalLink" class="secondary-action trailer-external-link" target="_blank" rel="noopener noreferrer">Auf YouTube öffnen</a></dialog>
   <dialog id="detailDialog" class="detail-dialog"><div id="detailContent"></div></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -379,7 +399,7 @@
   <script src="videothek-storage.js?v=20260927-14"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20260927-147"></script>
+  <script src="videothek.js?v=20260929-153"></script>
 </body>
 </html>
 
