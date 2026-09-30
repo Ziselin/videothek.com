@@ -6,13 +6,14 @@
   <meta name="theme-color" content="#090914">
   <meta name="description" content="Videothek verwaltet kuratierte Filmprojekte und Verweise auf externe Speicherorte.">
   <title>Videothek</title>
-  <script>document.documentElement.dataset.storageLoading="true";setTimeout(()=>delete document.documentElement.dataset.storageLoading,1500);try{document.documentElement.dataset.theme=localStorage.getItem("videothek-theme-v1")==="default"?"default":"neon";document.documentElement.lang=localStorage.getItem("videothek-app-language-v1")==="de"?"de":"en"}catch{document.documentElement.dataset.theme="neon";document.documentElement.lang="en"}</script>
+  <script>document.documentElement.dataset.storageLoading="true";setTimeout(()=>delete document.documentElement.dataset.storageLoading,1500);try{const savedTheme=localStorage.getItem("videothek-theme-v1");document.documentElement.dataset.theme=["default","neon","cinema"].includes(savedTheme)?savedTheme:"neon";document.documentElement.lang=localStorage.getItem("videothek-app-language-v1")==="de"?"de":"en"}catch{document.documentElement.dataset.theme="neon";document.documentElement.lang="en"}</script>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/videothek-neon-v-favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20260930-71">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20260930-75">
   <link rel="stylesheet" href="videothek-neon.css?v=20260930-33">
+  <link rel="stylesheet" href="videothek-cinema.css?v=20260930-11">
 </head>
 <body>
   <datalist id="languageOptions"><option value="Deutsch"><option value="Englisch"><option value="Französisch"><option value="Spanisch"><option value="Italienisch"><option value="Japanisch"><option value="Koreanisch"><option value="Chinesisch"><option value="Russisch"><option value="Portugiesisch"></datalist>
@@ -24,12 +25,12 @@
         <img class="neon-brand-sign" src="assets/videothek-neon-sign.png" alt="">
       </button>
       <nav class="main-nav" aria-label="Hauptnavigation">
-        <button id="catalogExploreButton" class="catalog-menu-button catalog-explore-button" type="button" aria-label="Genre, Sammlungen und Franchises öffnen" aria-expanded="false" aria-controls="catalogExploreDrawer">
+        <span id="catalogExploreHeaderSlot" class="catalog-tool-slot"><button id="catalogExploreButton" class="catalog-menu-button catalog-explore-button" type="button" aria-label="Genre, Sammlungen und Franchises öffnen" aria-expanded="false" aria-controls="catalogExploreDrawer">
           <svg class="catalog-menu-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
             <path d="M14 2a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2z" />
             <path d="M3 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
           </svg>
-        </button>
+        </button></span>
         <button class="nav-button is-active" type="button" data-view="cinema">Auswahl</button>
         <button class="nav-button" type="button" data-view="machine">Archiv</button>
         <button id="archiveBrandButton" class="archive-neon-brand" type="button" aria-label="Neon V unterstützen"><img src="assets/videothek-neon-v-favicon-32.png" alt=""></button>
@@ -37,12 +38,12 @@
       <div class="top-actions">
         <label class="search"><span class="sr-only">Filme suchen</span><input id="searchInput" type="search" placeholder="Titel, Regie, Genre, #Franchise …" spellcheck="false" autocomplete="off"></label>
         <div class="header-tools">
-          <button id="catalogMenuButton" class="catalog-menu-button" type="button" aria-label="Auswahl und Sortierung öffnen. Mit der Tab-Taste öffnen und schließen." title="Mit der Tab-Taste öffnen und schließen" aria-expanded="false" aria-controls="catalogDrawer">
+          <span id="catalogMenuHeaderSlot" class="catalog-tool-slot"><button id="catalogMenuButton" class="catalog-menu-button" type="button" aria-label="Auswahl und Sortierung öffnen. Mit der Tab-Taste öffnen und schließen." title="Mit der Tab-Taste öffnen und schließen" aria-expanded="false" aria-controls="catalogDrawer">
             <svg class="catalog-menu-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
               <path d="M2 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
               <path d="M13 4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z" />
             </svg>
-          </button>
+          </button></span>
         </div>
       </div>
     </header>
@@ -51,11 +52,16 @@
       <section id="cinemaView" class="view cinema-view">
         <h1 id="projectHeading" hidden>Alle Projekte</h1>
         <section aria-labelledby="allFilmsHeading">
-          <div class="section-heading">
-            <h2 id="allFilmsHeading">Alle Filme</h2>
-            <div class="catalog-meta">
-              <span id="filmCount"></span>
+          <div id="arthouseCatalogBar" class="arthouse-catalog-bar" aria-label="Werkzeuge und aktive Filter">
+            <span id="catalogExploreArthouseSlot" class="arthouse-catalog-tool arthouse-catalog-tool-start"></span>
+            <div class="arthouse-catalog-overview">
+              <div class="section-heading">
+                <h2 id="allFilmsHeading">Alle Filme</h2>
+                <div class="catalog-meta"><span id="filmCount"></span></div>
+              </div>
+              <div id="activeCatalogFilters" class="active-catalog-filters" aria-live="polite"></div>
             </div>
+            <span id="catalogMenuArthouseSlot" class="arthouse-catalog-tool arthouse-catalog-tool-end"></span>
           </div>
           <div id="filmGrid" class="film-grid"></div>
           <div id="catalogRenderSentinel" class="catalog-render-sentinel" aria-hidden="true"></div>
@@ -152,7 +158,7 @@
       </section>
     </div>
     <div id="catalogDisplayPanel" class="catalog-drawer-fields" role="tabpanel" hidden>
-      <label>Theme<select id="catalogThemeSelect"><option value="default">Arthouse</option><option value="neon">Videothek · Neon</option></select></label>
+      <label>Theme<select id="catalogThemeSelect"><option value="default">Arthouse</option><option value="neon">Videothek · Neon</option><option value="cinema">Kino bei Nacht</option></select></label>
       <label>Sprache der App<select id="appLanguageSelect"><option value="de">Deutsch</option><option value="en">English</option></select></label>
       <label>Sprache der Filminformationen<select id="filmMetadataLanguageSelect"><option value="app">Wie App-Sprache</option><option value="original">Originalsprache</option><option value="de-DE">Deutsch</option><option value="en-US">English</option></select></label>
       <button id="syncFilmMetadataButton" class="secondary-action" type="button">Fehlende Filminformationen synchronisieren</button>
@@ -399,7 +405,7 @@
   <script src="videothek-storage.js?v=20260927-14"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20260930-159"></script>
+  <script src="videothek.js?v=20260930-168"></script>
 </body>
 </html>
 

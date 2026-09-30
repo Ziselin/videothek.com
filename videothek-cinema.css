@@ -1,0 +1,429 @@
+/*
+ * Neon V — Cinema
+ * A third, deliberately self-contained theme: a neighbourhood cinema at night.
+ * Cool neon is reserved for wayfinding; warm marquee light belongs to content
+ * and primary actions. Every rule is scoped so Default and Neon remain intact.
+ */
+
+:root[data-theme="cinema"] {
+  color-scheme: dark;
+  --bg:#090d11;
+  --panel:#111820;
+  --panel2:#18222c;
+  --line:#34414b;
+  --text:#eee8da;
+  --muted:#9fa7aa;
+  --accent:#f0a84a;
+  --accent2:#58d3ff;
+  --danger:#e06b5d;
+  --cinema-neon:#3bc8ff;
+  --cinema-neon-soft:rgba(59,200,255,.18);
+  --cinema-paper:#f4ddb0;
+  --cinema-amber:#f0a84a;
+  --cinema-facade:#0b1015;
+  --cinema-card:#121920;
+  --cinema-ink:#14110d;
+  background:#090d11;
+  font-family:SourceSans,system-ui,sans-serif;
+}
+
+:root[data-theme="cinema"] body {
+  background:
+    radial-gradient(circle at 50% -18%,rgba(41,146,184,.13),transparent 37rem),
+    linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px) 0 0/64px 64px,
+    var(--bg);
+  color:var(--text);
+}
+
+/* Facade / masthead */
+:root[data-theme="cinema"] .topbar {
+  height:82px;
+  padding-inline:clamp(18px,4vw,64px);
+  background:
+    linear-gradient(180deg,rgba(19,26,32,.98),rgba(8,12,16,.97)),
+    repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.025) 47px 48px);
+  border-top:3px solid #171d21;
+  border-bottom:1px solid #26343d;
+  box-shadow:0 10px 34px rgba(0,0,0,.36),inset 0 -1px rgba(59,200,255,.07);
+  backdrop-filter:blur(16px);
+}
+
+:root[data-theme="cinema"] .brand {
+  position:relative;
+  width:150px;
+  height:62px;
+  padding:0;
+  border:0;
+  background:transparent;
+  overflow:visible;
+}
+
+:root[data-theme="cinema"] .brand img,
+:root[data-theme="cinema"] .brand .arthouse-wordmark { display:none; }
+
+:root[data-theme="cinema"] .brand::before {
+  content:"KINO";
+  position:absolute;
+  left:0;
+  top:3px;
+  color:#b9ecff;
+  font:700 1.72rem/1 SourceSans,system-ui,sans-serif;
+  letter-spacing:.19em;
+  text-transform:uppercase;
+  text-shadow:0 0 2px #fff,0 0 7px var(--cinema-neon),0 0 18px rgba(59,200,255,.8),0 0 36px rgba(59,200,255,.38);
+}
+
+:root[data-theme="cinema"] .brand::after {
+  content:"NEON V · CINÉMA · CINEMA";
+  position:absolute;
+  left:1px;
+  top:38px;
+  color:#8a9aa1;
+  font:650 .58rem/1 SourceSans,system-ui,sans-serif;
+  letter-spacing:.13em;
+  white-space:nowrap;
+}
+
+:root[data-theme="cinema"] .main-nav { gap:3px; }
+:root[data-theme="cinema"] .nav-button {
+  min-height:42px;
+  border-radius:2px;
+  color:#929da1;
+  font-size:.73rem;
+  font-weight:750;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+:root[data-theme="cinema"] .nav-button:hover { color:#dff7ff; background:rgba(59,200,255,.08); }
+:root[data-theme="cinema"] .nav-button.is-active {
+  color:#dff8ff;
+  background:transparent;
+  box-shadow:inset 0 -2px var(--cinema-neon);
+  text-shadow:0 0 12px rgba(59,200,255,.56);
+}
+
+:root[data-theme="cinema"] .search {
+  min-height:42px;
+  border-color:#344650;
+  border-radius:3px;
+  background:#0c1217;
+  box-shadow:inset 0 1px 5px rgba(0,0,0,.4);
+}
+:root[data-theme="cinema"] .search:focus-within {
+  border-color:var(--cinema-neon);
+  box-shadow:0 0 0 3px rgba(59,200,255,.09),inset 0 1px 5px rgba(0,0,0,.4);
+}
+:root[data-theme="cinema"] .search input { color:#f0eee8; }
+:root[data-theme="cinema"] .search input::placeholder { color:#78858b; }
+
+:root[data-theme="cinema"] .catalog-menu-button {
+  border-color:#40515a;
+  border-radius:3px;
+  background:#111920;
+  color:#b9c8cd;
+  box-shadow:0 7px 18px rgba(0,0,0,.24);
+}
+:root[data-theme="cinema"] .catalog-menu-button:hover,
+:root[data-theme="cinema"] .catalog-menu-button[aria-expanded="true"] {
+  border-color:var(--cinema-neon);
+  color:#dff9ff;
+  box-shadow:0 0 15px rgba(59,200,255,.18);
+}
+
+/* Marquee: the catalogue heading becomes the illuminated programme board. */
+:root[data-theme="cinema"] .cinema-view { padding-bottom:72px; }
+:root[data-theme="cinema"] .arthouse-catalog-bar {
+  --catalog-edge-gutter:clamp(18px,4vw,64px);
+  --catalog-tool-space:68px;
+  display:grid;
+  grid-template-columns:52px minmax(0,1fr) 52px;
+  gap:16px;
+  align-items:stretch;
+  position:relative;
+  left:auto;
+  width:calc(100vw - var(--catalog-edge-gutter) - var(--catalog-edge-gutter));
+  max-width:none;
+  margin:28px 0 30px calc(50% - 50vw + var(--catalog-edge-gutter));
+  transform:none;
+}
+:root[data-theme="cinema"] .arthouse-catalog-tool {
+  display:flex;
+  position:fixed;
+  z-index:19;
+  top:var(--catalog-tool-top,110px);
+  align-items:center;
+}
+:root[data-theme="cinema"] .arthouse-catalog-tool-start { left:var(--catalog-edge-gutter); }
+:root[data-theme="cinema"] .arthouse-catalog-tool-end { right:var(--catalog-edge-gutter); }
+:root[data-theme="cinema"] .arthouse-catalog-tool-end { justify-content:flex-end; }
+:root[data-theme="cinema"] .arthouse-catalog-overview {
+  position:relative;
+  min-width:0;
+  width:var(--catalog-overview-width,auto);
+  max-width:none;
+  margin-right:0;
+  margin-left:0;
+  transform:translateX(var(--catalog-overview-shift,0px));
+  padding:18px 26px 16px;
+  border:2px solid #24292b;
+  border-radius:2px;
+  outline:0;
+  background:linear-gradient(180deg,#f2ead7 0%,#ece1ca 100%);
+  color:var(--cinema-ink);
+  box-shadow:0 10px 26px rgba(0,0,0,.42),inset 0 0 0 1px rgba(255,255,255,.34);
+}
+:root[data-theme="cinema"] .arthouse-catalog-overview::before {
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:9px 11px;
+  display:block;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(180deg,transparent 0 27px,rgba(58,52,43,.17) 27px 29px,rgba(255,255,255,.3) 29px 30px,transparent 30px 58px),
+    repeating-linear-gradient(90deg,transparent 0 178px,rgba(63,57,48,.12) 178px 180px);
+}
+:root[data-theme="cinema"] .arthouse-catalog-overview .section-heading {
+  display:contents;
+}
+:root[data-theme="cinema"] .section-heading h2 {
+  position:relative;
+  z-index:1;
+  order:1;
+  align-self:center;
+  margin:0;
+  color:#181410;
+  font-family:Impact,Haettenschweiler,"Arial Narrow",sans-serif;
+  font-size:clamp(1.7rem,3vw,2.6rem);
+  font-stretch:ultra-condensed;
+  font-weight:400;
+  line-height:.92;
+  letter-spacing:.065em;
+  text-transform:uppercase;
+  text-shadow:none;
+}
+:root[data-theme="cinema"] .arthouse-catalog-overview .catalog-meta {
+  position:relative;
+  z-index:1;
+  order:3;
+  align-self:center;
+  width:auto;
+  margin-top:12px;
+  justify-items:center;
+  text-align:center;
+}
+:root[data-theme="cinema"] .catalog-meta span {
+  color:#55483a;
+  font-family:Haettenschweiler,"Arial Narrow",SourceSans,system-ui,sans-serif;
+  font-size:.78rem;
+  font-stretch:ultra-condensed;
+  font-variant-numeric:tabular-nums;
+  font-weight:700;
+  letter-spacing:.075em;
+  text-transform:uppercase;
+}
+:root[data-theme="cinema"] .active-catalog-filters {
+  position:relative;
+  z-index:1;
+  display:flex;
+  order:2;
+  justify-content:center;
+  gap:7px;
+  margin-top:11px;
+  overflow:auto;
+  scrollbar-width:thin;
+}
+:root[data-theme="cinema"] .arthouse-catalog-overview {
+  display:flex;
+  flex-direction:column;
+}
+:root[data-theme="cinema"] .active-filter-item {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-family:Impact,Haettenschweiler,"Arial Narrow",sans-serif;
+  font-size:.84rem;
+  font-stretch:ultra-condensed;
+  font-weight:400;
+  letter-spacing:.055em;
+  line-height:1;
+  text-transform:uppercase;
+}
+:root[data-theme="cinema"] .active-catalog-filters:empty { display:none; }
+:root[data-theme="cinema"] .active-catalog-filters button,
+:root[data-theme="cinema"] .active-catalog-filters [data-remove-catalog-filter] {
+  width:22px;
+  height:22px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  color:#087ca8;
+  font-size:.82rem;
+  font-weight:400;
+  line-height:1;
+  text-shadow:0 0 3px #fff,0 0 7px rgba(0,180,255,.9),0 0 13px rgba(0,142,214,.6);
+}
+:root[data-theme="cinema"] .active-catalog-filters [data-remove-catalog-filter]:hover,
+:root[data-theme="cinema"] .active-catalog-filters [data-remove-catalog-filter]:focus-visible {
+  color:#035a7e;
+  background:rgba(21,164,218,.1);
+}
+
+/* Programme wall */
+:root[data-theme="cinema"] .film-grid {
+  width:min(100%,1420px);
+  margin-inline:auto;
+  grid-template-columns:repeat(auto-fill,minmax(155px,185px));
+  justify-content:center;
+  gap:42px 24px;
+}
+:root[data-theme="cinema"] .poster {
+  border:1px solid #34414a;
+  border-radius:2px;
+  background:#141b20;
+  box-shadow:0 15px 32px rgba(0,0,0,.42),0 1px rgba(255,255,255,.05);
+}
+:root[data-theme="cinema"] .film-card:hover .poster,
+:root[data-theme="cinema"] .film-card:focus-within .poster {
+  transform:translateY(-3px);
+  border-color:#7ddcff;
+  box-shadow:0 18px 38px rgba(0,0,0,.54),0 0 0 1px rgba(59,200,255,.35),0 0 22px rgba(59,200,255,.13);
+}
+:root[data-theme="cinema"] .film-info { padding:11px 1px 2px; }
+:root[data-theme="cinema"] .film-info strong { color:#f1eadc; font-weight:650; letter-spacing:.005em; }
+:root[data-theme="cinema"] .film-info span,
+:root[data-theme="cinema"] .film-meta { color:#89979c; }
+:root[data-theme="cinema"] .play-badge {
+  border:1px solid rgba(255,255,255,.38);
+  background:rgba(10,17,22,.88);
+  color:#c8f2ff;
+  box-shadow:0 0 22px rgba(59,200,255,.25);
+}
+
+/* Drawers are the foyer notice boards. */
+:root[data-theme="cinema"] .catalog-drawer-backdrop { background:rgba(2,6,9,.68); backdrop-filter:blur(3px); }
+:root[data-theme="cinema"] .catalog-drawer {
+  background:linear-gradient(180deg,#131c23,#0e151b);
+  border-color:#364650;
+  box-shadow:-24px 0 64px rgba(0,0,0,.52);
+}
+:root[data-theme="cinema"] .catalog-drawer-head { border-color:#34434c; }
+:root[data-theme="cinema"] .catalog-drawer-head h2 { color:#f2eadb; }
+:root[data-theme="cinema"] .catalog-drawer-head button { background:#1b2730; color:#aab8bc; }
+:root[data-theme="cinema"] .catalog-settings-tabs { border:1px solid #33424b; background:#0c1217; }
+:root[data-theme="cinema"] .catalog-settings-tabs button { color:#8f9ca1; }
+:root[data-theme="cinema"] .catalog-settings-tabs button.is-active {
+  background:#17242d;
+  color:#d9f7ff;
+  box-shadow:inset 0 -2px var(--cinema-neon);
+}
+:root[data-theme="cinema"] .catalog-explore-tabs button.has-selection::after { background:var(--cinema-neon); box-shadow:0 0 8px var(--cinema-neon); }
+:root[data-theme="cinema"] .catalog-drawer-fields label { color:#aeb8bb; }
+:root[data-theme="cinema"] .catalog-drawer-fields .drawer-toggle { background:#131c23; color:#c7ced0; }
+:root[data-theme="cinema"] .catalog-drawer-fields .drawer-toggle:has(input:checked) { background:#172730; box-shadow:inset 0 0 0 1px #39758a; }
+
+/* Archive: backstage rather than a second visual language. */
+:root[data-theme="cinema"] .machine-view { background:#0a0f13; }
+:root[data-theme="cinema"] .project-sidebar { background:#101820; border-color:#324049; }
+:root[data-theme="cinema"] .machine-content { background:#0b1015; }
+:root[data-theme="cinema"] .archive-tabs { border-color:#34434c; background:#0b1116; }
+:root[data-theme="cinema"] .archive-tab { color:#929da1; }
+:root[data-theme="cinema"] .archive-tab.is-active { color:#dff8ff; background:#19262e; box-shadow:inset 0 -2px var(--cinema-neon); }
+:root[data-theme="cinema"] .sidebar-head h1,
+:root[data-theme="cinema"] .machine-head h2 { color:#f0e9dc; font-family:Garamond,serif; }
+:root[data-theme="cinema"] .eyebrow { color:#6fdcff; }
+:root[data-theme="cinema"] .project-row:is(:hover,:focus-within),
+:root[data-theme="cinema"] .project-row.is-active { background:#19242c; }
+:root[data-theme="cinema"] .project-row.is-active { box-shadow:inset 3px 0 var(--cinema-neon); }
+:root[data-theme="cinema"] .project-item { color:#aab4b7; }
+:root[data-theme="cinema"] .project-item small { color:#17120b; background:#e2c997; }
+:root[data-theme="cinema"] .table-wrap { border-color:#35434c; border-radius:3px; background:#10171d; }
+:root[data-theme="cinema"] th { color:#89a6b1; background:#0c1217; }
+:root[data-theme="cinema"] td { color:#d9d7cf; border-color:#28363f; }
+
+/* Forms/dialogs: matte black box-office panels, not glowing everywhere. */
+:root[data-theme="cinema"] .dialog,
+:root[data-theme="cinema"] .detail-dialog {
+  border-color:#40505a;
+  border-radius:4px;
+  background:#111820;
+  color:#eee8da;
+  box-shadow:0 32px 100px rgba(0,0,0,.76),0 0 0 1px rgba(59,200,255,.05);
+}
+:root[data-theme="cinema"] .dialog::backdrop,
+:root[data-theme="cinema"] .detail-dialog::backdrop { background:rgba(2,5,8,.82); backdrop-filter:blur(6px); }
+:root[data-theme="cinema"] .dialog-head,
+:root[data-theme="cinema"] .detail-body { background:#111820; }
+:root[data-theme="cinema"] .dialog-head h2,
+:root[data-theme="cinema"] .detail-body h2 { color:#f2eadb; font-family:Garamond,serif; }
+:root[data-theme="cinema"] .dialog-close { color:#94a0a4; }
+:root[data-theme="cinema"] .dialog-close:hover { color:#c9f2ff; text-shadow:0 0 10px var(--cinema-neon); }
+:root[data-theme="cinema"] input,
+:root[data-theme="cinema"] select,
+:root[data-theme="cinema"] textarea { border-color:#3b4a53; border-radius:3px; background:#090f14; color:#f0ece3; }
+:root[data-theme="cinema"] input:focus,
+:root[data-theme="cinema"] select:focus,
+:root[data-theme="cinema"] textarea:focus { border-color:var(--cinema-neon); box-shadow:0 0 0 3px rgba(59,200,255,.1); }
+:root[data-theme="cinema"] .primary-button,
+:root[data-theme="cinema"] .empty-state button {
+  border:1px solid #ffc277;
+  border-radius:3px;
+  background:linear-gradient(#f4c36e,#d99438);
+  color:#1b1208;
+  box-shadow:0 8px 22px rgba(0,0,0,.27),0 0 14px rgba(240,168,74,.15);
+}
+:root[data-theme="cinema"] .primary-button:hover,
+:root[data-theme="cinema"] .empty-state button:hover { background:linear-gradient(#ffd58e,#eaa24a); }
+:root[data-theme="cinema"] .secondary-action,
+:root[data-theme="cinema"] .dialog-actions>button:not(.primary-button):not(.danger-button) {
+  border-color:#40515b!important;
+  border-radius:3px;
+  background:#151e25!important;
+  color:#d9e0df!important;
+}
+:root[data-theme="cinema"] .film-editor-tabs { background:#0a1015; }
+:root[data-theme="cinema"] .film-editor-tabs button { color:#909da2; }
+:root[data-theme="cinema"] .film-editor-tabs button.is-active { color:#dcf8ff; background:#17232b; box-shadow:inset 0 -2px var(--cinema-neon); }
+
+:root[data-theme="cinema"] button:focus-visible,
+:root[data-theme="cinema"] a:focus-visible,
+:root[data-theme="cinema"] input:focus-visible,
+:root[data-theme="cinema"] select:focus-visible,
+:root[data-theme="cinema"] textarea:focus-visible { outline:2px solid var(--cinema-neon); outline-offset:3px; }
+:root[data-theme="cinema"] .toast { background:var(--cinema-paper); color:#1a140c; box-shadow:0 12px 34px rgba(0,0,0,.55); }
+
+@media (max-width:800px) {
+  :root[data-theme="cinema"] .topbar { height:auto; min-height:70px; padding:8px 16px; }
+  :root[data-theme="cinema"] .brand { width:112px; height:52px; }
+  :root[data-theme="cinema"] .brand::before { top:4px; font-size:1.35rem; }
+  :root[data-theme="cinema"] .brand::after { top:33px; font-size:.48rem; }
+  :root[data-theme="cinema"] .arthouse-catalog-bar { --catalog-edge-gutter:16px; --catalog-tool-space:53px; grid-template-columns:44px minmax(0,1fr) 44px; gap:9px; margin-top:18px; }
+  :root[data-theme="cinema"] .arthouse-catalog-overview { padding:13px 15px 12px; }
+  :root[data-theme="cinema"] .film-grid { grid-template-columns:repeat(auto-fill,minmax(128px,160px)); gap:32px 16px; }
+}
+
+@media (max-width:520px) {
+  :root[data-theme="cinema"] .topbar { grid-template-columns:auto 1fr; grid-template-rows:auto auto; }
+  :root[data-theme="cinema"] .brand { grid-column:1; grid-row:1; }
+  :root[data-theme="cinema"] .main-nav { grid-column:2; grid-row:1; justify-self:end; }
+  :root[data-theme="cinema"] .top-actions { grid-column:1/-1; grid-row:2; width:100%; }
+  :root[data-theme="cinema"] .search { width:100%; }
+  :root[data-theme="cinema"] .arthouse-catalog-bar { --catalog-tool-space:47px; grid-template-columns:40px minmax(0,1fr) 40px; gap:7px; }
+  :root[data-theme="cinema"] .arthouse-catalog-overview { padding:12px 11px 10px; }
+  :root[data-theme="cinema"] .arthouse-catalog-overview::before { font-size:.49rem; }
+  :root[data-theme="cinema"] .section-heading h2 { font-size:1rem; }
+  :root[data-theme="cinema"] .film-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:25px 10px; }
+  :root[data-theme="cinema"] .film-info strong { font-size:.8rem; }
+  :root[data-theme="cinema"] .film-meta,:root[data-theme="cinema"] .film-meta button { font-size:.67rem; }
+}
+
+@media (max-width:360px) {
+  :root[data-theme="cinema"] .film-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px 12px; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  :root[data-theme="cinema"] *,
+  :root[data-theme="cinema"] *::before,
+  :root[data-theme="cinema"] *::after { scroll-behavior:auto!important; transition-duration:.01ms!important; animation-duration:.01ms!important; }
+}

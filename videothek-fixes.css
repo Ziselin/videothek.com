@@ -1324,6 +1324,254 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
   :root[data-theme="default"] .catalog-toolbar h1 { font-size: 2.65rem; }
 }
 
+/* Arthouse catalog tools live with the catalog, not in the global header. */
+.arthouse-catalog-bar { display:block; }
+.arthouse-catalog-tool,.active-catalog-filters { display:none; }
+
+:root[data-theme="default"] .arthouse-catalog-bar {
+  --catalog-edge-gutter:clamp(24px,3.35vw,64px);
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) 44px;
+  align-items:start;
+  gap:18px;
+  position:relative;
+  left:auto;
+  width:calc(100vw - var(--catalog-edge-gutter) - var(--catalog-edge-gutter));
+  max-width:none;
+  margin-left:calc(50% - 50vw + var(--catalog-edge-gutter));
+  transform:none;
+  padding:18px 0 12px;
+}
+
+:root[data-theme="default"] .arthouse-catalog-overview { min-width:0; }
+
+:root[data-theme="default"] .arthouse-catalog-tool {
+  display:flex;
+  position:fixed;
+  z-index:19;
+  top:var(--catalog-tool-top,94px);
+  min-width:44px;
+  min-height:44px;
+}
+:root[data-theme="default"] .arthouse-catalog-tool-start { left:var(--catalog-edge-gutter); }
+:root[data-theme="default"] .arthouse-catalog-tool-end { right:var(--catalog-edge-gutter); }
+
+:root[data-theme="default"] .arthouse-catalog-tool-end { justify-content:flex-end; }
+
+:root[data-theme="default"] .arthouse-catalog-bar .catalog-menu-button {
+  position:static;
+  inset:auto;
+  margin:0;
+  transform:none;
+}
+
+:root[data-theme="default"] .active-catalog-filters {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:7px 9px;
+  min-height:44px;
+  padding:3px 0;
+}
+
+:root[data-theme="default"] .active-catalog-filters[hidden] { display:none; }
+
+:root[data-theme="default"] .active-filter-item {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:32px;
+  padding:4px 5px 4px 11px;
+  border:1px solid #d8cfc3;
+  border-radius:3px;
+  background:rgba(255,253,248,.72);
+  color:#554f47;
+  font-size:.76rem;
+  line-height:1.15;
+  box-shadow:0 2px 8px rgba(54,43,31,.035);
+}
+
+:root[data-theme="default"] .active-filter-item button {
+  display:grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  padding:0;
+  border:0;
+  border-radius:2px;
+  background:transparent;
+  color:#8b776f;
+  font-size:1.05rem;
+  line-height:1;
+}
+
+:root[data-theme="default"] .active-filter-item button:hover {
+  background:#f0e5e5;
+  color:#873f4d;
+}
+
+:root[data-theme="default"] .arthouse-catalog-bar + .section-heading { margin-top:0; }
+
+@media (max-width:800px) {
+  :root[data-theme="default"] .arthouse-catalog-bar {
+    --catalog-edge-gutter:16px;
+    grid-template-columns:42px minmax(0,1fr) 42px;
+    gap:10px;
+    padding-top:14px;
+  }
+  :root[data-theme="default"] .active-catalog-filters {
+    justify-content:flex-start;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding:4px 2px 8px;
+    scrollbar-width:thin;
+  }
+  :root[data-theme="default"] .active-filter-item { flex:0 0 auto; }
+}
+
+@media (max-width:520px) {
+  :root[data-theme="default"] .arthouse-catalog-bar {
+    --catalog-edge-gutter:12px;
+    grid-template-columns:40px minmax(0,1fr) 40px;
+    gap:8px;
+    padding-top:10px;
+  }
+  :root[data-theme="default"] .active-filter-item { min-height:30px; font-size:.72rem; }
+}
+
+/* Arthouse header: editorial hierarchy instead of one long row of controls. */
+:root[data-theme="default"] .topbar {
+  position: sticky;
+  height: 76px;
+  min-height: 76px;
+  grid-template-columns: minmax(220px, 1fr) auto minmax(360px, 1fr);
+  gap: clamp(22px, 3vw, 58px);
+  padding-inline: clamp(24px, 3.35vw, 64px);
+}
+
+:root[data-theme="default"] .brand {
+  justify-self: start;
+  transition: opacity .18s ease;
+}
+
+:root[data-theme="default"] .brand:hover { opacity: .72; }
+
+:root[data-theme="default"] .main-nav {
+  position: static;
+  justify-self: center;
+  gap: 8px;
+}
+
+:root[data-theme="default"] .main-nav .nav-button {
+  position: relative;
+  min-width: 92px;
+  padding-inline: 16px;
+}
+
+:root[data-theme="default"] .main-nav .catalog-explore-button {
+  position: absolute;
+  left: clamp(176px, calc(3.35vw + 128px), 208px);
+  top: 50%;
+  margin: 0;
+  transform: translateY(-50%);
+}
+
+:root[data-theme="default"] .top-actions {
+  justify-self: end;
+  gap: 12px;
+}
+
+:root[data-theme="default"] .catalog-menu-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border-color: #d1c9bd;
+  background: rgba(255, 253, 248, .76);
+  box-shadow: 0 3px 12px rgba(54, 43, 31, .055);
+  transition: border-color .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+:root[data-theme="default"] .catalog-menu-button:hover,
+:root[data-theme="default"] .catalog-menu-button[aria-expanded="true"] {
+  border-color: #a7888c;
+  background: #fffdf8;
+  color: #7d3e49;
+  box-shadow: 0 5px 16px rgba(69, 49, 38, .1);
+  transform: translateY(-1px);
+}
+
+:root[data-theme="default"] .catalog-menu-icon { width: 17px; height: 17px; }
+
+@media (max-width: 1040px) {
+  :root[data-theme="default"] .topbar {
+    grid-template-columns: minmax(190px, 1fr) auto minmax(280px, 1fr);
+    gap: 18px;
+    padding-inline: 24px;
+  }
+  :root[data-theme="default"] .main-nav .catalog-explore-button { left: 165px; }
+  :root[data-theme="default"] .search { width: clamp(220px, 27vw, 300px); }
+}
+
+@media (max-width: 800px) {
+  :root[data-theme="default"] .topbar {
+    min-height: 112px;
+    height: auto;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 54px 46px;
+    gap: 0 10px;
+    padding: 6px 16px;
+  }
+  :root[data-theme="default"] .brand {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+  }
+  :root[data-theme="default"] .main-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    justify-content: center;
+    border-top: 1px solid color-mix(in srgb, var(--line) 62%, transparent);
+  }
+  :root[data-theme="default"] .main-nav .catalog-explore-button {
+    top: 12px;
+    right: 68px;
+    left: auto;
+    transform: none;
+  }
+  :root[data-theme="default"] .main-nav .nav-button {
+    min-width: 100px;
+    min-height: 46px;
+  }
+  :root[data-theme="default"] .top-actions {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+  :root[data-theme="default"] .catalog-menu-button:hover,
+  :root[data-theme="default"] .catalog-menu-button[aria-expanded="true"] { transform: none; }
+}
+
+@media (max-width: 520px) {
+  :root[data-theme="default"] .topbar {
+    min-height: 108px;
+    grid-template-rows: 52px 44px;
+    padding-inline: 12px;
+  }
+  :root[data-theme="default"] .brand { font-size: 1.28rem; }
+  :root[data-theme="default"] .main-nav .catalog-explore-button {
+    top: 11px;
+    right: 61px;
+  }
+  :root[data-theme="default"] .catalog-menu-button { width: 40px; height: 40px; border-radius: 9px; }
+  :root[data-theme="default"] .main-nav .nav-button {
+    min-width: 92px;
+    min-height: 44px;
+    padding: 8px 13px;
+  }
+}
+
 /* Discovery drawer entries share one interaction language in every viewport. */
 .catalog-explore-drawer .chips { display:grid; margin:0; padding:0; overflow:visible; }
 .catalog-explore-drawer .chip { flex:initial; width:100%; min-height:46px; padding:10px 12px; border-radius:7px; background:#fff; color:#3d3a35; scroll-snap-align:none; text-align:left; text-transform:none; letter-spacing:normal; }
