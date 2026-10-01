@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261001-79">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261001-80">
   <link rel="stylesheet" href="videothek-neon.css?v=20260930-33">
   <link rel="stylesheet" href="videothek-cinema.css?v=20261001-13">
 </head>
@@ -101,7 +101,7 @@
           </div>
         </div>
         <div id="playlistsContent" class="machine-content" hidden>
-          <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div><button id="playlistAddFilmButton" class="primary-button" type="button">+ Film hinzufügen</button></div>
+          <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div><div class="machine-head-actions"><button id="playlistAddFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><div id="syncCollectionControl" class="sync-control" hidden><button id="syncCollectionButton" class="secondary-action" type="button" aria-describedby="syncCollectionStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncCollectionStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div></div>
           <div id="playlistTableWrap" class="table-wrap"><table><thead><tr><th class="playlist-number-cell"><button class="table-sort-button" type="button" data-playlist-sort="number">#</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="title">Titel</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="year">Jahr</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="details">Details</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="status">Status</button></th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="playlistItems"></tbody></table></div>
           <div id="playlistArchiveEmpty" class="playlist-empty"><strong id="playlistEmptyTitle">Filme für einen Abend zusammenstellen</strong><span id="playlistEmptyText">Lege links deine erste Playlist an.</span></div>
         </div>
@@ -402,10 +402,11 @@
   <script src="videothek-import.js?v=20260927-4"></script>
   <script src="videothek-curated-playlists.js?v=20260915-2"></script>
   <script src="videothek-imdb-top250.js?v=20260820-1"></script>
-  <script src="videothek-storage.js?v=20260927-14"></script>
+  <script src="videothek-letterboxd-top500.js?v=20261001-1"></script>
+  <script src="videothek-storage.js?v=20261001-15"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261001-172"></script>
+  <script src="videothek.js?v=20261001-176"></script>
 </body>
 </html>
 

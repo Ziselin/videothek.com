@@ -80,20 +80,20 @@ body { min-width: 0; }
 .machine-head-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; flex: 0 0 auto; }
 .machine-head-actions button { flex: 0 0 auto; white-space: nowrap; }
 .sync-control { position: relative; flex: 0 0 auto; }
-#syncProjectButton,.project-merge-control { position: relative; isolation: isolate; min-width: 154px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; overflow: hidden; font-variant-numeric: tabular-nums; }
-#syncProjectButton > span:not(.sync-project-progress),.project-merge-control > span:not(.sync-project-progress) { position: relative; z-index: 1; }
+#syncProjectButton,#syncCollectionButton,.project-merge-control { position: relative; isolation: isolate; min-width: 154px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; overflow: hidden; font-variant-numeric: tabular-nums; }
+#syncProjectButton > span:not(.sync-project-progress),#syncCollectionButton > span:not(.sync-project-progress),.project-merge-control > span:not(.sync-project-progress) { position: relative; z-index: 1; }
 .project-merge-control { position:absolute; z-index:3; inset:0 43px 0 0; min-width:0; padding:0 10px; color:var(--text); }
 .project-merge-control[hidden] { display:none; }
 .sync-project-progress { position: absolute; inset: 0 auto 0 0; z-index: 0; width: var(--sync-progress, 0%); background: color-mix(in srgb, var(--accent) 20%, transparent); transition: width .18s ease; }
 .sync-project-count { min-width: 2.3ch; padding: 1px 6px; border-radius: 999px; background: color-mix(in srgb, currentColor 10%, transparent); font-size: .78rem; }
 .sync-project-spinner { display: none; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; }
-#syncProjectButton[aria-busy="true"] .sync-project-spinner,.project-merge-control[aria-busy="true"] .sync-project-spinner { display: inline-block; animation: sync-project-spin .8s linear infinite; }
-#syncProjectButton[data-state="complete"] .sync-project-label::before,.project-merge-control[data-state="complete"] .sync-project-label::before { content: "✓ "; }
-#syncProjectButton[data-state="error"] .sync-project-label::before,.project-merge-control[data-state="error"] .sync-project-label::before { content: "↻ "; }
+#syncProjectButton[aria-busy="true"] .sync-project-spinner,#syncCollectionButton[aria-busy="true"] .sync-project-spinner,.project-merge-control[aria-busy="true"] .sync-project-spinner { display: inline-block; animation: sync-project-spin .8s linear infinite; }
+#syncProjectButton[data-state="complete"] .sync-project-label::before,#syncCollectionButton[data-state="complete"] .sync-project-label::before,.project-merge-control[data-state="complete"] .sync-project-label::before { content: "✓ "; }
+#syncProjectButton[data-state="error"] .sync-project-label::before,#syncCollectionButton[data-state="error"] .sync-project-label::before,.project-merge-control[data-state="error"] .sync-project-label::before { content: "↻ "; }
 .machine-head-actions button:disabled { opacity: .62; cursor: not-allowed; }
 @keyframes sync-project-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .sync-project-progress { transition: none; } #syncProjectButton[aria-busy="true"] .sync-project-spinner,.project-merge-control[aria-busy="true"] .sync-project-spinner { animation: none; border-style: dotted; } }
-@media (max-width: 620px) { .machine-head { align-items: flex-start; flex-direction: column; } .machine-head-actions { width: 100%; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px; } .machine-head-actions > button,.sync-control,#syncProjectButton { width: 100%; min-width: 0; } .machine-head-actions button { padding-inline: 10px; } }
+@media (prefers-reduced-motion: reduce) { .sync-project-progress { transition: none; } #syncProjectButton[aria-busy="true"] .sync-project-spinner,#syncCollectionButton[aria-busy="true"] .sync-project-spinner,.project-merge-control[aria-busy="true"] .sync-project-spinner { animation: none; border-style: dotted; } }
+@media (max-width: 620px) { .machine-head { align-items: flex-start; flex-direction: column; } .machine-head-actions { width: 100%; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px; } .machine-head-actions > button,.sync-control,#syncProjectButton,#syncCollectionButton { width: 100%; min-width: 0; } .machine-head-actions button { padding-inline: 10px; } }
 @media (max-width: 800px) { .machine-view { grid-template-columns: 1fr; height: auto; min-height: calc(100dvh - 72px); overflow: visible; } .project-sidebar, .machine-content { width: 100%; height: auto; overflow: visible; scrollbar-gutter: auto; } }
 @media (max-width: 800px) {
   #projectsContent { padding-top:22px; }
