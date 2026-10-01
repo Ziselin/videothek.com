@@ -889,9 +889,10 @@ input[readonly],textarea[readonly],.auto-filled-field {
 .player-more { font-size:1.35rem; }
 .player-more-menu { position:absolute; right:0; bottom:42px; min-width:175px; padding:6px; border:1px solid rgba(255,255,255,.16); border-radius:8px; background:rgba(30,30,32,.98); box-shadow:0 12px 35px rgba(0,0,0,.48); }
 .player-more-menu[hidden],.player-more-menu button[hidden] { display:none!important; }
-.player-more-menu a,.player-more-menu button { width:100%; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:9px 10px; border:0; border-radius:5px; background:transparent; color:#fff; text-decoration:none; font-size:.88rem; text-align:left; white-space:nowrap; }
+.player-more-menu a,.player-more-menu button { width:100%; display:flex; align-items:center; justify-content:flex-start; gap:10px; padding:9px 10px; border:0; border-radius:5px; background:transparent; color:#fff; text-decoration:none; font-size:.88rem; text-align:left; white-space:nowrap; }
 .player-more-menu a:hover,.player-more-menu a:focus-visible,.player-more-menu button:hover,.player-more-menu button:focus-visible { background:rgba(255,255,255,.12); }
-.player-more-menu .player-cast-icon { width:21px; height:21px; flex:0 0 21px; fill:currentColor; }
+.player-more-menu .player-menu-icon { width:20px; height:20px; flex:0 0 20px; fill:currentColor; }
+.player-more-menu .player-source-icon { width:18px; height:18px; margin-inline:1px; flex-basis:18px; }
 .player-subtitle-wrap { position:relative; }
 .player-subtitle-wrap[hidden],.player-subtitle-menu[hidden] { display:none!important; }
 .player-captions svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
@@ -1594,4 +1595,30 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
 @media (max-width:360px) {
   .film-grid,.film-grid.is-searching { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 12px; }
   .film-info strong { font-size:.88rem; }
+}
+
+/* Sidebar tools are viewport controls; the catalogue heading is independently centered. */
+:root[data-theme="default"] .arthouse-catalog-bar {
+  display:block;
+  width:100%;
+  max-width:none;
+  margin-left:0;
+  margin-right:0;
+}
+:root[data-theme="default"] .arthouse-catalog-overview {
+  width:var(--catalog-overview-width,100%);
+  max-width:100%;
+  margin-inline:auto;
+}
+
+/* Every catalogue card reserves exactly one line for its title. */
+.film-info { min-width:0; }
+.film-info strong {
+  display:block;
+  min-height:0;
+  max-width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  -webkit-line-clamp:unset;
 }

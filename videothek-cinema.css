@@ -427,3 +427,18 @@
   :root[data-theme="cinema"] *::before,
   :root[data-theme="cinema"] *::after { scroll-behavior:auto!important; transition-duration:.01ms!important; animation-duration:.01ms!important; }
 }
+
+/* The marquee owns its centering; fixed sidebar tools do not participate in its layout. */
+:root[data-theme="cinema"] .arthouse-catalog-bar {
+  display:block;
+  width:100%;
+  max-width:none;
+  margin-left:0;
+  margin-right:0;
+}
+:root[data-theme="cinema"] .arthouse-catalog-overview {
+  width:var(--catalog-overview-width,100%);
+  max-width:100%;
+  margin-inline:auto;
+  transform:none;
+}
