@@ -319,6 +319,11 @@
   box-shadow:inset 0 -2px var(--cinema-neon);
 }
 :root[data-theme="cinema"] .catalog-explore-tabs button.has-selection::after { background:var(--cinema-neon); box-shadow:0 0 8px var(--cinema-neon); }
+:root[data-theme="cinema"] .catalog-collection-group { border-top-color:rgba(130,205,226,.18); }
+:root[data-theme="cinema"] .catalog-collection-group > h3 { color:#d9f5fb; }
+:root[data-theme="cinema"] .catalog-collection-region { border-left-color:rgba(130,205,226,.24); }
+:root[data-theme="cinema"] .catalog-collection-region > h4 { color:#9ebac4; }
+:root[data-theme="cinema"] .catalog-collection-subregion { color:#718792; }
 :root[data-theme="cinema"] .catalog-drawer-fields label { color:#aeb8bb; }
 :root[data-theme="cinema"] .catalog-drawer-fields .drawer-toggle { background:#131c23; color:#c7ced0; }
 :root[data-theme="cinema"] .catalog-drawer-fields .drawer-toggle:has(input:checked) { background:#172730; box-shadow:inset 0 0 0 1px #39758a; }

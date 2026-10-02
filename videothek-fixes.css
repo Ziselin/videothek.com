@@ -949,6 +949,14 @@ input[readonly],textarea[readonly],.auto-filled-field {
 .catalog-explore-choice:hover,.catalog-explore-drawer .chip:hover { border-color:#b49b9e; background:#fbf5f6; }
 .catalog-explore-choice.is-active,.catalog-explore-drawer .chip.is-active { border-color:#8c5962; background:#f7edef; color:#713641; box-shadow:inset 3px 0 #9b4f61; }
 .catalog-explore-choice small { color:#85817a; font-size:.75rem; }
+.catalog-collection-all { margin-bottom:9px; }
+.catalog-collection-group { display:grid; gap:7px; margin-top:18px; padding-top:17px; border-top:1px solid #dedbd4; }
+.catalog-collection-group > h3 { margin:0 2px 3px; color:#3d3a35; font-size:.74rem; font-weight:800; letter-spacing:.1em; line-height:1.3; text-transform:uppercase; }
+.catalog-collection-group-items { display:grid; gap:7px; }
+.catalog-collection-region { display:grid; gap:7px; margin-top:8px; padding-left:9px; border-left:2px solid #dedbd4; }
+.catalog-collection-region > h4 { margin:0 2px 1px; color:#6f6b65; font-size:.72rem; font-weight:750; letter-spacing:.045em; }
+.catalog-collection-subregion { display:block; margin:6px 4px -2px; color:#8a857e; font-size:.66rem; font-weight:700; letter-spacing:.075em; text-transform:uppercase; }
+.catalog-collection-region .catalog-explore-choice { min-height:43px; margin-left:0; }
 .catalog-explore-button { margin-right:8px; }
 .cinema-view.has-catalog-context .section-heading h2 { display:block; }
 .catalog-drawer-head { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; padding-bottom:22px; border-bottom:1px solid #dedbd4; }
