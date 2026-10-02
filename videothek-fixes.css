@@ -437,7 +437,7 @@ body { background:#f5f4f0; font-family:SourceSans,system-ui,sans-serif; }
 .film-info { padding-top:11px; }
 .film-info strong { font-size:1rem; font-weight:650; letter-spacing:-.005em; }
 .film-info span { font-size:.82rem; color:#85837d; }
-.film-info .collection-number { display:block; margin-top:3px; color:#85837d; font-size:.82rem; font-weight:400; letter-spacing:0; }
+.collection-number { display:block; min-height:1.2em; margin:4px 3px 0; overflow:hidden; color:#85837d; font-size:.82rem; font-weight:400; line-height:1.2; letter-spacing:0; text-overflow:ellipsis; white-space:nowrap; }
 .play-badge { width:42px; height:42px; background:rgba(255,255,255,.94); color:#343431; }
 .empty-state { background:rgba(255,255,255,.58); border-color:#d4d1ca; }
 .empty-state strong { font-size:1.3rem; font-weight:650; }
@@ -1630,5 +1630,15 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
   overflow:hidden;
   white-space:nowrap;
   text-overflow:ellipsis;
+  -webkit-line-clamp:unset;
+}
+:root[data-theme="default"] .film-info strong {
+  display:block;
+  min-height:0;
+  max-width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  -webkit-box-orient:initial;
   -webkit-line-clamp:unset;
 }
