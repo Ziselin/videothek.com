@@ -106,6 +106,7 @@ function persistIndexedState(){if(!window.NeonVStorage)return;window.NeonVStorag
 function localSnapshotMetadata(revision=stateRevision){return{revision,projectCount:projects.length,filmCount:projects.reduce((sum,project)=>sum+(project.films||[]).length,0),playlistCount:playlists.length}}
 function localSnapshotIsComplete(){try{const meta=JSON.parse(localStorage.getItem(STATE_SNAPSHOT_META_KEY)||"null");return Boolean(meta&&Number(meta.revision)===stateRevision&&Number(meta.projectCount)===projects.length&&Number(meta.filmCount)===projects.reduce((sum,project)=>sum+(project.films||[]).length,0)&&Number(meta.playlistCount)===playlists.length)}catch{return false}}
 function writeLocalSnapshot(){const projectJson=JSON.stringify(projects),playlistJson=JSON.stringify(playlists);try{localStorage.setItem(STORAGE_KEY,projectJson);localStorage.setItem(PLAYLISTS_KEY,playlistJson);localStorage.setItem(ACTIVE_KEY,activeProjectId);localStorage.setItem(ACTIVE_PLAYLIST_KEY,activePlaylistId);localStorage.setItem(STATE_SNAPSHOT_META_KEY,JSON.stringify(localSnapshotMetadata()));localStorage.setItem(STATE_REVISION_KEY,String(stateRevision));return true}catch(error){console.warn("Neon V local snapshot could not be updated; IndexedDB remains authoritative",error);localStorage.removeItem(STATE_SNAPSHOT_META_KEY);localStorage.removeItem(STATE_REVISION_KEY);return false}}
+function invalidateLocalSnapshot(){try{localStorage.setItem(ACTIVE_KEY,activeProjectId);localStorage.removeItem(STATE_SNAPSHOT_META_KEY);localStorage.removeItem(STATE_REVISION_KEY)}catch{}}
 let filmEditSaveBatch=false,filmEditPersistenceBatch=false,pendingFilmEditPersistence=null,filmSaveQueued=false;
 function save(){if(filmEditSaveBatch)return;reconcileDuplicateFilmsGlobally();reconcileAllPlaylistPlaceholders();syncPlaylistCollectionNumbers();stateRevision=Date.now();writeLocalSnapshot();persistIndexedState()}
 function persistPlaylistEditState(){stateRevision=Date.now();if(!window.NeonVStorage?.persistPlaylists){writeLocalSnapshot();persistIndexedState();return}window.NeonVStorage.persistPlaylists(playlists,stateRevision).catch(error=>{console.warn("Neon V incremental playlist write failed; falling back to full persistence",error);writeLocalSnapshot();persistIndexedState()})}
@@ -262,7 +263,7 @@ function normalizedFilmIdentifier(value){return String(value??"").trim().toLocal
 function filmsShareIdentifier(first,second){return FILM_IDENTIFIER_KEYS.some(key=>{const a=normalizedFilmIdentifier(first?.[key]),b=normalizedFilmIdentifier(second?.[key]);return Boolean(a&&b&&a===b&&(key!=="tmdbId"||tmdbMediaTypeForFilm(first)===tmdbMediaTypeForFilm(second)))})}
 function redirectPlaylistFilmReferences(oldIds,newId){const oldSet=new Set(oldIds.map(String).filter(id=>id!==String(newId)));if(!oldSet.size)return;playlists.forEach(playlist=>{playlist.filmIds=[...new Set((playlist.filmIds||[]).map(id=>oldSet.has(String(id))?newId:id))];const assignments=new Map();(playlist.filmAssignments||[]).forEach(entry=>{const filmId=oldSet.has(String(entry.filmId))?newId:entry.filmId,key=String(filmId),previous=assignments.get(key)||{};assignments.set(key,{...previous,...entry,filmId,collectionNumber:previous.collectionNumber||entry.collectionNumber||"",details:previous.details||entry.details||""})});playlist.filmAssignments=[...assignments.values()];(playlist.placeholders||[]).forEach(entry=>{if(oldSet.has(String(entry.filmId)))entry.filmId=newId})})}
 function mergeFilmIntoProject(target,film){target.films=Array.isArray(target.films)?target.films:[];const hasId=FILM_IDENTIFIER_KEYS.some(key=>normalizedFilmIdentifier(film[key]));if(!hasId){target.films.unshift(film);return film}const matches=target.films.filter(candidate=>filmsShareIdentifier(film,candidate));if(!matches.length){target.films.unshift(film);return film}const base=matches[0],mergedIds=[film.id,...matches.map(match=>match.id)];const copiesByLink=new Map();[...filmCopies(base),...matches.slice(1).flatMap(filmCopies),...filmCopies(film)].forEach(copy=>{const link=String(copy.link||"").trim(),key=link||`missing-${copiesByLink.size}`;if(!copiesByLink.has(key))copiesByLink.set(key,{...copy})});base.copies=[...copiesByLink.values()];base.localizedMetadata=Object.assign({},...matches.map(match=>match.localizedMetadata||{}),film.localizedMetadata||{});FILM_IDENTIFIER_KEYS.forEach(key=>{if(!normalizedFilmIdentifier(base[key]))base[key]=matches.map(match=>match[key]).find(value=>normalizedFilmIdentifier(value))||film[key]||""});const protectedFields=new Set(["id","copies","link","status","localizedMetadata","mediaType",...FILM_IDENTIFIER_KEYS]);[...matches.slice(1),film].forEach(incoming=>Object.entries(incoming).forEach(([key,value])=>{if(!protectedFields.has(key)&&(base[key]===undefined||base[key]===null||base[key]==="")&&value!==undefined&&value!==null&&value!=="")base[key]=structuredClone(value)}));target.films=target.films.filter(candidate=>candidate===base||!matches.includes(candidate));redirectPlaylistFilmReferences(mergedIds,base.id);return base}
-function projectMergeIdentifierKeys(film){return FILM_IDENTIFIER_KEYS.flatMap(key=>{const value=normalizedFilmIdentifier(film?.[key]);if(!value)return[];return[`${key}:${key==="tmdbId"?`${tmdbMediaTypeForFilm(film)}:`:""}${value}`]})}
+function projectMergeIdentifierKeys(film){const internalId=normalizedFilmIdentifier(film?.id);return[...(internalId?[`id:${internalId}`]:[]),...FILM_IDENTIFIER_KEYS.flatMap(key=>{const value=normalizedFilmIdentifier(film?.[key]);if(!value)return[];return[`${key}:${key==="tmdbId"?`${tmdbMediaTypeForFilm(film)}:`:""}${value}`]})]}
 async function mergeProjectsIndexed(target,films,onProgress){const index=new Map(),removed=new Set(),added=[],failed=[];const register=film=>projectMergeIdentifierKeys(film).forEach(key=>index.set(key,film));(target.films||[]).forEach(register);for(let position=0;position<films.length;position++){const original=films[position];try{const film=structuredClone(original),matches=[...new Set(projectMergeIdentifierKeys(film).map(key=>index.get(key)).filter(candidate=>candidate&&!removed.has(candidate)))];if(!matches.length){added.push(film);register(film)}else{const base=matches[0],incoming=[...matches.slice(1),film],copiesByLink=new Map();[...filmCopies(base),...incoming.flatMap(filmCopies)].forEach(copy=>{const link=String(copy.link||"").trim(),key=link||`missing-${copiesByLink.size}`;if(!copiesByLink.has(key))copiesByLink.set(key,{...copy})});base.copies=[...copiesByLink.values()];base.localizedMetadata=Object.assign({},base.localizedMetadata||{},...incoming.map(item=>item.localizedMetadata||{}));FILM_IDENTIFIER_KEYS.forEach(key=>{if(!normalizedFilmIdentifier(base[key]))base[key]=incoming.map(item=>item[key]).find(value=>normalizedFilmIdentifier(value))||""});const protectedFields=new Set(["id","copies","link","status","localizedMetadata","mediaType",...FILM_IDENTIFIER_KEYS]);incoming.forEach(item=>Object.entries(item).forEach(([key,value])=>{if(!protectedFields.has(key)&&(base[key]===undefined||base[key]===null||base[key]==="")&&value!==undefined&&value!==null&&value!=="")base[key]=structuredClone(value)}));matches.slice(1).forEach(item=>removed.add(item));redirectPlaylistFilmReferences([film.id,...matches.slice(1).map(item=>item.id)],base.id);register(base)}}catch(error){console.warn("Project merge entry retained",original?.title||original?.id,error);failed.push(original)}const completed=position+1;if(completed%200===0||completed===films.length){onProgress?.(completed,films.length,failed.length);await nextPaint()}}target.films=[...added.reverse(),...(target.films||[]).filter(film=>!removed.has(film))];return{target,failed}}
 function reconcileDuplicateFilmsInProjects(){let merged=0;projects.forEach(project=>{const films=[...(project.films||[])];project.films=[];films.forEach(film=>{const stored=mergeFilmIntoProject(project,film);if(stored!==film)merged++;else if(project.films[0]===film)project.films.push(project.films.shift())})});return merged}
 const PROJECT_FILM_FIELDS=new Set(["copies","link","status"]);
@@ -776,7 +777,7 @@ const nextPaint=()=>new Promise(resolve=>requestAnimationFrame(()=>resolve()));
 function setProjectMergeIndicator(row,{state="progress",completed=0,total=0,label=""}={}){
   const control=row?.querySelector("[data-project-merge-status]"),text=control?.querySelector(".sync-project-label"),count=control?.querySelector(".sync-project-count");
   if(!row||!control||!text||!count)return;
-  const english=interfaceLanguage()==="en",progress=state==="complete"?100:(total?Math.round(completed/total*92):0);
+  const english=interfaceLanguage()==="en",progress=state==="complete"?100:(total?Math.round(completed/total*100):0);
   control.hidden=false;control.dataset.state=state;control.style.setProperty("--sync-progress",`${progress}%`);control.toggleAttribute("aria-busy",state==="progress");
   if(state==="complete"){text.textContent=english?"Done":"Fertig";count.textContent="";control.setAttribute("aria-label",english?"Projects merged":"Projekte zusammengeführt");return}
   if(state==="error"){text.textContent=english?"Merge failed":"Zusammenführen fehlgeschlagen";count.textContent="";control.setAttribute("aria-label",text.textContent);return}
@@ -791,24 +792,61 @@ async function mergeProjectsWithProgress(sourceId,targetId){
   projectMergeInProgress=true;
   if(job)updateBackgroundOperation(job,{targetProjectId:targetId,total:films.length||1,detail:`0 / ${films.length}`});if(row){row.classList.add("is-project-merging");row.setAttribute("aria-busy","true");setProjectMergeIndicator(row,{completed:0,total:films.length})}els.projectList.classList.add("has-project-merge");toast(`„${source.name}“ wird mit „${dest.name}“ zusammengeführt …`);await nextPaint();
   try{
-    const mergeResult=await mergeProjectsIndexed(dest,films,(completed,totalFilms,failed)=>{const detail=`${completed} / ${totalFilms}${failed?` · ${failed} offen`:""}`;if(job)updateBackgroundOperation(job,{progress:completed,detail});if(row?.isConnected)setProjectMergeIndicator(row,{completed,total:totalFilms,label:detail})});
-    source.films=mergeResult.failed;
-    if(!source.films.length)projects=projects.filter(project=>!sameId(project.id,sourceId));
-    else source.name=source.name.replace(/\s·\sNicht übertragen \(\d+\)$/u,"")+` · Nicht übertragen (${source.films.length})`;
-    if(sameId(activeProjectId,sourceId))activeProjectId=source.films.length?sourceId:targetId;
-    if(job)updateBackgroundOperation(job,{progress:Math.max(0,total-1),detail:interfaceLanguage()==="en"?"Saving …":"Speichern …"});if(row?.isConnected){const control=row.querySelector("[data-project-merge-status]");setProjectMergeIndicator(row,{completed:total,total,label:interfaceLanguage()==="en"?"Saving …":"Speichern …"});control?.setAttribute("aria-label",interfaceLanguage()==="en"?"Projects are being saved securely":"Projekte werden sicher gespeichert");control?.style.setProperty("--sync-progress","96%")}await nextPaint();
-    if(!window.NeonVStorage?.mergeProjects)throw new Error("indexeddb-merge-unavailable");
+    dest.films=[...(dest.films||[]),...films];
+    dest.reconciliationPending=true;
+    dest.reconciliationStartedAt=new Date().toISOString();
+    projects=projects.filter(project=>!sameId(project.id,sourceId));
+    if(sameId(activeProjectId,sourceId))activeProjectId=targetId;
+    render();
+    if(job)updateBackgroundOperation(job,{progress:Math.max(0,total-1),detail:interfaceLanguage()==="en"?"Securing merged project …":"Zusammenlegung wird gesichert …"});await nextPaint();
+    if(!window.NeonVStorage?.combineProjects)throw new Error("indexeddb-fast-merge-unavailable");
     stateRevision=Date.now();
-    await window.NeonVStorage.mergeProjects({sourceId,targetProject:dest,remainingSourceProject:source.films.length?source:null,playlists,activeProjectId,stateRevision});
+    await window.NeonVStorage.combineProjects({sourceId,targetProject:dest,activeProjectId,stateRevision});
     committed=true;
-    writeLocalSnapshot();
+    dest.films.length>2000?invalidateLocalSnapshot():writeLocalSnapshot();
     render();
     const completedRow=els.projectList.querySelector(`[data-project-drag="${CSS.escape(String(targetId))}"]`);
     if(completedRow){completedRow.classList.add("is-project-merging","is-project-drop-complete");completedRow.setAttribute("aria-busy","false");setProjectMergeIndicator(completedRow,{state:"complete",completed:total,total});if(performance.now()-started<380)await new Promise(resolve=>setTimeout(resolve,380-(performance.now()-started)));setTimeout(()=>{const control=completedRow.querySelector("[data-project-merge-status]");completedRow.classList.remove("is-project-merging","is-project-drop-complete");completedRow.removeAttribute("aria-busy");if(control){control.hidden=true;control.removeAttribute("aria-busy");control.style.removeProperty("--sync-progress")}},900)}
-    toast(source.films.length?`${films.length-source.films.length} Einträge übertragen · ${source.films.length} problematische Einträge bleiben im Quellprojekt`:`${films.length} Einträge sicher verarbeitet · Quellprojekt vollständig zusammengelegt`)
+    queueProjectReconciliation(targetId);
+    toast(`${films.length} Einträge zusammengelegt · die Dublettenprüfung läuft anschließend im Hintergrund`)
   }catch(error){
     console.error("Project merge failed",error);if(job)job.failed=true;if(row){setProjectMergeIndicator(row,{state:"error"});row.setAttribute("aria-busy","false")}if(!committed){await new Promise(resolve=>setTimeout(resolve,650));projects=snapshot.projects;playlists=snapshot.playlists;activeProjectId=snapshot.activeProjectId;render();toast("Die Zusammenführung wurde zurückgerollt – beide Projekte sind unverändert erhalten")}else{try{render()}catch{}toast("Die Projekte wurden gespeichert; die Ansicht konnte nicht vollständig aktualisiert werden")}
   }finally{projectMergeInProgress=false;els.projectList.classList.remove("has-project-merge")}
+}
+function queueProjectReconciliation(projectId){
+  const project=projects.find(item=>sameId(item.id,projectId));
+  if(!project||backgroundOperations.some(job=>job.type==="reconcile"&&sameId(job.targetProjectId,projectId)))return;
+  enqueueBackgroundOperation({type:"reconcile",label:`Dublettenprüfung: ${project.name}`,targetProjectId:project.id,run:job=>reconcileProjectInBackground(project.id,job)})
+}
+async function reconcileProjectInBackground(projectId,job){
+  const project=projects.find(item=>sameId(item.id,projectId));
+  if(!project)return;
+  const originalFilms=project.films,playlistSnapshot=structuredClone(playlists),films=[...originalFilms],working={...project,films:[]};
+  updateBackgroundOperation(job,{progress:0,total:Math.max(films.length,1),detail:`0 / ${films.length}`});
+  try{
+    const result=await mergeProjectsIndexed(working,[...films].reverse(),(completed,total,failed)=>updateBackgroundOperation(job,{progress:completed,total:Math.max(total,1),detail:`${completed} / ${total}${failed?` · ${failed} offen`:""}`}));
+    if(result.failed.length)result.target.films.push(...result.failed);
+    project.films=result.target.films;
+    delete project.reconciliationPending;
+    delete project.reconciliationStartedAt;
+    reconcileAllPlaylistPlaceholders();
+    syncPlaylistCollectionNumbers();
+    stateRevision=Date.now();
+    if(!window.NeonVStorage?.persistProject||!window.NeonVStorage?.persistPlaylists)throw new Error("indexeddb-reconciliation-unavailable");
+    await window.NeonVStorage.persistPlaylists(playlists,stateRevision);
+    await window.NeonVStorage.persistProject(project,activeProjectId);
+    project.films.length>2000?invalidateLocalSnapshot():writeLocalSnapshot();
+    render();
+    const removed=Math.max(0,films.length-project.films.length);
+    toast(removed?`${removed} Dublette${removed===1?"":"n"} zusammengeführt${result.failed.length?` · ${result.failed.length} Einträge unverändert erhalten`:""}`:`Dublettenprüfung abgeschlossen · ${films.length} Einträge geprüft`)
+  }catch(error){
+    project.films=originalFilms;
+    playlists=playlistSnapshot;
+    project.reconciliationPending=true;
+    render();
+    toast("Die Zusammenlegung bleibt erhalten; die Dublettenprüfung konnte nicht abgeschlossen werden");
+    throw error
+  }
 }
 const PROJECT_DELETE_HOLD_MS=1050,PROJECT_DELETE_MOVE_TOLERANCE=12;
 let projectDeleteHold=null;
@@ -976,6 +1014,7 @@ async function initializeApplication(){
   registerWebMCP();
   els.searchInput.value=catalogSearchQuery;
   render(false);
+  projects.filter(project=>project.reconciliationPending).forEach(project=>queueProjectReconciliation(project.id));
   setArchiveSection(activeArchiveSection);
   translateUi();
   if(document.documentElement.lang==="en")new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{if(node.nodeType===Node.ELEMENT_NODE)translateUi(node)}))).observe(document.body,{childList:true,subtree:true});
@@ -985,7 +1024,7 @@ async function initializeApplication(){
   requestAnimationFrame(()=>setTimeout(renderCatalog,0));
   const maintainCatalog=()=>{const reconciledFilmDuplicates=reconcileDuplicateFilmsGlobally(),repairedTitles=repairMissingFilmTitles(),reconciledPlaylists=reconcileAllPlaylistPlaceholders();syncPlaylistCollectionNumbers();if(normalizedListKinds||reconciledFilmDuplicates||repairedTitles||reconciledPlaylists){try{localStorage.setItem(PLAYLISTS_KEY,JSON.stringify(playlists));if(reconciledFilmDuplicates||repairedTitles)localStorage.setItem(STORAGE_KEY,JSON.stringify(projects))}catch{}persistIndexedState();render()}if(reconciledFilmDuplicates)toast(reconciledFilmDuplicates===1?"Eine Dublette anhand übereinstimmender IDs zusammengeführt":`${reconciledFilmDuplicates} Dubletten anhand übereinstimmender IDs zusammengeführt`)};
   const maintenanceKey="videothek-catalog-maintenance-v1",maintenanceVersion="2026-09-26-2";
-  if(localStorage.getItem(maintenanceKey)!==maintenanceVersion){const runMaintenance=()=>{maintainCatalog();localStorage.setItem(maintenanceKey,maintenanceVersion)};if("requestIdleCallback" in window)requestIdleCallback(runMaintenance,{timeout:10000});else setTimeout(runMaintenance,4000)}
+  if(localStorage.getItem(maintenanceKey)!==maintenanceVersion){const runMaintenance=()=>{if(projects.some(project=>project.reconciliationPending)){setTimeout(runMaintenance,5000);return}maintainCatalog();localStorage.setItem(maintenanceKey,maintenanceVersion)};if("requestIdleCallback" in window)requestIdleCallback(runMaintenance,{timeout:10000});else setTimeout(runMaintenance,4000)}
 }
 $("filmSubtitleList").addEventListener("click",event=>{const button=event.target.closest("[data-sync-subtitle]");if(button)openSubtitleSync(button.dataset.syncSubtitle)});
 $("subtitleSyncCopy").addEventListener("change",()=>{if(!subtitleSyncState)return;clearSubtitleSyncPreview();subtitleSyncState.copyId=$("subtitleSyncCopy").value;subtitleSyncState.changed=false;$("subtitleSyncWorkspace").hidden=true;$("subtitleSyncVideo").pause();$("subtitleSyncVideo").removeAttribute("src");$("subtitleSyncStatus").textContent="Starte die Synchronisierung für die gewählte Filmfassung.";$("subtitleSyncSave").disabled=true});
