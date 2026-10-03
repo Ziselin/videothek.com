@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261003-89">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261003-92">
   <link rel="stylesheet" href="videothek-neon.css?v=20261003-36">
   <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
 </head>
@@ -177,6 +177,7 @@
     <div id="catalogDisplayPanel" class="catalog-drawer-fields" role="tabpanel" hidden>
       <label>Theme<select id="catalogThemeSelect"><option value="default">Arthouse</option><option value="neon">Videothek · Neon</option><option value="cinema">Kino bei Nacht</option></select></label>
       <label class="drawer-toggle"><input id="catalogCollectorHighlightToggle" type="checkbox" checked><span>Sammler-Markierungen anzeigen</span></label>
+      <p class="drawer-language-empty drawer-setting-note">Gold kennzeichnet physische Fassungen und hochwertige digitale Käufe. Blau kennzeichnet andere Fassungen mit hervorragender oder sehr guter Qualität.</p>
       <label>Sprache der App<select id="appLanguageSelect"><option value="de">Deutsch</option><option value="en">English</option></select></label>
       <label>Sprache der Filminformationen<select id="filmMetadataLanguageSelect"><option value="app">Wie App-Sprache</option><option value="original">Originalsprache</option><option value="de-DE">Deutsch</option><option value="en-US">English</option></select></label>
       <button id="syncFilmMetadataButton" class="secondary-action" type="button">Fehlende Filminformationen synchronisieren</button>
@@ -443,7 +444,7 @@
   <script src="videothek-storage.js?v=20261002-16"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261003-199"></script>
+  <script src="videothek.js?v=20261003-203"></script>
 </body>
 </html>
 

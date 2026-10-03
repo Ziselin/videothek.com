@@ -31,18 +31,48 @@ body { min-width: 0; }
 @keyframes project-drop-complete { 0% { box-shadow:inset 0 0 0 1px #ff4f9a,0 0 0 rgba(40,222,209,0); } 38% { box-shadow:inset 0 0 0 1px #28ded1,0 0 22px rgba(40,222,209,.28); } 100% { box-shadow:inset 0 0 0 1px transparent,0 0 0 rgba(40,222,209,0); } }
 .poster { display: block; }
 html[data-collector-highlights="true"] .film-card.is-collector-copy .poster {
-  outline:1px solid rgba(244,201,91,.82);
+  border-color:rgba(255,211,91,.94);
+  outline:1px solid rgba(88,58,12,.9);
   outline-offset:2px;
-  filter:drop-shadow(0 0 5px rgba(244,190,55,.24));
+  box-shadow:0 0 0 1px rgba(255,224,132,.4),0 0 13px rgba(244,183,36,.48),0 13px 27px rgba(0,0,0,.34);
 }
 html[data-collector-highlights="true"] .mini-poster.collector-cover {
-  outline:1px solid rgba(244,201,91,.88);
+  outline:1px solid rgba(255,211,91,.95);
+  outline-offset:1px;
+  box-shadow:0 0 0 2px rgba(87,57,13,.72),0 0 8px rgba(244,183,36,.42);
+}
+html[data-collector-highlights="true"] .film-card.is-quality-copy .poster {
+  border-color:rgba(103,194,255,.92);
+  outline:1px solid rgba(15,57,88,.92);
   outline-offset:2px;
-  box-shadow:0 0 7px rgba(244,190,55,.24);
+  box-shadow:0 0 0 1px rgba(153,218,255,.34),0 0 13px rgba(47,157,232,.42),0 13px 27px rgba(0,0,0,.34);
+}
+html[data-collector-highlights="true"] .mini-poster.quality-cover {
+  outline:1px solid rgba(103,194,255,.92);
+  outline-offset:1px;
+  box-shadow:0 0 0 2px rgba(15,57,88,.72),0 0 8px rgba(47,157,232,.38);
+}
+html[data-collector-highlights="true"] .film-card:is(.is-collector-copy,.is-quality-copy) .poster::after {
+  content:"";
+  position:absolute;
+  inset:3px;
+  z-index:3;
+  border:1px solid color-mix(in srgb,currentColor 32%,transparent);
+  border-radius:4px;
+  box-shadow:inset 0 0 5px rgba(255,255,255,.2);
+  pointer-events:none;
+}
+html[data-collector-highlights="true"] .film-card.is-collector-copy .poster::after {
+  border-color:rgba(255,226,145,.48);
+}
+html[data-collector-highlights="true"] .film-card.is-quality-copy .poster::after {
+  border-color:rgba(171,224,255,.42);
 }
 @media (forced-colors:active) {
   html[data-collector-highlights="true"] .film-card.is-collector-copy .poster,
-  html[data-collector-highlights="true"] .mini-poster.collector-cover { outline:2px solid Highlight; filter:none; box-shadow:none; }
+  html[data-collector-highlights="true"] .mini-poster.collector-cover,
+  html[data-collector-highlights="true"] .film-card.is-quality-copy .poster,
+  html[data-collector-highlights="true"] .mini-poster.quality-cover { outline:2px solid Highlight; filter:none; box-shadow:none; }
 }
 .cinema-view > .catalog-toolbar { padding-top: 42px; }
 .paste-dialog { max-width: 720px; }
