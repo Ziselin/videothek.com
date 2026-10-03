@@ -11,9 +11,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261003-85">
-  <link rel="stylesheet" href="videothek-neon.css?v=20261002-34">
-  <link rel="stylesheet" href="videothek-cinema.css?v=20261002-14">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261003-87">
+  <link rel="stylesheet" href="videothek-neon.css?v=20261003-35">
+  <link rel="stylesheet" href="videothek-cinema.css?v=20261003-15">
 </head>
 <body>
   <datalist id="languageOptions"><option value="Deutsch"><option value="Englisch"><option value="Französisch"><option value="Spanisch"><option value="Italienisch"><option value="Japanisch"><option value="Koreanisch"><option value="Chinesisch"><option value="Russisch"><option value="Portugiesisch"></datalist>
@@ -79,11 +79,21 @@
           </div>
           <div id="playlistsSidebarPane" class="archive-sidebar-pane" hidden>
             <div class="sidebar-head"><h1>Listen</h1></div>
-            <h2 class="archive-list-group-title">Playlisten</h2>
-            <div id="playlistList" class="project-list"></div>
-            <button id="addPlaylistButton" class="add-project-button" type="button">Playlist hinzufügen</button>
-            <h2 class="archive-list-group-title archive-collections-title">Sammlungen</h2>
-            <div id="collectionList" class="project-list"></div>
+            <div class="archive-list-sections">
+              <details id="playlistSection" class="archive-list-section archive-list-section-personal" open>
+                <summary><span class="archive-list-section-icon" aria-hidden="true"></span><span class="archive-list-section-copy"><strong>Meine Playlisten</strong><small>Eigene Zusammenstellungen</small></span><span id="playlistSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
+                <div class="archive-list-section-body">
+                  <div id="playlistList" class="project-list archive-list-items"></div>
+                  <button id="addPlaylistButton" class="add-project-button archive-list-add" type="button"><span aria-hidden="true">＋</span> Playlist hinzufügen</button>
+                </div>
+              </details>
+              <details id="collectionSection" class="archive-list-section archive-list-section-curated" open>
+                <summary><span class="archive-list-section-icon" aria-hidden="true"></span><span class="archive-list-section-copy"><strong>Kuratierte Sammlungen</strong><small>Kanons, Preise und Bestenlisten</small></span><span id="collectionSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
+                <div class="archive-list-section-body">
+                  <div id="collectionList" class="project-list archive-list-items"></div>
+                </div>
+              </details>
+            </div>
           </div>
           <input id="importInput" type="file" accept="text/csv,application/json,.csv,.json" hidden>
         </aside>
@@ -420,10 +430,12 @@
     <script src="videothek-latin-american-canon.js?v=20261002-1"></script>
     <script src="videothek-abraccine-brazil.js?v=20261002-1"></script>
     <script src="videothek-annecy-animation.js?v=20261002-1"></script>
+    <script src="videothek-palme-dor.js?v=20261003-1"></script>
+    <script src="videothek-golden-lion.js?v=20261003-1"></script>
   <script src="videothek-storage.js?v=20261002-16"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261003-190"></script>
+  <script src="videothek.js?v=20261003-197"></script>
 </body>
 </html>
 
