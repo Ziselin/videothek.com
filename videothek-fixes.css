@@ -86,6 +86,9 @@ body { min-width: 0; }
 .is-project-importing .project-merge-control { inset:0; }
 .project-merge-control[hidden] { display:none; }
 .sync-project-progress { position: absolute; inset: 0 auto 0 0; z-index: 0; width: var(--sync-progress, 0%); background: color-mix(in srgb, var(--accent) 20%, transparent); transition: width .18s ease; }
+#syncProjectButton[data-state="progress"][data-phase="quick"] .sync-project-progress,#syncCollectionButton[data-state="progress"][data-phase="quick"] .sync-project-progress { background: color-mix(in srgb, #19d3e6 30%, transparent); }
+#syncProjectButton[data-state="progress"][data-phase="deep"] .sync-project-progress,#syncCollectionButton[data-state="progress"][data-phase="deep"] .sync-project-progress { background: color-mix(in srgb, #9b6cff 38%, transparent); }
+#syncProjectButton[data-state="progress"][data-phase="deep"],#syncCollectionButton[data-state="progress"][data-phase="deep"] { border-color: color-mix(in srgb, #9b6cff 66%, currentColor); box-shadow: inset 0 0 0 1px color-mix(in srgb, #9b6cff 18%, transparent),0 0 18px color-mix(in srgb, #9b6cff 13%, transparent); }
 .project-merge-control[data-state="complete"] .sync-project-progress,#syncProjectButton[data-state="complete"] .sync-project-progress,#syncCollectionButton[data-state="complete"] .sync-project-progress { opacity:0; transition:opacity .18s ease; }
 .sync-project-count { min-width: 2.3ch; padding: 1px 6px; border-radius: 999px; background: color-mix(in srgb, currentColor 10%, transparent); font-size: .78rem; }
 .sync-project-spinner { display: none; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; }
