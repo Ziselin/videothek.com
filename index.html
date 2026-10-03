@@ -11,9 +11,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261003-87">
-  <link rel="stylesheet" href="videothek-neon.css?v=20261003-35">
-  <link rel="stylesheet" href="videothek-cinema.css?v=20261003-15">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261003-89">
+  <link rel="stylesheet" href="videothek-neon.css?v=20261003-36">
+  <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
 </head>
 <body>
   <datalist id="languageOptions"><option value="Deutsch"><option value="Englisch"><option value="Französisch"><option value="Spanisch"><option value="Italienisch"><option value="Japanisch"><option value="Koreanisch"><option value="Chinesisch"><option value="Russisch"><option value="Portugiesisch"></datalist>
@@ -75,7 +75,14 @@
           <div class="archive-tabs" role="tablist" aria-label="Archivbereiche"><button class="archive-tab is-active" type="button" role="tab" aria-selected="true" data-archive-section="projects">Projekte</button><button class="archive-tab" type="button" role="tab" aria-selected="false" data-archive-section="playlists">Listen</button></div>
           <div id="projectsSidebarPane" class="archive-sidebar-pane">
             <div class="sidebar-head"><h1>Projekte</h1><div class="project-menu-wrap"><button id="projectMenuButton" class="square-button project-menu-button" type="button" aria-label="Projektmenü öffnen" aria-expanded="false" aria-controls="projectMenu">⋮</button><div id="projectMenu" class="project-menu" hidden><button id="addProjectButton" type="button">Projekt hinzufügen</button><button id="importButton" type="button">Importieren</button><button id="pasteImportButton" type="button">Liste einfügen</button><button id="exportButton" type="button">Exportieren</button><button id="smartImportButton" type="button">Smart Import</button></div></div></div>
-            <div id="projectList" class="project-list"></div>
+            <div class="archive-list-sections">
+              <details id="projectSection" class="archive-list-section archive-list-section-projects" open>
+                <summary><span class="archive-list-section-icon" aria-hidden="true"></span><span class="archive-list-section-copy"><strong>Meine Projekte</strong><small>Archive und Arbeitsbestände</small></span><span id="projectSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
+                <div class="archive-list-section-body">
+                  <div id="projectList" class="project-list archive-list-items"></div>
+                </div>
+              </details>
+            </div>
           </div>
           <div id="playlistsSidebarPane" class="archive-sidebar-pane" hidden>
             <div class="sidebar-head"><h1>Listen</h1></div>
@@ -169,6 +176,7 @@
     </div>
     <div id="catalogDisplayPanel" class="catalog-drawer-fields" role="tabpanel" hidden>
       <label>Theme<select id="catalogThemeSelect"><option value="default">Arthouse</option><option value="neon">Videothek · Neon</option><option value="cinema">Kino bei Nacht</option></select></label>
+      <label class="drawer-toggle"><input id="catalogCollectorHighlightToggle" type="checkbox" checked><span>Sammler-Markierungen anzeigen</span></label>
       <label>Sprache der App<select id="appLanguageSelect"><option value="de">Deutsch</option><option value="en">English</option></select></label>
       <label>Sprache der Filminformationen<select id="filmMetadataLanguageSelect"><option value="app">Wie App-Sprache</option><option value="original">Originalsprache</option><option value="de-DE">Deutsch</option><option value="en-US">English</option></select></label>
       <button id="syncFilmMetadataButton" class="secondary-action" type="button">Fehlende Filminformationen synchronisieren</button>
@@ -435,7 +443,7 @@
   <script src="videothek-storage.js?v=20261002-16"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261003-197"></script>
+  <script src="videothek.js?v=20261003-199"></script>
 </body>
 </html>
 

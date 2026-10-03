@@ -346,6 +346,7 @@
 :root[data-theme="cinema"] .archive-list-section-body { border-color:#28363f; }
 :root[data-theme="cinema"] .archive-list-section-icon { background:rgba(111,220,255,.1); color:var(--cinema-neon); }
 :root[data-theme="cinema"] .archive-list-row .project-item .archive-list-count { border-color:#35434c; border-radius:5px; background:#121d24; color:#9eb3bb; }
+:root[data-theme="cinema"] .archive-list-section-projects .project-item > small { border-color:#35434c; border-radius:5px; background:#121d24; color:#9eb3bb; }
 :root[data-theme="cinema"] .project-item small { color:#17120b; background:#e2c997; }
 :root[data-theme="cinema"] .table-wrap { border-color:#35434c; border-radius:3px; background:#10171d; }
 :root[data-theme="cinema"] th { color:#89a6b1; background:#0c1217; }
