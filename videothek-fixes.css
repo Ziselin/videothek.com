@@ -1,6 +1,7 @@
 body { min-width: 0; }
 [hidden] { display: none !important; }
 .film-card { display:block; cursor:pointer; }
+.film-grid { padding-top:5px; margin-top:-5px; }
 .film-card-main { display:block; width:100%; padding:0; border:0; background:transparent; color:inherit; text-align:left; line-height:1.2; }
 .film-card-main .film-info { display:block; padding-bottom:2px; }
 .film-meta { display:flex; align-items:baseline; gap:.28em; min-width:0; padding:0 3px; color:var(--muted); font-size:.87rem; line-height:1.2; cursor:default; }
@@ -32,42 +33,58 @@ body { min-width: 0; }
 .poster { display: block; }
 html[data-collector-highlights="true"] .film-card.is-collector-copy .poster {
   border-color:rgba(255,211,91,.94);
-  outline:1px solid rgba(88,58,12,.9);
-  outline-offset:2px;
-  box-shadow:0 0 0 1px rgba(255,224,132,.4),0 0 13px rgba(244,183,36,.48),0 13px 27px rgba(0,0,0,.34);
+  outline:0;
+  overflow:hidden;
+  padding:3px;
+  background:transparent;
+  box-shadow:0 0 13px rgba(244,183,36,.46),0 18px 24px -9px rgba(244,183,36,.45),0 30px 42px -22px rgba(244,183,36,.34),0 15px 29px rgba(0,0,0,.38);
 }
 html[data-collector-highlights="true"] .mini-poster.collector-cover {
   outline:1px solid rgba(255,211,91,.95);
-  outline-offset:1px;
-  box-shadow:0 0 0 2px rgba(87,57,13,.72),0 0 8px rgba(244,183,36,.42);
+  outline-offset:3px;
+  box-shadow:0 0 8px rgba(244,183,36,.42);
 }
 html[data-collector-highlights="true"] .film-card.is-quality-copy .poster {
   border-color:rgba(103,194,255,.92);
-  outline:1px solid rgba(15,57,88,.92);
-  outline-offset:2px;
-  box-shadow:0 0 0 1px rgba(153,218,255,.34),0 0 13px rgba(47,157,232,.42),0 13px 27px rgba(0,0,0,.34);
+  outline:0;
+  overflow:hidden;
+  padding:3px;
+  background:transparent;
+  box-shadow:0 0 13px rgba(47,157,232,.4),0 18px 24px -9px rgba(47,157,232,.39),0 30px 42px -22px rgba(47,157,232,.3),0 15px 29px rgba(0,0,0,.38);
+}
+html[data-collector-highlights="true"] .film-card.is-collector-copy:hover .poster,
+html[data-collector-highlights="true"] .film-card.is-collector-copy:focus-within .poster {
+  border-color:rgba(255,211,91,.98)!important;
+  box-shadow:0 0 15px rgba(244,183,36,.52),0 19px 26px -9px rgba(244,183,36,.5),0 31px 44px -22px rgba(244,183,36,.38),0 17px 32px rgba(0,0,0,.42)!important;
+}
+html[data-collector-highlights="true"] .film-card.is-quality-copy:hover .poster,
+html[data-collector-highlights="true"] .film-card.is-quality-copy:focus-within .poster {
+  border-color:rgba(103,194,255,.96)!important;
+  box-shadow:0 0 15px rgba(47,157,232,.47),0 19px 26px -9px rgba(47,157,232,.44),0 31px 44px -22px rgba(47,157,232,.34),0 17px 32px rgba(0,0,0,.42)!important;
 }
 html[data-collector-highlights="true"] .mini-poster.quality-cover {
   outline:1px solid rgba(103,194,255,.92);
-  outline-offset:1px;
-  box-shadow:0 0 0 2px rgba(15,57,88,.72),0 0 8px rgba(47,157,232,.38);
+  outline-offset:3px;
+  box-shadow:0 0 8px rgba(47,157,232,.38);
 }
 html[data-collector-highlights="true"] .film-card:is(.is-collector-copy,.is-quality-copy) .poster::after {
   content:"";
+  display:block;
   position:absolute;
   inset:3px;
   z-index:3;
-  border:1px solid color-mix(in srgb,currentColor 32%,transparent);
+  border:1px solid transparent;
   border-radius:4px;
-  box-shadow:inset 0 0 5px rgba(255,255,255,.2);
   pointer-events:none;
 }
-html[data-collector-highlights="true"] .film-card.is-collector-copy .poster::after {
-  border-color:rgba(255,226,145,.48);
+html[data-collector-highlights="true"] .film-card:is(.is-collector-copy,.is-quality-copy) .poster::before {
+  display:none;
 }
-html[data-collector-highlights="true"] .film-card.is-quality-copy .poster::after {
-  border-color:rgba(171,224,255,.42);
-}
+html[data-collector-highlights="true"] .film-card.is-collector-copy .poster::after { border-color:rgba(255,211,91,.9); }
+html[data-collector-highlights="true"] .film-card.is-quality-copy .poster::after { border-color:rgba(103,194,255,.88); }
+html[data-collector-highlights="true"] .film-card:is(.is-collector-copy,.is-quality-copy) .poster>img,
+html[data-collector-highlights="true"] .film-card:is(.is-collector-copy,.is-quality-copy) .poster>.poster-fallback { display:block; border-radius:3px; }
+html[data-collector-highlights="true"] .film-card:is(.is-collector-copy,.is-quality-copy) .poster>.poster-fallback { inset:3px; }
 @media (forced-colors:active) {
   html[data-collector-highlights="true"] .film-card.is-collector-copy .poster,
   html[data-collector-highlights="true"] .mini-poster.collector-cover,
