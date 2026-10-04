@@ -11,8 +11,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261004-95">
-  <link rel="stylesheet" href="videothek-neon.css?v=20261003-36">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261004-102">
+  <link rel="stylesheet" href="videothek-neon.css?v=20261004-37">
   <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
 </head>
 <body>
@@ -73,11 +73,12 @@
         <aside class="project-sidebar">
           <p class="eyebrow archive-label">Archiv</p>
           <div class="archive-tabs" role="tablist" aria-label="Archivbereiche"><button class="archive-tab is-active" type="button" role="tab" aria-selected="true" data-archive-section="projects">Projekte</button><button class="archive-tab" type="button" role="tab" aria-selected="false" data-archive-section="playlists">Listen</button></div>
+          <p class="archive-tabs-help">Projekte sind die eindeutigen Ablageorte deiner Filmeinträge. Unter Listen können Filme zusätzlich mehreren Playlists und kuratierten Sammlungen zugeordnet sein.</p>
           <div id="projectsSidebarPane" class="archive-sidebar-pane">
             <div class="sidebar-head"><h1>Projekte</h1><div class="project-menu-wrap"><button id="projectMenuButton" class="square-button project-menu-button" type="button" aria-label="Projektmenü öffnen" aria-expanded="false" aria-controls="projectMenu">⋮</button><div id="projectMenu" class="project-menu" hidden><button id="addProjectButton" type="button">Projekt hinzufügen</button><button id="importButton" type="button">Importieren</button><button id="pasteImportButton" type="button">Liste einfügen</button><button id="exportButton" type="button">Exportieren</button><button id="smartImportButton" type="button">Smart Import</button></div></div></div>
             <div class="archive-list-sections">
               <details id="projectSection" class="archive-list-section archive-list-section-projects" open>
-                <summary><span class="archive-list-section-icon" aria-hidden="true"></span><span class="archive-list-section-copy"><strong>Meine Projekte</strong><small>Archive und Arbeitsbestände</small></span><span id="projectSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
+                <summary><span class="archive-list-section-icon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M18 17V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14c0 .55.45 1 1 1h14c.55 0 1-.45 1-1m-1 0H3V3h14zM4.75 4h10.5c.41 0 .75.34.75.75V6h-1v3h1v2h-1v3h1v1.25c0 .41-.34.75-.75.75H4.75c-.41 0-.75-.34-.75-.75V4.75c0-.41.34-.75.75-.75M13 10c0-2.21-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4M9 7l.77 1.15A2.02 2.02 0 0 1 11 10c0 1.1-.9 2-2 2s-2-.9-2-2c0-.83.51-1.54 1.23-1.85z"/></svg></span><span class="archive-list-section-copy"><strong>Meine Projekte</strong><small>Archive und Arbeitsbestände</small></span><span id="projectSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
                 <div class="archive-list-section-body">
                   <div id="projectList" class="project-list archive-list-items"></div>
                 </div>
@@ -95,7 +96,7 @@
                 </div>
               </details>
               <details id="collectionSection" class="archive-list-section archive-list-section-curated" open>
-                <summary><span class="archive-list-section-icon" aria-hidden="true"></span><span class="archive-list-section-copy"><strong>Kuratierte Sammlungen</strong><small>Kanons, Preise und Bestenlisten</small></span><span id="collectionSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
+                <summary><span class="archive-list-section-icon" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false"><path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zm6.258-6.437a.5.5 0 0 1 .507.013l4 2.5a.5.5 0 0 1 0 .848l-4 2.5A.5.5 0 0 1 6 12V7a.5.5 0 0 1 .258-.437"/></svg></span><span class="archive-list-section-copy"><strong>Kuratierte Sammlungen</strong><small>Kanons, Preise und Bestenlisten</small></span><span id="collectionSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
                 <div class="archive-list-section-body">
                   <div id="collectionList" class="project-list archive-list-items"></div>
                 </div>
@@ -441,10 +442,10 @@
     <script src="videothek-annecy-animation.js?v=20261002-1"></script>
     <script src="videothek-palme-dor.js?v=20261003-1"></script>
     <script src="videothek-golden-lion.js?v=20261003-1"></script>
-  <script src="videothek-storage.js?v=20261002-16"></script>
+  <script src="videothek-storage.js?v=20261004-17"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261004-205"></script>
+  <script src="videothek.js?v=20261004-211"></script>
 </body>
 </html>
 
