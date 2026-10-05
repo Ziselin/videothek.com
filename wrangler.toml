@@ -1,0 +1,7 @@
+name = "videothek-tmdb-proxy"
+main = "worker/tmdb-proxy.js"
+compatibility_date = "2026-10-05"
+routes = [{ pattern = "neon-v.com/api/tmdb*", zone_name = "neon-v.com" }]
+
+# Der Token wird ausschließlich als Secret gespeichert:
+# npx wrangler secret put TMDB_READ_ACCESS_TOKEN

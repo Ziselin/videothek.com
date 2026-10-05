@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261005-115">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261005-116">
   <link rel="stylesheet" href="videothek-neon.css?v=20261004-38">
   <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
 </head>
@@ -113,7 +113,7 @@
           <div class="notice archive-data-notice"><span aria-hidden="true">↗</span><p><strong>Die Videothek speichert keine Filmdateien.</strong><br>Gesichert werden nur Projekte, Metadaten, Cover-Verweise und Links zu deinen Speicherorten.</p></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Titel</th><th>Jahr</th><th>Link</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead>
+              <thead><tr><th>Titel</th><th>Jahr</th><th>Links</th><th>Rating</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead>
               <tbody id="filmTableBody"></tbody>
             </table>
           </div>
@@ -187,7 +187,7 @@
     </div>
     <div id="catalogInfoPanel" class="catalog-info-panel" role="tabpanel" hidden>
       <section class="catalog-info-section"><h3>Datensicherheit</h3><p>Deine Filme, Projekte und Einstellungen werden in den lokalen Website-Daten deines Browsers gespeichert. Es werden keine Filmdaten an einen Videothek-Server übertragen. Wenn du die Website-Daten von neon-v.com löschst, können diese Daten verloren gehen.</p><p><strong>Sichere wichtige Änderungen regelmäßig über die Exportfunktion.</strong></p></section>
-      <section class="catalog-info-section"><h3>Impressum</h3><p>Videothek ist eine Anwendung von <a href="https://ziselin.com" target="_blank" rel="noopener noreferrer">Ziselin</a>, einer Plattform für digitale Werkzeuge zur Erstellung und Erprobung interaktiver Wissens- und Präsentationsräume.</p><p><strong>Verantwortlich für den Inhalt</strong><br>Martin Graupner<br>Ribnitz-Damgarten<br>Deutschland</p><p>Kontakt: <a href="mailto:impressum@ziselin.com">impressum@ziselin.com</a></p></section>
+      <section class="catalog-info-section"><h3>Impressum</h3><p>Videothek ist eine Anwendung von <a href="https://ziselin.com" target="_blank" rel="noopener noreferrer">Ziselin</a>, einer Plattform für digitale Werkzeuge zur Erstellung und Erprobung interaktiver Wissens- und Präsentationsräume.</p><p><strong>Verantwortlich für den Inhalt</strong><br>Martin Graupner<br>Ribnitz-Damgarten<br>Deutschland</p><p>Kontakt: <a href="mailto:impressum@ziselin.com">impressum@ziselin.com</a></p><p class="tmdb-attribution"><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">TMDB</a><br><small>This product uses the TMDB API but is not endorsed or certified by TMDB.</small></p></section>
     </div>
   </aside>
 
@@ -243,6 +243,8 @@
         <label data-series-field hidden>Episoden<input id="filmEpisodes" type="number" min="0" max="99999"></label>
         <section id="seriesSeasonPlan" class="series-season-plan span-2" data-series-field hidden></section>
         <label data-series-field hidden>Sender / Plattform<input id="filmNetwork" maxlength="200"></label>
+        <label data-series-field hidden>Bestandsart<select id="seriesOwnership"><option value="">Nicht angegeben</option><option value="physical">Physische Ausgabe</option><option value="purchased-digital">Digital gekauft</option><option value="other">Andere Quelle</option></select></label>
+        <label data-series-field hidden>Qualität<select id="seriesQuality"><option value="">Nicht bewertet</option><option value="hervorragend">Hervorragend</option><option value="sehr gut">Sehr gut</option><option value="gut">Gut</option><option value="akzeptabel">Akzeptabel</option><option value="schlecht">Schlecht</option></select></label>
         <label><span id="filmDirectorLabel">Regie</span><input id="filmDirector" maxlength="240"></label>
         <label class="span-2">Schauspieler<input id="filmCast" maxlength="600" placeholder="Namen, durch Kommas getrennt"></label>
         <label>Genre<input id="filmGenre" maxlength="120" placeholder="Drama, Dokumentarfilm"></label>
@@ -251,6 +253,7 @@
         <input id="filmTrailer" type="hidden">
         <label class="span-2">Cover-Link<input id="filmCover" type="url" placeholder="https://…"></label>
         <label>Altersfreigabe<input id="filmRating" maxlength="20" placeholder="FSK 12"></label>
+        <label>Mein Rating<select id="filmUserRating"><option value="">Nicht bewertet</option><option value="0.5">½ ★</option><option value="1">★</option><option value="1.5">★ ½</option><option value="2">★★</option><option value="2.5">★★ ½</option><option value="3">★★★</option><option value="3.5">★★★ ½</option><option value="4">★★★★</option><option value="4.5">★★★★ ½</option><option value="5">★★★★★</option></select></label>
         <label class="span-2">Beschreibung<textarea id="filmDescription" rows="4"></textarea></label>
       </div>
       <div class="film-type-conversion"><button id="convertFilmToSeriesButton" class="secondary-action" type="button" hidden>Als Serie speichern</button></div>
@@ -373,6 +376,10 @@
         <div id="playlistFilmResults" class="playlist-film-results"></div>
       </div>
       <div id="playlistFilmManualPanel" class="playlist-film-panel playlist-manual-grid" role="tabpanel" hidden>
+        <div class="playlist-entry-type span-2" role="group" aria-label="Art des Eintrags">
+          <button class="is-active" type="button" data-playlist-entry-media="movie" aria-pressed="true">Film hinzufügen</button>
+          <button type="button" data-playlist-entry-media="tv" aria-pressed="false">Serie hinzufügen</button>
+        </div>
         <section id="collectionEntryContext" class="collection-entry-context span-2" hidden>
           <div><small>Titel</small><strong id="collectionEntryTitle"></strong></div>
           <div><small>In diesen Sammlungen</small><div id="collectionEntryMemberships" class="collection-entry-memberships"></div></div>
@@ -463,7 +470,7 @@
   <script src="videothek-storage.js?v=20261004-17"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261005-230"></script>
+  <script src="videothek.js?v=20261005-239"></script>
 </body>
 </html>
 
