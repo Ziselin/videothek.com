@@ -360,20 +360,24 @@
 
   <dialog id="playlistDialog" class="dialog small-dialog">
     <form id="playlistForm" method="dialog">
-      <div class="dialog-head"><div><p class="eyebrow">Neue Sammlung</p><h2>Playlist anlegen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <div class="dialog-head"><div><p id="playlistDialogEyebrow" class="eyebrow">Neue Sammlung</p><h2 id="playlistDialogTitle">Playlist anlegen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
       <label>Playlistname<input id="playlistName" required maxlength="100" placeholder="z. B. Freitagabend"></label>
       <label>Beschreibung<textarea id="playlistDescription" rows="3" maxlength="800"></textarea></label>
-      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Anlegen</button></div>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button id="playlistDialogSubmit" class="primary-button" value="default">Anlegen</button></div>
     </form>
   </dialog>
 
   <dialog id="playlistFilmDialog" class="dialog playlist-film-dialog">
     <form method="dialog">
       <div class="dialog-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistFilmDialogTitle">Film hinzufügen</h2></div><button class="dialog-close" value="cancel" aria-label="Schließen">×</button></div>
-      <div class="playlist-film-tabs" role="tablist" aria-label="Film zur Playlist hinzufügen"><button class="is-active" type="button" role="tab" aria-selected="true" data-playlist-film-tab="archive">Archiv auswählen</button><button type="button" role="tab" aria-selected="false" data-playlist-film-tab="manual">Manuell eintragen</button></div>
+      <div class="playlist-film-tabs" role="tablist" aria-label="Film zur Playlist hinzufügen"><button class="is-active" type="button" role="tab" aria-selected="true" data-playlist-film-tab="archive">Archiv auswählen</button><button type="button" role="tab" aria-selected="false" data-playlist-film-tab="tmdb">TMDB durchsuchen</button><button type="button" role="tab" aria-selected="false" data-playlist-film-tab="manual">Manuell eintragen</button></div>
       <div id="playlistFilmArchivePanel" class="playlist-film-panel" role="tabpanel">
         <label class="playlist-film-search">Archiv durchsuchen<input id="playlistFilmSearch" type="search" placeholder="Titel, Regie oder Darsteller …" autocomplete="off"></label>
         <div id="playlistFilmResults" class="playlist-film-results"></div>
+      </div>
+      <div id="playlistFilmTmdbPanel" class="playlist-film-panel" role="tabpanel" hidden>
+        <label class="playlist-film-search">TMDB durchsuchen<input id="playlistTmdbSearch" type="search" placeholder="Film- oder Serientitel …" autocomplete="off"></label>
+        <div id="playlistTmdbResults" class="playlist-film-results"></div>
       </div>
       <div id="playlistFilmManualPanel" class="playlist-film-panel playlist-manual-grid" role="tabpanel" hidden>
         <div class="playlist-entry-type span-2" role="group" aria-label="Art des Eintrags">

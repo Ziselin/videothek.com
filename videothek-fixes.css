@@ -601,7 +601,7 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .playlist-film-result b { color:#753a43; font-size:.78rem; }
 .playlist-film-result.is-included { opacity:.56; }
 .playlist-film-result.is-selected { opacity:1; border-color:#743b43; box-shadow:0 0 0 1px #743b43; }
-.playlist-film-tabs { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-bottom:16px; padding:4px; border-radius:8px; background:#efede8; }
+.playlist-film-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; margin-bottom:16px; padding:4px; border-radius:8px; background:#efede8; }
 .playlist-film-tabs button { padding:9px 12px; border:0; background:transparent; }
 .playlist-film-tabs button.is-active { background:#fff; box-shadow:0 2px 8px rgba(35,31,27,.09); }
 .playlist-manual-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
