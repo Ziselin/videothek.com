@@ -192,6 +192,7 @@
 :root[data-theme="neon"] .playlist-film-result small{color:#aaa3b7}
 :root[data-theme="neon"] .playlist-film-result b{color:#28ded1}
 :root[data-theme="neon"] .playlist-film-result.is-selected{border-color:#28ded1;box-shadow:0 0 0 1px #28ded1,0 0 16px rgba(40,222,209,.14)}
+:root[data-theme="neon"] .tmdb-result.is-selected{border-color:#28ded1;box-shadow:0 0 0 1px #28ded1,0 0 16px rgba(40,222,209,.14)}
 :root[data-theme="neon"] .playlist-film-tabs{background:#0b0a12;border:1px solid #302a3b}
 :root[data-theme="neon"] .playlist-film-tabs button{color:#aaa3b7}
 :root[data-theme="neon"] .playlist-film-tabs button.is-active{background:#211b2d;color:#fff6e8;box-shadow:none}

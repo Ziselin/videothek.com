@@ -650,6 +650,7 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 @media (max-width:650px) { .playlist-manual-grid { grid-template-columns:1fr; } .playlist-manual-grid .span-2 { grid-column:auto; } }
 .tmdb-result { width:100%; display:grid; grid-template-columns:46px minmax(0,1fr) auto; align-items:center; gap:11px; padding:8px; border:1px solid #dedbd4; border-radius:6px; background:#fff; color:#302f2c; text-align:left; }
 .tmdb-result:hover,.tmdb-result:focus-visible { border-color:#9c777d; background:#fdfafa; }
+.tmdb-result.is-selected { border-color:#743b43; background:#fdfafa; box-shadow:0 0 0 1px #743b43; }
 .tmdb-result img,.tmdb-result-placeholder { width:46px; height:69px; border-radius:3px; object-fit:cover; background:#e4e1db; }
 .wikidata-result-mark { display:grid; place-items:center; width:46px; height:46px; border-radius:50%; color:#fff; background:#58839b; font-weight:800; }
 .tmdb-result>span { min-width:0; display:grid; gap:2px; }
