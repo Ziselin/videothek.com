@@ -436,7 +436,7 @@ td { color:#3c3731; }
 .status[data-status="prüfen"] { background:#eee1c2; color:#74591c; }
 .status[data-status="nicht verfügbar"] { background:#ead5d4; color:#8a363b; }
 .status-availability-note { display:block; max-width:210px; margin-top:4px; color:#8a8781; font-size:.68rem; font-weight:400; line-height:1.25; letter-spacing:0; text-transform:none; }
-#playlistTableWrap th:nth-child(5),#playlistTableWrap td:nth-child(5) { min-width:140px; }
+#playlistTableWrap th:nth-child(6),#playlistTableWrap td:nth-child(6) { min-width:140px; }
 .table-wrap .status { display:inline-block; white-space:nowrap; }
 .row-menu { color:#736b61; }
 .film-row-actions { display:flex; align-items:center; justify-content:flex-end; gap:5px; white-space:nowrap; }
