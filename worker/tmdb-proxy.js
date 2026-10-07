@@ -1,5 +1,5 @@
 const TMDB_ORIGIN = "https://api.themoviedb.org/3";
-const ALLOWED_PATH = /^\/(?:configuration|search\/(?:movie|tv|multi)|find\/[^/]+|movie\/\d+(?:\/(?:images|external_ids))?|tv\/\d+(?:\/(?:images|external_ids))?)$/;
+const ALLOWED_PATH = /^\/(?:configuration|search\/(?:movie|tv|multi)|find\/[^/]+|movie\/\d+(?:\/(?:images|external_ids|watch\/providers))?|tv\/\d+(?:\/(?:images|external_ids|watch\/providers))?)$/;
 
 function json(body, status = 200, headers = {}) {
   return new Response(JSON.stringify(body), {

@@ -1,6 +1,6 @@
 # Changelog
 
-- Filme und Serien besitzen neben „Meine Fassungen“ nun den eigenen Tab „Streaming“. Er lädt die für Deutschland gemeldeten Abo-, Gratis-, Werbe-, Leih- und Kaufangebote von JustWatch via TMDB, speichert einen datierten Snapshot und hält diese Angaben vollständig von den eigenen Fassungen getrennt.
+- Die Abspiel- und Detailansicht zeigt „Meine Fassungen“ und „Streaming“ als unmittelbar umschaltbare Tabs. Der Streaming-Tab lädt die für Deutschland gemeldeten Abo-, Gratis-, Werbe-, Leih- und Kaufangebote von JustWatch via TMDB, speichert einen datierten Snapshot und hält diese Angaben vollständig von den eigenen Fassungen getrennt.
 
 - Exportierte Videothek-Playlisten werden anhand ihres Dateiformats wieder als Playlist oder Sammlung importiert. Enthaltene Filme, Fassungen, Platzhalter, Sammlungsnummern und Zuordnungen bleiben dabei erhalten.
 

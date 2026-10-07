@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261007-117">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261007-118">
   <link rel="stylesheet" href="videothek-neon.css?v=20261004-38">
   <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
 </head>
@@ -199,7 +199,6 @@
         <button id="filmGeneralTab" class="is-active" type="button" role="tab" aria-selected="true" data-film-tab="general">Filminformationen</button>
         <button id="seriesEpisodesTab" type="button" role="tab" aria-selected="false" data-film-tab="episodes" hidden><span class="film-tab-label">Einzelfolgen</span><span id="seriesEpisodeCount" class="film-tab-count">0</span></button>
         <button type="button" role="tab" aria-selected="false" data-film-tab="copies"><span class="film-tab-label">Meine Fassungen</span><span id="filmCopyCount" class="film-tab-count">0</span></button>
-        <button type="button" role="tab" aria-selected="false" data-film-tab="streaming"><span class="film-tab-label">Streaming</span></button>
         <button type="button" role="tab" aria-selected="false" data-film-tab="subtitles"><span class="film-tab-label">Subs</span><span id="filmSubtitleCount" class="film-tab-count">0</span></button>
         <button type="button" role="tab" aria-selected="false" data-film-tab="bonus"><span class="film-tab-label">Bonus</span><span id="filmBonusCount" class="film-tab-count">0</span></button>
         <button type="button" role="tab" aria-selected="false" data-film-tab="playlists"><span class="film-tab-label">Playlisten</span><span id="filmPlaylistCount" class="film-tab-count">0</span></button>
@@ -269,12 +268,6 @@
         <div class="copies-head"><div><strong>Meine Fassungen</strong><small>Links und technische Eigenschaften deiner eigenen Kopien.</small></div><button id="addFilmCopyButton" class="secondary-action" type="button">Fassung hinzufügen</button></div>
         <div id="filmCopiesList" class="film-copies-list"></div>
         <div id="filmCopiesEmpty" class="copies-empty">Noch keine eigene Fassung hinterlegt.</div>
-      </div>
-      <div id="filmStreamingPanel" class="film-tab-panel" role="tabpanel" hidden>
-        <div class="copies-head"><div><strong>Streaming in Deutschland</strong><small>Aktuelle Anbieterinformationen, getrennt von deinen eigenen Fassungen.</small></div><button id="refreshStreamingButton" class="secondary-action" type="button">Angebote aktualisieren</button></div>
-        <div id="filmStreamingStatus" class="streaming-status" role="status" aria-live="polite"></div>
-        <div id="filmStreamingGroups" class="streaming-groups"></div>
-        <div id="filmStreamingMeta" class="streaming-meta"></div>
       </div>
       <div id="filmSubtitlesPanel" class="film-tab-panel" role="tabpanel" hidden>
         <div class="copies-head"><div><strong>Untertitel</strong><small>Speichere mindestens eine Originalsprach-Spur als Referenz für Wiedergabe und spätere Übersetzungen.</small></div><button id="addSubtitleTrackButton" class="secondary-action" type="button">Untertitel hinzufügen</button></div>
@@ -481,7 +474,7 @@
   <script src="videothek-storage.js?v=20261004-17"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261007-241"></script>
+  <script src="videothek.js?v=20261007-242"></script>
 </body>
 </html>
 
