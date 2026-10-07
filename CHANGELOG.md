@@ -1,6 +1,8 @@
 # Changelog
 
-- Die Farbwertung unterscheidet wieder präzise zwischen physischen und digitalen Fassungen: Eine fehlende Qualitätsangabe wird ausschließlich bei physischen Medien wie DVD oder Blu-ray als hervorragend und damit Gold angenommen. Digitale Fassungen ohne Qualitätsangabe bleiben Blau. Eine ausdrücklich als „Hervorragend“ bewertete Fassung wird zuverlässig Gold, „Sehr gut“ Lila und „Gut“ Blau.
+- Die abschließende Film-Farbwertung bewahrt jetzt die ermittelte höchste Fassungsstufe. Eine fehlerhafte Operatorrangfolge hatte zuvor jede vorhandene Stufe – einschließlich Gold und Lila – wieder in Blau umgewandelt.
+
+- Die Farbwertung unterscheidet wieder präzise zwischen physischen und digitalen Fassungen: Eine fehlende Qualitätsangabe wird ausschließlich bei physischen Medien wie DVD oder Blu-ray als hervorragend und damit Gold angenommen. Digitale Fassungen ohne Qualitätsangabe erhalten keine Qualitätsfarbe. Eine ausdrücklich als „Hervorragend“ bewertete Fassung wird zuverlässig Gold, „Sehr gut“ Lila und „Gut“ Blau; Blau durch Streaming setzt eine tatsächliche Streaming-Zuordnung voraus.
 
 - Die Bibliothek bietet jetzt zusätzlich die vorbereiteten Playlists „Cyberpunk“ mit 110 Titeln und „Studio Ghibli“ mit 24 Titeln an. Reihenfolge, vorhandene Sammlungsnummern sowie TMDB-, IMDb- und Wikidata-Kennungen aus den bereitgestellten Playlist-Exporten bleiben erhalten; beide Listen nutzen die bestehende Synchronisierungsfunktion.
 
