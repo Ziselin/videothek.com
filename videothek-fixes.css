@@ -691,6 +691,18 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .film-editor-tabs .film-tab-count { display:grid; place-items:center; flex:0 0 auto; min-width:21px; height:21px; padding:0 5px; border:1px solid color-mix(in srgb,var(--line) 78%,transparent); border-radius:6px; background:color-mix(in srgb,var(--muted) 11%,transparent); color:var(--muted); font-size:.73rem; font-variant-numeric:tabular-nums; line-height:1; }
 .film-editor-tabs button.is-active .film-tab-count { border-color:color-mix(in srgb,var(--accent) 28%,var(--line)); background:color-mix(in srgb,var(--accent) 10%,transparent); color:var(--accent); }
 .film-tab-panel>.form-grid { padding:0 25px; }
+.streaming-status { margin:0 25px 14px; color:var(--muted); font-size:.86rem; }
+.streaming-groups { display:grid; gap:16px; margin:0 25px 18px; }
+.streaming-group { display:grid; gap:9px; }
+.streaming-group h3 { margin:0; color:var(--text); font-size:.82rem; }
+.streaming-group>div { display:flex; flex-wrap:wrap; gap:8px; }
+.streaming-provider { display:flex; align-items:center; gap:8px; min-height:46px; padding:6px 10px 6px 6px; border:1px solid var(--line); border-radius:9px; background:color-mix(in srgb,var(--panel2) 76%,var(--panel)); }
+.streaming-provider img,.streaming-provider>span { width:34px; height:34px; border-radius:7px; object-fit:cover; }
+.streaming-provider>span { display:grid; place-items:center; background:color-mix(in srgb,var(--accent) 12%,var(--panel)); color:var(--accent); }
+.streaming-provider strong { color:var(--text); font-size:.8rem; }
+.streaming-meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; margin:0 25px; padding:12px 14px; border-top:1px solid var(--line); color:var(--muted); font-size:.75rem; }
+.streaming-meta a { margin-left:auto; color:var(--accent); font-weight:700; }
+@media(max-width:650px) { .streaming-meta a { width:100%; margin-left:0; } }
 .subtitle-reference-note { display:grid; gap:4px; margin:0 25px 14px; padding:12px 14px; border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line)); border-radius:8px; background:color-mix(in srgb,var(--accent) 6%,var(--panel)); }
 .subtitle-reference-note strong { color:var(--text); font-size:.86rem; }
 .subtitle-reference-note span { color:var(--muted); font-size:.78rem; line-height:1.45; }

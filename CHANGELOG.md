@@ -1,5 +1,9 @@
 # Changelog
 
+- Filme und Serien besitzen neben „Meine Fassungen“ nun den eigenen Tab „Streaming“. Er lädt die für Deutschland gemeldeten Abo-, Gratis-, Werbe-, Leih- und Kaufangebote von JustWatch via TMDB, speichert einen datierten Snapshot und hält diese Angaben vollständig von den eigenen Fassungen getrennt.
+
+- Exportierte Videothek-Playlisten werden anhand ihres Dateiformats wieder als Playlist oder Sammlung importiert. Enthaltene Filme, Fassungen, Platzhalter, Sammlungsnummern und Zuordnungen bleiben dabei erhalten.
+
 - „Meine Fassungen“ kennzeichnet nun alle drei Prüfzustände: geprüft/verfügbar grün, zu prüfen gelb und nicht verfügbar rot. Die Links erhalten zusätzlich eine passende barrierearme Beschriftung.
 
 - Große JSON-Projekte werden beim Import direkt und atomar in IndexedDB gespeichert. Eine gültige Datei kann dadurch nicht mehr wegen eines nachgelagerten `localStorage`-Fehlers als ungültig gemeldet werden; Validierungs-, Speicher- und Metadatenfehler werden getrennt behandelt und fehlgeschlagene Erstimporte sauber zurückgenommen.
