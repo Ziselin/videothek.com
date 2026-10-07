@@ -1,5 +1,31 @@
 # Changelog
 
+- Die Farbwertung behandelt jetzt jede unter „Meine Fassungen“ geführte Fassung als eigenen Bestand, unabhängig davon, ob ihr Link privat, öffentlich oder passwortgeschützt ist. „Hervorragend“ und eine fehlende Qualitätsangabe ergeben zuverlässig Gold, „Sehr gut“ Lila und „Gut“ Blau; Streamingangebote bleiben davon getrennt.
+
+- Die Bibliothek bietet jetzt zusätzlich die vorbereiteten Playlists „Cyberpunk“ mit 110 Titeln und „Studio Ghibli“ mit 24 Titeln an. Reihenfolge, vorhandene Sammlungsnummern sowie TMDB-, IMDb- und Wikidata-Kennungen aus den bereitgestellten Playlist-Exporten bleiben erhalten; beide Listen nutzen die bestehende Synchronisierungsfunktion.
+
+- Der linke Entdecken-Schalter wird in der Archivansicht ausgeblendet, da die zugehörige Katalognavigation dort nicht benötigt wird.
+
+- Der Bibliothekszugang unter „Listen“ verwendet jetzt das gewünschte filigrane Bookshelf-Icon von IconMind.
+
+- Playlisten werden jetzt im linken Entdecken-Menü neben Genres, Sammlungen und Franchises ausgewählt; das bisherige Playlist-Feld im rechten Filtermenü entfällt. Beim Öffnen einer Playlist oder Sammlung erscheinen sämtliche zugehörigen Filme in der Listenansicht – einschließlich noch nicht verfügbarer Platzhalter und unabhängig von der aktuellen Projektauswahl.
+
+- Der Streamingdienst-Filter ist vorerst ausgeblendet und seine Wirkung auf Katalogverfügbarkeit und Farbmarkierung deaktiviert. Einzelne Filme können ihre Streamingangebote weiterhin im Streaming-Tab abrufen und lokal speichern; die Datenstruktur bleibt für eine spätere zentral gepflegte Großbibliothek erhalten.
+
+- Vorbereitete Bibliotheks-Playlists verwenden jetzt denselben Synchronisieren-Button und Fortschrittsablauf wie kuratierte Sammlungen. Die Synchronisierung gleicht zuerst vorhandene TMDB-IDs ab, ergänzt fehlende Metadaten und Cover und bewahrt dabei Reihenfolge, Positionsnummer und Phasenangaben der Vorlage.
+
+- Die Bibliothek enthält als erste vorbereitete Playlist „Marvel Cinematic Universe“ mit 38 Kinofilmen in Veröffentlichungsreihenfolge. Laufende Nummer, MCU-Phase, Jahr und TMDB-ID sind je Eintrag hinterlegt; die Playlist ist wie andere Bibliothekslisten schreibgeschützt und wird nach dem Laden des gespeicherten Datenbestands zuverlässig im Playlist-Tab installiert.
+
+- Oberhalb der Listenbereiche öffnet das eigenständige Feld „Bibliothek“ eine gegliederte Auswahl mit den Tabs „Sammlungen“ und „Playlisten“. Ausgewählte Sammlungen erscheinen wieder im eigenen, nach Kanons, Regionen, Preisen, Filmerbe und Filmgeschichte strukturierten Sammlungscontainer; eigene und vorbereitete Playlists bleiben davon getrennt. „Playlist hinzufügen“ heißt nun „Neue Playlist“.
+
+- Die gesamte Filter-Sidebar verwendet jetzt eine gemeinsame Formsprache: Projekte, Streaming, Playlist, Anordnung, Sprachen und Untertitel erscheinen als einheitliche aufklappbare Karten mit sichtbarer Auswahl-Zusammenfassung. Abstände, Jahresfilter, Schalter und Touch-Ziele wurden harmonisiert; Tastaturfokus bleibt in der geöffneten Sidebar, Escape schließt sie und die Bereichs-Tabs lassen sich mit Pfeiltasten bedienen.
+
+- Der Filterbereich führt Projekte jetzt platzsparend als aufklappbare Mehrfachauswahl. Das neue Streaming-Dropdown speichert die abonnierten Dienste; Filme mit einem passenden TMDB-Abo-Angebot gelten zusätzlich als verfügbar und werden blau markiert.
+
+- Sind mehrere Fassungen eines Films vorhanden, bestimmt jetzt immer die beste verfügbare Qualität seine Farbmarkierung: hervorragend schlägt sehr gut, sehr gut schlägt gut. Eine schlechtere oder nicht verfügbare Fassung kann die bessere Markierung nicht mehr verdrängen. Bei eigenen Fassungen ohne Qualitätsangabe wird hervorragende Qualität angenommen.
+
+- Der Info-Bereich erklärt das Color-Coded-Loot-System für Filmzugänge: Gold, Lila, Blau, Grün, Rot und Grau werden mit Rang und Bedeutung als feste Legende ausgewiesen.
+
 - Die Abspiel- und Detailansicht zeigt „Meine Fassungen“ und „Streaming“ als unmittelbar umschaltbare Tabs. Der Streaming-Tab lädt die für Deutschland gemeldeten Abo-, Gratis-, Werbe-, Leih- und Kaufangebote von JustWatch via TMDB, speichert einen datierten Snapshot und hält diese Angaben vollständig von den eigenen Fassungen getrennt.
 
 - Exportierte Videothek-Playlisten werden anhand ihres Dateiformats wieder als Playlist oder Sammlung importiert. Enthaltene Filme, Fassungen, Platzhalter, Sammlungsnummern und Zuordnungen bleiben dabei erhalten.

@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261007-118">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261007-127">
   <link rel="stylesheet" href="videothek-neon.css?v=20261004-38">
   <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
 </head>
@@ -25,7 +25,7 @@
         <img class="neon-brand-sign" src="assets/videothek-neon-sign.png" alt="">
       </button>
       <nav class="main-nav" aria-label="Hauptnavigation">
-        <span id="catalogExploreHeaderSlot" class="catalog-tool-slot"><button id="catalogExploreButton" class="catalog-menu-button catalog-explore-button" type="button" aria-label="Genre, Sammlungen und Franchises öffnen" aria-expanded="false" aria-controls="catalogExploreDrawer">
+        <span id="catalogExploreHeaderSlot" class="catalog-tool-slot"><button id="catalogExploreButton" class="catalog-menu-button catalog-explore-button" type="button" aria-label="Genre, Playlisten, Sammlungen und Franchises öffnen" aria-expanded="false" aria-controls="catalogExploreDrawer">
           <svg class="catalog-menu-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
             <path d="M14 2a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2z" />
             <path d="M3 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
@@ -88,11 +88,14 @@
           <div id="playlistsSidebarPane" class="archive-sidebar-pane" hidden>
             <div class="sidebar-head"><h1>Listen</h1></div>
             <div class="archive-list-sections">
+              <button id="choosePreparedPlaylistButton" class="archive-library-button" type="button"><span class="archive-library-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M3 12h18M7 5v5M10 5v5M14 14v5M17 14v5"/></g></svg></span><span><strong>Bibliothek</strong><small>Sammlungen und Playlists auswählen</small></span><b aria-hidden="true">›</b></button>
               <details id="playlistSection" class="archive-list-section archive-list-section-personal" open>
                 <summary><span class="archive-list-section-icon" aria-hidden="true"></span><span class="archive-list-section-copy"><strong>Meine Playlisten</strong><small>Eigene Zusammenstellungen</small></span><span id="playlistSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
                 <div class="archive-list-section-body">
                   <div id="playlistList" class="project-list archive-list-items"></div>
-                  <button id="addPlaylistButton" class="add-project-button archive-list-add" type="button"><span aria-hidden="true">＋</span> Playlist hinzufügen</button>
+                  <div class="archive-list-add-actions">
+                    <button id="addPlaylistButton" class="add-project-button archive-list-add" type="button"><span aria-hidden="true">＋</span> Neue Playlist</button>
+                  </div>
                 </div>
               </details>
               <details id="collectionSection" class="archive-list-section archive-list-section-curated" open>
@@ -132,6 +135,7 @@
     <div class="catalog-drawer-head"><div><p class="eyebrow">Entdecken</p><h2 id="catalogExploreTitle">Filme erkunden</h2></div><button id="catalogExploreClose" type="button" aria-label="Entdecken-Menü schließen">×</button></div>
     <div class="catalog-settings-tabs catalog-explore-tabs" role="tablist" aria-label="Katalogbereiche">
       <button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-explore-tab="genres">Genre</button>
+      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="playlists">Playlist</button>
       <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="collections">Sammlung</button>
       <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="franchises">Franchise</button>
     </div>
@@ -142,50 +146,56 @@
         <button id="genreToggle" class="genre-toggle" type="button" aria-expanded="false" aria-controls="genreFilters" hidden>Mehr Genres <span aria-hidden="true">⌄</span></button>
       </div>
     </div>
+    <div id="catalogExplorePlaylists" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogPlaylistChoices" class="catalog-explore-list"></div><p id="catalogPlaylistsEmpty" class="drawer-language-empty" hidden>Noch keine Playlists angelegt oder aus der Bibliothek ausgewählt.</p></div>
     <div id="catalogExploreCollections" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogCollectionChoices" class="catalog-explore-list"></div></div>
     <div id="catalogExploreFranchises" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogFranchiseChoices" class="catalog-explore-list"></div><p id="catalogFranchisesEmpty" class="drawer-language-empty" hidden>Noch keine Franchises hinterlegt.</p></div>
   </aside>
 
   <div id="catalogBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
-  <aside id="catalogDrawer" class="catalog-drawer" aria-hidden="true" aria-labelledby="catalogDrawerTitle">
+  <aside id="catalogDrawer" class="catalog-drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="catalogDrawerTitle">
     <div class="catalog-drawer-head"><div><p class="eyebrow">Auswahl</p><h2 id="catalogDrawerTitle">Auswahl &amp; Anordnung</h2></div><button id="catalogDrawerClose" type="button" aria-label="Seitenmenü schließen">×</button></div>
-    <div class="catalog-settings-tabs" role="tablist" aria-label="Einstellungsbereiche"><button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-settings-tab="filters">Filter</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="display">Darstellung</button><button type="button" role="tab" aria-selected="false" data-catalog-settings-tab="info">Info</button></div>
-    <div id="catalogFilterPanel" class="catalog-drawer-fields" role="tabpanel">
-      <section class="drawer-language-section catalog-project-section" aria-labelledby="catalogProjectsTitle">
-        <div><strong id="catalogProjectsTitle">Projekte</strong><small>Keine Auswahl zeigt alle Projekte.</small></div>
-        <div id="projectSelect" class="drawer-language-filters catalog-project-filters"></div>
-      </section>
-      <label>Playlist<select id="catalogPlaylistSelect"><option value="all">Alle Playlisten</option></select></label>
-      <label>Anordnung<select id="catalogSortSelect"><option value="alphabetical">Alphabetisch</option><option value="year-desc">Jahr · neu nach alt</option><option value="year-asc">Jahr · alt nach neu</option><option value="genre">Genre</option><option value="collection-number">Nach Sammlungsnummer</option><option value="random">Zufällig</option></select></label>
-      <fieldset class="catalog-year-range" aria-labelledby="catalogYearRangeTitle">
+    <div class="catalog-settings-tabs" role="tablist" aria-label="Einstellungsbereiche"><button id="catalogFiltersTab" class="is-active" type="button" role="tab" aria-selected="true" aria-controls="catalogFilterPanel" data-catalog-settings-tab="filters">Filter</button><button id="catalogDisplayTab" type="button" role="tab" aria-selected="false" aria-controls="catalogDisplayPanel" data-catalog-settings-tab="display">Darstellung</button><button id="catalogInfoTab" type="button" role="tab" aria-selected="false" aria-controls="catalogInfoPanel" data-catalog-settings-tab="info">Info</button></div>
+    <div id="catalogFilterPanel" class="catalog-drawer-fields" role="tabpanel" aria-labelledby="catalogFiltersTab" tabindex="0">
+      <details class="catalog-filter-dropdown catalog-project-section">
+        <summary><span><strong>Projekte</strong><small id="catalogProjectsSummary">Alle Projekte</small></span><b aria-hidden="true">⌄</b></summary>
+        <div class="catalog-filter-dropdown-body"><p>Keine Auswahl zeigt alle Projekte.</p><div id="projectSelect" class="drawer-language-filters catalog-project-filters"></div></div>
+      </details>
+      <details class="catalog-filter-dropdown catalog-streaming-section" hidden>
+        <summary><span><strong>Streaming</strong><small id="catalogStreamingSummary">Keine Dienste ausgewählt</small></span><b aria-hidden="true">⌄</b></summary>
+        <div class="catalog-filter-dropdown-body"><p>Wähle deine abonnierten Dienste. Passende Abo-Angebote gelten als verfügbar.</p><div id="catalogStreamingFilters" class="drawer-language-filters catalog-streaming-filters"></div></div>
+      </details>
+      <details class="catalog-filter-dropdown catalog-select-dropdown">
+        <summary><span><strong>Anordnung</strong><small id="catalogSortSummary">Alphabetisch</small></span><b aria-hidden="true">⌄</b></summary>
+        <div class="catalog-filter-dropdown-body"><label>Sortieren nach<select id="catalogSortSelect"><option value="alphabetical">Alphabetisch</option><option value="year-desc">Jahr · neu nach alt</option><option value="year-asc">Jahr · alt nach neu</option><option value="genre">Genre</option><option value="collection-number">Nach Sammlungsnummer</option><option value="random">Zufällig</option></select></label></div>
+      </details>
+      <fieldset class="catalog-year-range catalog-filter-card" aria-labelledby="catalogYearRangeTitle">
         <legend id="catalogYearRangeTitle">Erscheinungsjahr</legend>
         <label>Von<input id="catalogYearFrom" type="number" inputmode="numeric" min="1880" max="2100" step="1" placeholder="1880"></label>
         <span aria-hidden="true">–</span>
         <label>Bis<input id="catalogYearTo" type="number" inputmode="numeric" min="1880" max="2100" step="1" placeholder="Heute"></label>
       </fieldset>
       <label class="drawer-toggle"><input id="catalogOriginalTitleToggle" type="checkbox"><span>Originaltitel anzeigen</span></label>
-      <section class="drawer-language-section" aria-labelledby="drawerLanguageTitle">
-        <div><strong id="drawerLanguageTitle">Sprachen</strong><small>Keine Auswahl zeigt alle Filme.</small></div>
-        <div id="catalogLanguageFilters" class="drawer-language-filters"></div>
-        <p id="catalogLanguagesEmpty" class="drawer-language-empty" hidden>Noch keine Sprachen in eigenen Fassungen hinterlegt.</p>
-      </section>
-      <section class="drawer-language-section" aria-labelledby="drawerSubtitleTitle">
-        <div><strong id="drawerSubtitleTitle">Untertitel</strong><small>Keine Auswahl zeigt alle Filme.</small></div>
-        <div id="catalogSubtitleFilters" class="drawer-language-filters"></div>
-        <p id="catalogSubtitlesEmpty" class="drawer-language-empty" hidden>Noch keine Untertitel in eigenen Fassungen hinterlegt.</p>
-      </section>
+      <details class="catalog-filter-dropdown">
+        <summary><span><strong>Sprachen</strong><small id="catalogLanguagesSummary">Alle Sprachen</small></span><b aria-hidden="true">⌄</b></summary>
+        <div class="catalog-filter-dropdown-body"><p>Keine Auswahl zeigt alle Filme.</p><div id="catalogLanguageFilters" class="drawer-language-filters"></div><p id="catalogLanguagesEmpty" class="drawer-language-empty" hidden>Noch keine Sprachen in eigenen Fassungen hinterlegt.</p></div>
+      </details>
+      <details class="catalog-filter-dropdown">
+        <summary><span><strong>Untertitel</strong><small id="catalogSubtitlesSummary">Alle Untertitel</small></span><b aria-hidden="true">⌄</b></summary>
+        <div class="catalog-filter-dropdown-body"><p>Keine Auswahl zeigt alle Filme.</p><div id="catalogSubtitleFilters" class="drawer-language-filters"></div><p id="catalogSubtitlesEmpty" class="drawer-language-empty" hidden>Noch keine Untertitel in eigenen Fassungen hinterlegt.</p></div>
+      </details>
     </div>
-    <div id="catalogDisplayPanel" class="catalog-drawer-fields" role="tabpanel" hidden>
+    <div id="catalogDisplayPanel" class="catalog-drawer-fields" role="tabpanel" aria-labelledby="catalogDisplayTab" tabindex="0" hidden>
       <label>Theme<select id="catalogThemeSelect"><option value="default">Arthouse</option><option value="neon">Videothek · Neon</option><option value="cinema">Kino bei Nacht</option></select></label>
       <label class="drawer-toggle"><input id="catalogCollectorHighlightToggle" type="checkbox" checked><span>Sammler-Markierungen anzeigen</span></label>
-      <p class="drawer-language-empty drawer-setting-note">Gold kennzeichnet physische Fassungen und hochwertige digitale Käufe. Blau kennzeichnet andere Fassungen mit hervorragender oder sehr guter Qualität.</p>
+      <p class="drawer-language-empty drawer-setting-note">Die Bedeutung der Farbmarkierungen ist unter „Info“ erklärt.</p>
       <label>Sprache der App<select id="appLanguageSelect"><option value="de">Deutsch</option><option value="en">English</option></select></label>
       <label>Sprache der Filminformationen<select id="filmMetadataLanguageSelect"><option value="app">Wie App-Sprache</option><option value="original">Originalsprache</option><option value="de-DE">Deutsch</option><option value="en-US">English</option></select></label>
       <button id="syncFilmMetadataButton" class="secondary-action" type="button">Fehlende Filminformationen synchronisieren</button>
       <div id="filmMetadataSyncProgress" class="metadata-sync-progress" hidden><progress max="100" value="0"></progress><small></small></div>
       <p class="drawer-language-empty">Die Auswahl bestimmt künftig die Sprache der Oberfläche und der geladenen Metadaten.</p>
     </div>
-    <div id="catalogInfoPanel" class="catalog-info-panel" role="tabpanel" hidden>
+    <div id="catalogInfoPanel" class="catalog-info-panel" role="tabpanel" aria-labelledby="catalogInfoTab" tabindex="0" hidden>
+      <section class="catalog-info-section"><h3>Farbmarkierungen</h3><p>Die Farbe zeigt die beste aktuell bekannte eigene Fassung eines Films. Die katalogweite Streamingauswertung ist vorerst deaktiviert.</p><div class="loot-color-legend" aria-label="Bedeutung der Farbmarkierungen"><div><i data-loot-color="gold" aria-hidden="true"></i><span><strong>Gold · Legendär</strong><small>Eigene Fassung in hervorragender Qualität oder ohne Qualitätsangabe</small></span></div><div><i data-loot-color="purple" aria-hidden="true"></i><span><strong>Lila · Episch</strong><small>Eigene Fassung in sehr guter Qualität</small></span></div><div><i data-loot-color="blue" aria-hidden="true"></i><span><strong>Blau · Selten</strong><small>Eigene Fassung in guter Qualität</small></span></div><div><i data-loot-color="green" aria-hidden="true"></i><span><strong>Grün · Ungewöhnlich</strong><small>Für eine spätere katalogweite Streamingauswertung vorgesehen</small></span></div><div><i data-loot-color="red" aria-hidden="true"></i><span><strong>Rot · Defekt</strong><small>Fassung oder Zugang vorhanden, aber beschädigt oder unbrauchbar</small></span></div><div><i data-loot-color="gray" aria-hidden="true"></i><span><strong>Grau · Nicht verfügbar</strong><small>Keine nutzbare eigene Fassung vorhanden</small></span></div></div></section>
       <section class="catalog-info-section"><h3>Datensicherheit</h3><p>Deine Filme, Projekte und Einstellungen werden in den lokalen Website-Daten deines Browsers gespeichert. Es werden keine Filmdaten an einen Videothek-Server übertragen. Wenn du die Website-Daten von neon-v.com löschst, können diese Daten verloren gehen.</p><p><strong>Sichere wichtige Änderungen regelmäßig über die Exportfunktion.</strong></p></section>
       <section class="catalog-info-section"><h3>Impressum</h3><p>Videothek ist eine Anwendung von <a href="https://ziselin.com" target="_blank" rel="noopener noreferrer">Ziselin</a>, einer Plattform für digitale Werkzeuge zur Erstellung und Erprobung interaktiver Wissens- und Präsentationsräume.</p><p><strong>Verantwortlich für den Inhalt</strong><br>Martin Graupner<br>Ribnitz-Damgarten<br>Deutschland</p><p>Kontakt: <a href="mailto:impressum@ziselin.com">impressum@ziselin.com</a></p><p class="tmdb-attribution"><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">TMDB</a><br><small>This product uses the TMDB API but is not endorsed or certified by TMDB.</small></p></section>
     </div>
@@ -367,6 +377,17 @@
     </form>
   </dialog>
 
+  <dialog id="preparedPlaylistDialog" class="dialog prepared-playlist-dialog">
+    <form id="preparedPlaylistForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Bibliothek</p><h2>Listen auswählen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <p class="prepared-playlist-intro">Wähle aus, welche vorbereiteten Sammlungen und Playlists in deiner Seitenleiste erscheinen.</p>
+      <div class="library-tabs" role="tablist" aria-label="Bereiche der Bibliothek"><button class="is-active" type="button" role="tab" aria-selected="true" data-library-tab="collections">Sammlungen</button><button type="button" role="tab" aria-selected="false" data-library-tab="playlists">Playlisten</button></div>
+      <div id="libraryCollectionsPanel" class="library-panel prepared-playlist-choices" role="tabpanel" data-library-panel="collections"></div>
+      <div id="libraryPlaylistsPanel" class="library-panel prepared-playlist-choices" role="tabpanel" data-library-panel="playlists" hidden></div>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Auswahl übernehmen</button></div>
+    </form>
+  </dialog>
+
   <dialog id="playlistFilmDialog" class="dialog playlist-film-dialog">
     <form method="dialog">
       <div class="dialog-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistFilmDialogTitle">Film hinzufügen</h2></div><button class="dialog-close" value="cancel" aria-label="Schließen">×</button></div>
@@ -474,7 +495,7 @@
   <script src="videothek-storage.js?v=20261004-17"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261007-243"></script>
+  <script src="videothek.js?v=20261007-256"></script>
 </body>
 </html>
 
