@@ -1,5 +1,9 @@
 # Changelog
 
+- Serien-Einträge verwenden jetzt dieselbe Qualitätswertung wie Filme: Hervorragend ergibt Gold, Sehr gut Lila und Gut Blau. Nur physische Serienausgaben werden ohne Qualitätsangabe automatisch Gold markiert; unbewertete digitale Käufe und andere Quellen bleiben ohne Farbmarkierung.
+
+- Das Sammlungsregister im linken Entdecken-Menü zeigt nur noch die Sammlungen, die zuvor in der Bibliothek ausgewählt wurden. Wird eine gerade aktive Bibliotheksliste abgewählt, fällt die Katalogansicht automatisch auf „Alle Filme“ zurück.
+
 - Die abschließende Film-Farbwertung bewahrt jetzt die ermittelte höchste Fassungsstufe. Eine fehlerhafte Operatorrangfolge hatte zuvor jede vorhandene Stufe – einschließlich Gold und Lila – wieder in Blau umgewandelt.
 
 - Die Farbwertung unterscheidet wieder präzise zwischen physischen und digitalen Fassungen: Eine fehlende Qualitätsangabe wird ausschließlich bei physischen Medien wie DVD oder Blu-ray als hervorragend und damit Gold angenommen. Digitale Fassungen ohne Qualitätsangabe erhalten keine Qualitätsfarbe. Eine ausdrücklich als „Hervorragend“ bewertete Fassung wird zuverlässig Gold, „Sehr gut“ Lila und „Gut“ Blau; Blau durch Streaming setzt eine tatsächliche Streaming-Zuordnung voraus.
