@@ -4,7 +4,7 @@ const ALLOWED_PATH = /^\/(?:configuration|search\/(?:movie|tv|multi)|find\/[^/]+
 function json(body, status = 200, headers = {}) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "content-type": "application/json; charset=utf-8", ...headers },
+    headers: { "content-type": "application/json; charset=utf-8", "access-control-allow-origin": "*", ...headers },
   });
 }
 
@@ -25,7 +25,11 @@ export default {
     const cache = caches.default;
     const cacheKey = new Request(target.toString(), { method: "GET" });
     const cached = await cache.match(cacheKey);
-    if (cached) return cached;
+    if (cached) {
+      const result = new Response(cached.body, cached);
+      result.headers.set("access-control-allow-origin", "*");
+      return result;
+    }
 
     const response = await fetch(target, {
       headers: {
@@ -34,6 +38,7 @@ export default {
       },
     });
     const result = new Response(response.body, response);
+    result.headers.set("access-control-allow-origin", "*");
     result.headers.set("cache-control", path.startsWith("/search/") ? "public, max-age=600" : "public, max-age=21600");
     result.headers.delete("set-cookie");
     if (response.ok) await cache.put(cacheKey, result.clone());
