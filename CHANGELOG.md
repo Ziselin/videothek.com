@@ -1,5 +1,29 @@
 # Changelog
 
+- Die vorbereitete Bibliotheksplaylist „Film Noir“ enthält jetzt die vollständig kuratierte Narration. Reihenfolge und Metadaten der 50 Titel werden aktualisiert; exportierte Projekte, Filmfassungen und lokale Film-IDs werden nicht in die Bibliotheksvorlage übernommen.
+
+- Ratings aus der narrativen Auswahlansicht werden nun auf alle Instanzen desselben Films übertragen und unmittelbar im lokalen Snapshot sowie in IndexedDB gesichert. Dadurch bleiben sie nach einem Reload erhalten.
+
+- Gefüllte Bewertungssterne erhalten einen dezenten goldenen Neon-Schimmer, der bei Mouseover leicht intensiver wird; die dunklen Sternplätze bleiben dabei zurückhaltend.
+
+- Halbe Bewertungen werden jetzt pro Sternplatz gerendert. Dadurch bleibt jede 0,5-Stufe sauber innerhalb des zugehörigen dunklen Sternfelds und verschiebt oder verbreitert benachbarte Sterne nicht mehr.
+
+- Unbewertete Sterne erscheinen in der narrativen Playlistansicht jetzt als dunkle, eingelassene Flächen statt als helle Konturen. Goldene Bewertungssterne füllen diese Plätze bei Vorschau und Auswahl.
+
+- Die kompakte Filmansicht narrativer Playlists zeigt das persönliche Ranking jetzt als eigenständige Fünf-Sterne-Steuerung am rechten Kartenrand. Beim Überfahren erscheint ohne Verzögerung eine Vorschau in 0,5-Schritten, die mit einem Klick übernommen wird. Die Tastatur verändert das Rating ebenfalls in 0,5-Schritten. Ungesehene beziehungsweise unbewertete Titel behalten ein vollständig leeres Sternefeld.
+
+- Der Narrationseditor dokumentiert und rendert jetzt kursive und fette Markdown-Auszeichnung mit Sternchen oder Unterstrichen sowie Fußnoten im Format `[^quelle]` / `[^quelle]: Text`. Ihre sichtbaren Nummern entstehen automatisch anhand der ersten Erwähnung im Text.
+
+- Die Bibliothek enthält jetzt die vorbereitete Playlist „Film Noir“ mit 50 chronologisch geordneten Klassikern von 1940 bis 1959. TMDB-, IMDb- und Wikidata-Kennungen sowie vorhandene Cover werden für automatische Zuordnung und Synchronisierung übernommen.
+
+- Die Essay-Typografie verwendet jetzt eine ruhige Lesebreite von höchstens 68 Zeichen, eine responsive Schriftgröße und einen großzügigeren vertikalen Rhythmus zwischen Kapitelüberschrift, Fließtext und Filmkarten. Auf kleinen Bildschirmen werden Schrift und Abstände proportional verdichtet.
+
+- Die Filmkarten der narrativen Playlist-Ansicht sind auf zwei Drittel ihrer bisherigen Höhe verdichtet. Ihre erste Metazeile zeigt jetzt Herkunftsland und Erscheinungsjahr statt Listenposition und Medientyp.
+
+- Playlisten lassen sich jetzt in der Auswahlansicht als filmische Essays erleben: Wird dort eine Playlist gewählt, gliedern Narration und Filmkarten die Liste in Kapitel. Das Archiv bewahrt dagegen seine bisherige reine Filmliste als Verwaltungsansicht. Über „Narration bearbeiten“ steht dort ein Markdown-Editor mit Suche, Vorschau und einer per Drag & Drop oder Klick bedienbaren Filmleiste bereit. Beim Ziehen markiert ein pinker Einfügecursor die exakte Zielposition. Filme werden als `{{TMDB-ID}}`, Serien als `{{tv:TMDB-ID}}` referenziert; unbekannte IDs erscheinen als Platzhalterkarte. Sammlungen bleiben bewusst in ihrer tabellarischen Kanonansicht.
+
+- Das Schließen, Zurücknavigieren oder Ersetzen der Abspielansicht beendet jetzt zuverlässig sämtliche lokale Video- und Audiowiedergabe, entfernt YouTube-Einbettungen und beendet eine laufende Cast-Sitzung. Dadurch kann der Filmton nicht mehr aus einem geschlossenen oder bereits ersetzten Player weiterlaufen.
+
 - Serien-Einträge verwenden jetzt dieselbe Qualitätswertung wie Filme: Hervorragend ergibt Gold, Sehr gut Lila und Gut Blau. Nur physische Serienausgaben werden ohne Qualitätsangabe automatisch Gold markiert; unbewertete digitale Käufe und andere Quellen bleiben ohne Farbmarkierung.
 
 - Das Sammlungsregister im linken Entdecken-Menü zeigt nur noch die Sammlungen, die zuvor in der Bibliothek ausgewählt wurden. Wird eine gerade aktive Bibliotheksliste abgewählt, fällt die Katalogansicht automatisch auf „Alle Filme“ zurück.

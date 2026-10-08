@@ -12,6 +12,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
   <link rel="stylesheet" href="videothek-fixes.css?v=20261007-127">
+  <link rel="stylesheet" href="videothek-playlist-essay.css?v=20261008-11">
   <link rel="stylesheet" href="videothek-neon.css?v=20261004-38">
   <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
 </head>
@@ -63,6 +64,7 @@
             </div>
             <span id="catalogMenuArthouseSlot" class="arthouse-catalog-tool arthouse-catalog-tool-end"></span>
           </div>
+          <article id="catalogPlaylistEssayView" class="playlist-essay-view catalog-playlist-essay-view" hidden></article>
           <div id="filmGrid" class="film-grid"></div>
           <div id="catalogRenderSentinel" class="catalog-render-sentinel" aria-hidden="true"></div>
           <div id="emptyState" class="empty-state" hidden><strong>Hier ist noch Platz für Filme.</strong><span>Im Archiv kannst du Verweise und Cover anlegen.</span><button type="button" data-open-machine>Archiv öffnen</button></div>
@@ -122,7 +124,7 @@
           </div>
         </div>
         <div id="playlistsContent" class="machine-content" hidden>
-          <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div><div class="machine-head-actions"><button id="playlistAddFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><div id="syncCollectionControl" class="sync-control" hidden><button id="syncCollectionButton" class="secondary-action" type="button" aria-describedby="syncCollectionStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncCollectionStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div></div>
+          <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div><div class="machine-head-actions"><button id="playlistNarrationButton" class="secondary-action" type="button" hidden>Narration bearbeiten</button><button id="playlistAddFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><div id="syncCollectionControl" class="sync-control" hidden><button id="syncCollectionButton" class="secondary-action" type="button" aria-describedby="syncCollectionStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncCollectionStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div></div>
           <div id="playlistTableWrap" class="table-wrap"><table><thead><tr><th class="playlist-number-cell"><button class="table-sort-button" type="button" data-playlist-sort="number">#</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="title">Titel</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="year">Jahr</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="details">Details</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="rating">Rating</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="status">Status</button></th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="playlistItems"></tbody></table></div>
           <div id="playlistArchiveEmpty" class="playlist-empty"><strong id="playlistEmptyTitle">Filme für einen Abend zusammenstellen</strong><span id="playlistEmptyText">Lege links deine erste Playlist an.</span></div>
         </div>
@@ -421,6 +423,22 @@
     </form>
   </dialog>
 
+  <dialog id="playlistNarrationDialog" class="dialog playlist-narration-dialog">
+    <form id="playlistNarrationForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Filmischer Essay</p><h2 id="playlistNarrationTitle">Narration bearbeiten</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <p class="playlist-narration-intro">Strukturiere deine Playlist mit Markdown. Ziehe Filme aus der Leiste an die aktuelle Cursorposition oder füge sie per Klick ein.</p>
+      <div class="playlist-narration-layout">
+        <aside class="playlist-narration-shelf" aria-labelledby="playlistNarrationShelfTitle"><div class="playlist-narration-shelf-head"><strong id="playlistNarrationShelfTitle">Filme der Playlist</strong><small>Zum Einfügen ziehen oder anklicken</small></div><label class="playlist-narration-search"><span class="sr-only">Filme durchsuchen</span><input id="playlistNarrationSearch" type="search" placeholder="Filme durchsuchen …" autocomplete="off"></label><div id="playlistNarrationFilms" class="playlist-narration-films"></div></aside>
+        <section class="playlist-narration-workspace">
+          <div class="library-tabs playlist-narration-tabs" role="tablist" aria-label="Narration bearbeiten"><button class="is-active" type="button" role="tab" aria-selected="true" data-narration-tab="write">Schreiben</button><button type="button" role="tab" aria-selected="false" data-narration-tab="preview">Vorschau</button></div>
+          <div id="playlistNarrationWritePanel" role="tabpanel"><label class="playlist-narration-editor">Markdown<textarea id="playlistNarrationMarkdown" rows="18" spellcheck="true" placeholder="# Kapitel 1&#10;&#10;Ein *wichtiger* Gedanke mit einer Fußnote.[^quelle]&#10;&#10;{{1726}}&#10;&#10;[^quelle]: Text der Fußnote"></textarea><span id="playlistNarrationDropCaret" class="playlist-narration-drop-caret" aria-hidden="true"></span></label><p class="playlist-narration-help"><code>_kursiv_</code> oder <code>*kursiv*</code> · <code>__fett__</code> oder <code>**fett**</code> · Fußnote: <code>[^quelle]</code> und <code>[^quelle]: Text</code> (automatisch nummeriert)<br><code>{{1726}}</code> fügt einen Film ein, <code>{{tv:1399}}</code> eine Serie. Überschriften beginnen mit <code>#</code>, <code>##</code> oder <code>###</code>.</p></div>
+          <div id="playlistNarrationPreviewPanel" role="tabpanel" hidden><div class="playlist-narration-preview-head"><span>Vorschau</span><small>Wird während des Schreibens aktualisiert</small></div><div id="playlistNarrationPreview" class="playlist-narration-preview"></div></div>
+        </section>
+      </div>
+      <div class="dialog-actions"><span></span><span></span><button value="cancel" formnovalidate>Abbrechen</button><button class="primary-button" value="default">Narration speichern</button></div>
+    </form>
+  </dialog>
+
   <dialog id="exportDialog" class="dialog small-dialog">
     <form id="exportForm" method="dialog">
       <div class="dialog-head"><div><p class="eyebrow">Projekt weitergeben</p><h2>Projekt exportieren</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
@@ -491,11 +509,12 @@
     <script src="videothek-golden-lion.js?v=20261003-1"></script>
     <script src="videothek-golden-bear.js?v=20261004-1"></script>
     <script src="videothek-national-film-registry.js?v=20261004-1"></script>
-    <script src="videothek-world-cinema-project.js?v=20261005-1"></script>
+  <script src="videothek-world-cinema-project.js?v=20261005-1"></script>
+  <script src="videothek-film-noir-playlist.js?v=20261008-2"></script>
   <script src="videothek-storage.js?v=20261004-17"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261007-262"></script>
+  <script src="videothek.js?v=20261008-277"></script>
 </body>
 </html>
 
