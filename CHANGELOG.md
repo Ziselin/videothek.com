@@ -1,5 +1,13 @@
 # Changelog
 
+- Die kuratierte Bibliotheksplaylist „Film Noir“ wurde einschließlich ihrer Narration durch die neue Fassung vom 9. Oktober 2026 ersetzt. Die 50 Referenzeinträge werden aktualisiert; eingebettete Projekte, Fassungen und lokale Film-IDs bleiben weiterhin ausgeschlossen.
+
+- Die Filmliste des Narrationseditors kennzeichnet Serien und Kino-Serials jetzt zuverlässig mit `{{tv:TMDB-ID}}`, selbst wenn ein verknüpfter Archiveintrag noch als Film klassifiziert ist. Klick und Drag & Drop übernehmen denselben sichtbaren Token ins Markdown.
+
+- Kapitelüberschriften und Filmtitel der narrativen Playlistansicht werden jetzt dauerhaft serifenlos dargestellt; der sichtbare Wechsel zur spät geladenen Garamond-Schrift entfällt. Der eigentliche Essay-Fließtext bleibt serif gesetzt.
+
+- Die Titelzeile kompakter Playlistkarten bietet jetzt ausreichend vertikalen Raum für Unterlängen, sodass Buchstaben wie g, p, q und y nicht mehr abgeschnitten werden.
+
 - Die vorbereitete Bibliotheksplaylist „Film Noir“ enthält jetzt die vollständig kuratierte Narration. Reihenfolge und Metadaten der 50 Titel werden aktualisiert; exportierte Projekte, Filmfassungen und lokale Film-IDs werden nicht in die Bibliotheksvorlage übernommen.
 
 - Ratings aus der narrativen Auswahlansicht werden nun auf alle Instanzen desselben Films übertragen und unmittelbar im lokalen Snapshot sowie in IndexedDB gesichert. Dadurch bleiben sie nach einem Reload erhalten.
