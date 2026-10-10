@@ -1,0 +1,281 @@
+/* A quiet launch curtain keeps the catalog hidden until its first complete render. */
+.app-startup{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:grid;
+  place-content:center;
+  justify-items:center;
+  gap:22px;
+  overflow:hidden;
+  color:#b9b2c7;
+  background:
+    radial-gradient(circle at 50% 46%,rgba(255,39,143,.11),transparent 18rem),
+    radial-gradient(circle at 72% 28%,rgba(40,222,209,.055),transparent 23rem),
+    #080812;
+  opacity:1;
+  visibility:visible;
+  transition:opacity .38s ease,visibility 0s linear .38s;
+}
+.app-startup::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.13;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:4px 4px;
+}
+.app-startup-glow{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:min(70vw,430px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,41,143,.14),rgba(185,38,192,.035) 42%,transparent 70%);
+  opacity:0;
+  transform:translate(-50%,-54%) scale(.8);
+  animation:startup-glow-in 1s ease .45s forwards;
+}
+.app-startup-logo{
+  position:relative;
+  width:clamp(112px,15vw,168px);
+  height:auto;
+  opacity:0;
+  transform:scale(.985);
+  animation:startup-v-ignite .82s linear .22s forwards,startup-v-breathe 2.8s ease-in-out 1.04s infinite alternate;
+}
+.app-startup-status{
+  position:relative;
+  margin:0;
+  color:#8f899f;
+  font:600 .69rem/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  opacity:0;
+  animation:startup-status-in .45s ease .85s forwards;
+}
+html[lang="de"] .app-startup-status [lang="en"],html[lang="en"] .app-startup-status [lang="de"]{display:none}
+html[data-storage-loading="true"] .app-shell{opacity:0!important;visibility:hidden;pointer-events:none}
+html[data-app-ready="true"] .app-shell{animation:startup-app-in .42s ease both}
+.app-startup.is-leaving{opacity:0;pointer-events:none}
+
+/* The large marquee is replaced by one stable navigation bar. */
+:root[data-theme="neon"] .topbar,
+:root[data-theme="neon"][data-view="machine"] .topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  height:72px;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:62px;
+  padding:0 clamp(18px,3.5vw,58px) 10px;
+  overflow:visible;
+  transition:none;
+}
+:root[data-theme="neon"] .brand{display:none}
+:root[data-theme="neon"] .main-nav{grid-column:1;grid-row:1}
+:root[data-theme="neon"] .search{grid-row:1}
+:root[data-theme="neon"] .header-tools{grid-row:1}
+:root[data-theme="neon"] .archive-neon-brand,
+:root[data-theme="neon"][data-view="machine"] .archive-neon-brand,
+:root[data-theme="neon"][data-view="cinema"] .archive-neon-brand{
+  opacity:1;
+  pointer-events:auto;
+  animation:none;
+}
+:root[data-theme="neon"] .cinema-view::before,
+:root[data-theme="neon"] .cinema-view::after{inset:72px 0 0}
+:root[data-theme="neon"] .genre-filter-region{
+  top:114px;
+  max-height:calc(100dvh - 126px);
+  will-change:auto;
+  transition:none;
+}
+:root[data-theme="neon"] .view{min-height:calc(100dvh - 72px)}
+
+.catalog-desktop-nav{display:none}
+.cinema-view.has-catalog-context:has(.catalog-playlist-essay-view:not([hidden])) .arthouse-catalog-bar{left:auto;width:min(880px,100%);max-width:880px;margin-right:auto;margin-left:auto;transform:none}
+.cinema-view.has-catalog-context:has(.catalog-playlist-essay-view:not([hidden])) .arthouse-catalog-overview{width:100%;max-width:880px;margin-inline:auto;transform:none}
+
+.playlist-essay-view.has-side-room-navigation .playlist-room-navigation{
+  position:sticky;
+  top:84px;
+  z-index:7;
+  align-self:start;
+  display:flex;
+  flex-direction:column;
+  flex-wrap:nowrap;
+  align-items:flex-start;
+  width:108px;
+  height:0;
+  margin:0;
+  padding:0;
+  overflow:visible;
+  transform:translateX(calc(-100% - 28px));
+}
+.playlist-essay-view.has-side-room-navigation .playlist-room-progress{justify-content:space-between;width:100%}
+.playlist-essay-view.has-side-room-navigation .playlist-room-progress::after{top:50%;bottom:auto;left:calc(100% + 9px);text-align:left;transform:translate(4px,-50%)}
+.playlist-essay-view.has-side-room-navigation .playlist-room-progress:hover::after,
+.playlist-essay-view.has-side-room-navigation .playlist-room-progress:focus-visible::after{transform:translate(0,-50%)}
+
+@media(min-width:1100px){
+  .playlist-essay-view.has-side-room-navigation .playlist-room-navigation{top:132px}
+  :root[data-view="cinema"] .catalog-desktop-nav{
+    position:sticky;
+    top:72px;
+    z-index:19;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(18px,3.5vw,52px);
+    min-height:48px;
+    padding:0 clamp(24px,4vw,64px);
+    border-bottom:1px solid var(--line);
+    background:color-mix(in srgb,var(--bg) 94%,transparent);
+    box-shadow:0 10px 24px rgba(0,0,0,.16);
+    backdrop-filter:blur(18px);
+  }
+  :root[data-view="cinema"] .catalog-desktop-nav button{
+    position:relative;
+    min-height:48px;
+    padding:0 5px;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    font-size:.76rem;
+    font-weight:750;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+  }
+  :root[data-view="cinema"] .catalog-desktop-nav button:hover,
+  :root[data-view="cinema"] .catalog-desktop-nav button.is-active{color:var(--text)}
+  :root[data-view="cinema"] .catalog-desktop-nav button::after{
+    content:"";
+    position:absolute;
+    right:0;
+    bottom:0;
+    left:0;
+    height:2px;
+    background:var(--accent2);
+    box-shadow:0 0 9px color-mix(in srgb,var(--accent2) 70%,transparent);
+    opacity:0;
+    transform:scaleX(.45);
+    transition:opacity .18s ease,transform .18s ease;
+  }
+  :root[data-view="cinema"] .catalog-desktop-nav button.is-active::after{opacity:1;transform:none}
+  :root[data-view="cinema"] #catalogExploreHeaderSlot{display:none}
+  :root[data-view="cinema"] .catalog-explore-drawer{
+    top:120px;
+    right:auto;
+    bottom:auto;
+    left:50%;
+    width:min(980px,calc(100vw - 64px));
+    height:min(68dvh,680px);
+    padding:24px 28px 30px;
+    border:1px solid #34304a;
+    border-top:0;
+    border-radius:0 0 15px 15px;
+    box-shadow:0 28px 68px rgba(0,0,0,.58);
+    opacity:0;
+    transform:translate(-50%,-12px);
+    transition:opacity .2s ease,transform .24s cubic-bezier(.22,.75,.25,1),visibility 0s linear .24s;
+  }
+  :root[data-view="cinema"] .catalog-explore-drawer.is-open{
+    opacity:1;
+    transform:translate(-50%,0);
+    transition-delay:0s;
+  }
+  :root[data-view="cinema"] .catalog-explore-tabs{display:none}
+  :root[data-view="cinema"] .catalog-explore-panel{padding-top:20px}
+  :root[data-view="cinema"] .catalog-explore-drawer .chips,
+  :root[data-view="cinema"] .catalog-explore-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+  :root[data-view="cinema"] .catalog-collection-group{grid-column:1/-1}
+  :root[data-view="cinema"] .catalog-collection-group-items{grid-template-columns:repeat(3,minmax(0,1fr))}
+  :root[data-view="cinema"] .catalog-collection-region{align-content:start}
+  :root[data-view="cinema"] .catalog-drawer-backdrop{top:120px}
+  :root[data-theme="neon"][data-view="cinema"] .cinema-view::before,
+  :root[data-theme="neon"][data-view="cinema"] .cinema-view::after{inset:120px 0 0}
+  :root[data-theme="neon"][data-view="cinema"] .view{min-height:calc(100dvh - 120px)}
+}
+
+@keyframes startup-v-ignite{
+  0%,15%{opacity:0;filter:brightness(.45) saturate(.75)}
+  23%{opacity:.68;filter:brightness(1.08) saturate(1.04) drop-shadow(0 0 8px rgba(255,52,156,.32))}
+  32%{opacity:.16;filter:brightness(.68)}
+  47%{opacity:.9;filter:brightness(1.06) drop-shadow(0 0 11px rgba(255,52,156,.38))}
+  57%{opacity:.62;filter:brightness(.9)}
+  73%,100%{opacity:1;transform:scale(1);filter:brightness(1) drop-shadow(0 0 10px rgba(255,52,156,.3))}
+}
+@keyframes startup-v-breathe{to{filter:brightness(1.055) drop-shadow(0 0 15px rgba(255,52,156,.38))}}
+@keyframes startup-glow-in{to{opacity:1;transform:translate(-50%,-54%) scale(1)}}
+@keyframes startup-status-in{to{opacity:1}}
+@keyframes startup-app-in{from{opacity:0}to{opacity:1}}
+
+@media(max-width:800px){
+  :root[data-theme="neon"] .topbar,
+  :root[data-theme="neon"][data-view="machine"] .topbar{
+    height:126px;
+    grid-template-columns:44px minmax(0,1fr) 48px minmax(0,1fr) 44px;
+    grid-template-rows:52px 56px;
+    column-gap:8px;
+    row-gap:4px;
+    padding:7px 12px;
+  }
+  :root[data-theme="neon"] .main-nav{display:contents}
+  :root[data-theme="neon"] .main-nav>.nav-button[data-view="cinema"]{
+    grid-column:2;
+    grid-row:1;
+    justify-self:end;
+  }
+  :root[data-theme="neon"] .main-nav>.nav-button[data-view="machine"]{
+    grid-column:4;
+    grid-row:1;
+    justify-self:start;
+  }
+  :root[data-theme="neon"] .archive-neon-brand{
+    position:static;
+    grid-column:3;
+    grid-row:1;
+    align-self:center;
+    justify-self:center;
+    margin:0;
+  }
+  :root[data-theme="neon"] #catalogExploreHeaderSlot{
+    display:flex;
+    grid-column:1;
+    grid-row:2;
+    align-self:center;
+    justify-self:start;
+  }
+  :root[data-theme="neon"] .search{
+    display:flex;
+    grid-column:2/5;
+    grid-row:2;
+    align-self:center;
+    justify-self:stretch;
+    width:100%;
+    min-width:0;
+  }
+  :root[data-theme="neon"] .header-tools{
+    grid-column:5;
+    grid-row:2;
+    align-self:center;
+    justify-self:end;
+  }
+  :root[data-theme="neon"] .cinema-view::before,
+  :root[data-theme="neon"] .cinema-view::after{inset:126px 0 0}
+}
+@media(max-width:420px){
+  :root[data-theme="neon"] .topbar,
+  :root[data-theme="neon"][data-view="machine"] .topbar{grid-template-columns:42px minmax(0,1fr) 42px minmax(0,1fr) 42px;column-gap:5px;padding-inline:8px}
+  :root[data-theme="neon"] .nav-button{padding-inline:9px;font-size:.7rem}
+  :root[data-theme="neon"] .search{padding-inline:10px}
+  :root[data-theme="neon"] .search input{font-size:.86rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .app-startup-logo,.app-startup-glow,.app-startup-status{animation:none;opacity:1}
+  .app-startup-logo{transform:none;filter:drop-shadow(0 0 10px rgba(255,52,156,.3))}
+  html[data-app-ready="true"] .app-shell{animation:none}
+}

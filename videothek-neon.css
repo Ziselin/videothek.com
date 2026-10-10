@@ -257,8 +257,8 @@
 :root[data-theme="neon"] .film-id-row [data-fetch-id]:hover{color:#ffe27a!important;text-shadow:0 0 10px rgba(255,205,71,.26)}
 :root[data-theme="neon"] .film-id-row.is-verifiable [data-fetch-id]{color:#55d99a!important;text-shadow:0 0 8px rgba(85,217,154,.16)}
 :root[data-theme="neon"] .film-id-row.is-verifiable [data-fetch-id]:hover{color:#8bf0bd!important;text-shadow:0 0 10px rgba(85,217,154,.26)}
-:root[data-theme="neon"] .api-key-button{color:#817a90;background:#12101c;border-color:#39334a}
-:root[data-theme="neon"] .api-key-button:hover{color:#28ded1;background:#171421;border-color:#28ded1;box-shadow:0 0 12px rgba(40,222,209,.14)}
+:root[data-theme="neon"] .id-search-button{color:#817a90;background:#12101c;border-color:#39334a}
+:root[data-theme="neon"] .id-search-button:hover{color:#28ded1;background:#171421;border-color:#28ded1;box-shadow:0 0 12px rgba(40,222,209,.14)}
 :root[data-theme="neon"] .api-config-dialog>a{color:#52e5db}
 :root[data-theme="neon"] .film-id-status.is-present{color:#55d99a}
 :root[data-theme="neon"] .form-grid label,:root[data-theme="neon"] .small-dialog label,:root[data-theme="neon"] .paste-dialog form>label,:root[data-theme="neon"] .copy-grid label,:root[data-theme="neon"] .tmdb-token-row label,:root[data-theme="neon"] .catalog-drawer-fields label,:root[data-theme="neon"] .playlist-number-field{color:#d2cada}

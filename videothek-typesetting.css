@@ -1,0 +1,36 @@
+.typeset-prose {
+  font-variant-ligatures: common-ligatures contextual;
+  font-feature-settings: "liga" 1, "clig" 1, "calt" 1, "kern" 1;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 7 3 3;
+  hyphenate-limit-lines: 2;
+  -webkit-hyphenate-limit-before: 3;
+  -webkit-hyphenate-limit-after: 3;
+  -webkit-hyphenate-limit-lines: 2;
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-wrap: pretty;
+  text-rendering: optimizeLegibility;
+}
+
+.detail-description.typeset-prose,
+.detail-episode-description.typeset-prose {
+  max-width: 68ch;
+}
+
+.playlist-essay-prose.typeset-prose > h2,
+.playlist-essay-prose.typeset-prose > h3,
+.playlist-essay-prose.typeset-prose > h4,
+.playlist-essay-prose.typeset-prose > .playlist-room-navigation,
+.playlist-essay-prose.typeset-prose > .playlist-essay-film {
+  text-align: left;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+
+@media (max-width: 430px) {
+  .typeset-prose { text-align: left; }
+}
