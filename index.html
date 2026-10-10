@@ -11,12 +11,12 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
-  <link rel="stylesheet" href="videothek-fixes.css?v=20261010-130">
+  <link rel="stylesheet" href="videothek-fixes.css?v=20261010-131">
   <link rel="stylesheet" href="videothek-playlist-essay.css?v=20261010-21">
   <link rel="stylesheet" href="videothek-typesetting.css?v=20261010-1">
   <link rel="stylesheet" href="videothek-neon.css?v=20261010-39">
   <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
-  <link rel="stylesheet" href="videothek-startup.css?v=20261010-5">
+  <link rel="stylesheet" href="videothek-startup.css?v=20261010-6">
 </head>
 <body>
   <div id="appStartup" class="app-startup" role="status" aria-live="polite" aria-label="Neon V wird geladen">
@@ -61,6 +61,7 @@
       <button type="button" data-catalog-desktop-tab="collections" aria-expanded="false" aria-controls="catalogExploreDrawer">Sammlungen</button>
       <button type="button" data-catalog-desktop-tab="playlists" aria-expanded="false" aria-controls="catalogExploreDrawer">Playlisten</button>
       <button type="button" data-catalog-desktop-tab="franchises" aria-expanded="false" aria-controls="catalogExploreDrawer">Franchises</button>
+      <button type="button" data-catalog-desktop-tab="filters" aria-expanded="false" aria-controls="catalogExploreDrawer">Filter <span data-active-filter-count>(0)</span></button>
     </nav>
 
     <main>
@@ -74,7 +75,6 @@
                 <h2 id="allFilmsHeading">Alle Filme</h2>
                 <div class="catalog-meta"><span id="filmCount"></span></div>
               </div>
-              <div id="activeCatalogFilters" class="active-catalog-filters" aria-live="polite"></div>
             </div>
             <span id="catalogMenuArthouseSlot" class="arthouse-catalog-tool arthouse-catalog-tool-end"></span>
           </div>
@@ -91,7 +91,7 @@
           <div class="archive-tabs" role="tablist" aria-label="Archivbereiche"><button class="archive-tab is-active" type="button" role="tab" aria-selected="true" data-archive-section="projects">Projekte</button><button class="archive-tab" type="button" role="tab" aria-selected="false" data-archive-section="playlists">Listen</button></div>
           <p class="archive-tabs-help">Projekte sind die eindeutigen Ablageorte deiner Filmeinträge. Unter Listen können Filme zusätzlich mehreren Playlists und kuratierten Sammlungen zugeordnet sein.</p>
           <div id="projectsSidebarPane" class="archive-sidebar-pane">
-            <div class="sidebar-head"><h1>Projekte</h1><div class="project-menu-wrap"><button id="projectMenuButton" class="square-button project-menu-button" type="button" aria-label="Projektmenü öffnen" aria-expanded="false" aria-controls="projectMenu">⋮</button><div id="projectMenu" class="project-menu" hidden><button id="addProjectButton" type="button">Projekt hinzufügen</button><button id="importButton" type="button">Importieren</button><button id="pasteImportButton" type="button">Liste einfügen</button><button id="exportButton" type="button">Exportieren</button><button id="smartImportButton" type="button">Smart Import</button></div></div></div>
+            <div class="sidebar-head"><h1>Projekte</h1><div class="project-menu-wrap"><button id="projectMenuButton" class="square-button project-menu-button" type="button" aria-label="Projektmenü öffnen" aria-expanded="false" aria-controls="projectMenu">⋮</button><div id="projectMenu" class="project-menu" hidden><button id="addProjectButton" type="button">Projekt hinzufügen</button><button id="importButton" type="button">Importieren</button><button id="jellyfinImportButton" type="button">Jellyfin Import</button><button id="pasteImportButton" type="button">Liste einfügen</button><button id="exportButton" type="button">Exportieren</button><button id="smartImportButton" type="button">Smart Import</button></div></div></div>
             <div class="archive-list-sections">
               <details id="projectSection" class="archive-list-section archive-list-section-projects" open>
                 <summary><span class="archive-list-section-icon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M18 17V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14c0 .55.45 1 1 1h14c.55 0 1-.45 1-1m-1 0H3V3h14zM4.75 4h10.5c.41 0 .75.34.75.75V6h-1v3h1v2h-1v3h1v1.25c0 .41-.34.75-.75.75H4.75c-.41 0-.75-.34-.75-.75V4.75c0-.41.34-.75.75-.75M13 10c0-2.21-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4M9 7l.77 1.15A2.02 2.02 0 0 1 11 10c0 1.1-.9 2-2 2s-2-.9-2-2c0-.83.51-1.54 1.23-1.85z"/></svg></span><span class="archive-list-section-copy"><strong>Meine Projekte</strong><small>Archive und Arbeitsbestände</small></span><span id="projectSectionCount" class="archive-list-section-count">0</span><span class="archive-list-section-chevron" aria-hidden="true"></span></summary>
@@ -151,9 +151,10 @@
     <div class="catalog-drawer-head"><div><p class="eyebrow">Entdecken</p><h2 id="catalogExploreTitle">Filme erkunden</h2></div><button id="catalogExploreClose" type="button" aria-label="Entdecken-Menü schließen">×</button></div>
     <div class="catalog-settings-tabs catalog-explore-tabs" role="tablist" aria-label="Katalogbereiche">
       <button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-explore-tab="genres">Genre</button>
-      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="playlists">Playlist</button>
       <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="collections">Sammlung</button>
+      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="playlists">Playlist</button>
       <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="franchises">Franchise</button>
+      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="filters">Filter <span data-active-filter-count>(0)</span></button>
     </div>
     <div id="catalogExploreGenres" class="catalog-explore-panel" role="tabpanel">
       <div class="genre-filter-region">
@@ -165,6 +166,7 @@
     <div id="catalogExplorePlaylists" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogPlaylistChoices" class="catalog-explore-list"></div><p id="catalogPlaylistsEmpty" class="drawer-language-empty" hidden>Noch keine Playlists angelegt oder aus der Bibliothek ausgewählt.</p></div>
     <div id="catalogExploreCollections" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogCollectionChoices" class="catalog-explore-list"></div></div>
     <div id="catalogExploreFranchises" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogFranchiseChoices" class="catalog-explore-list"></div><p id="catalogFranchisesEmpty" class="drawer-language-empty" hidden>Noch keine Franchises hinterlegt.</p></div>
+    <div id="catalogExploreFilters" class="catalog-explore-panel catalog-explore-filter-panel" role="tabpanel" hidden><div id="activeCatalogFilters" class="active-catalog-filters" aria-live="polite"></div><p id="catalogActiveFiltersEmpty" class="drawer-language-empty">Keine Filter aktiv.</p></div>
   </aside>
 
   <div id="catalogBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
@@ -374,6 +376,22 @@
     </form>
   </dialog>
 
+  <dialog id="jellyfinImportDialog" class="dialog jellyfin-import-dialog">
+    <form id="jellyfinImportForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Projektimport</p><h2>Jellyfin Import</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
+      <p class="jellyfin-import-intro">Filme und Serien werden mit einem Link zum Jellyfin-Eintrag übernommen. Die digitale Fassung erhält immer die Quelle <strong>jellyfin</strong>.</p>
+      <div class="form-grid jellyfin-import-fields">
+        <label class="span-2">Serveradresse<input id="jellyfinServerUrl" type="url" required placeholder="http://192.168.1.10:8096" autocomplete="url"></label>
+        <label class="span-2">API-Schlüssel<input id="jellyfinApiKey" type="password" required autocomplete="off" placeholder="Jellyfin API Key"></label>
+        <label class="span-2">Zielprojekt<select id="jellyfinTargetProject"></select></label>
+      </div>
+      <p class="jellyfin-import-security">Serveradresse und Schlüssel werden ausschließlich lokal in diesem Browser gespeichert.</p>
+      <p id="jellyfinImportStatus" class="tmdb-status" role="status" aria-live="polite"></p>
+      <progress id="jellyfinImportProgress" max="100" value="0" hidden></progress>
+      <div class="dialog-actions"><span></span><button id="jellyfinTestButton" class="secondary-action" type="button">Verbindung testen</button><button value="cancel" formnovalidate>Abbrechen</button><button id="jellyfinImportSubmit" class="primary-button" type="submit" value="default">Importieren</button></div>
+    </form>
+  </dialog>
+
   <dialog id="projectDialog" class="dialog small-dialog">
     <form id="projectForm" method="dialog">
       <div class="dialog-head"><div><p class="eyebrow">Neue Sammlung</p><h2>Projekt anlegen</h2></div><button class="dialog-close" value="cancel" formnovalidate aria-label="Schließen">×</button></div>
@@ -529,7 +547,7 @@
   <script src="videothek-storage.js?v=20261004-17"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261010-291"></script>
+  <script src="videothek.js?v=20261010-294"></script>
 </body>
 </html>
 

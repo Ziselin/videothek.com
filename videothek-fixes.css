@@ -612,6 +612,12 @@ input,select,textarea { background:#fff; border-color:#d4d1ca; }
 .tmdb-id-search-field { display:grid; gap:6px; }
 .tmdb-id-search-results { max-height:min(56vh,520px); }
 .tmdb-id-search-dialog .tmdb-status { min-height:1.35em; margin:10px 0 0; }
+.jellyfin-import-dialog { width:min(620px,calc(100vw - 28px)); }
+.jellyfin-import-intro { margin:-4px 0 18px; color:var(--muted); line-height:1.5; }
+.jellyfin-import-security { margin:12px 0 0; color:var(--muted); font-size:.78rem; }
+.jellyfin-import-dialog progress { width:100%; height:7px; margin-top:10px; accent-color:var(--accent); }
+.jellyfin-import-dialog .dialog-actions { grid-template-columns:1fr auto auto auto; }
+@media(max-width:620px){.jellyfin-import-dialog .dialog-actions{grid-template-columns:1fr 1fr}.jellyfin-import-dialog .dialog-actions>span{display:none}.jellyfin-import-dialog #jellyfinTestButton{grid-column:1/-1}}
 .playlist-film-dialog { width:min(650px,calc(100vw - 28px)); }
 .playlist-film-search { display:grid; gap:6px; }
 .playlist-film-results { display:grid; gap:7px; max-height:min(480px,55vh); overflow:auto; margin-top:14px; padding-right:3px; }
@@ -1173,7 +1179,7 @@ input[readonly],textarea[readonly],.auto-filled-field {
 .catalog-settings-tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; margin-top:18px; padding:4px; border-radius:8px; background:#efede8; }
 .catalog-settings-tabs button { min-height:38px; border:0; border-radius:6px; background:transparent; color:#716e68; }
 .catalog-settings-tabs button.is-active { background:#fff; color:#302f2c; box-shadow:0 1px 5px rgba(34,31,27,.1); }
-.catalog-explore-tabs { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.catalog-explore-tabs { grid-template-columns:repeat(5,minmax(0,1fr)); }
 .catalog-explore-tabs button { padding-inline:6px; font-size:.8rem; }
 .catalog-explore-tabs button { position:relative; }
 .catalog-explore-tabs button.has-selection::after { content:""; position:absolute; top:6px; right:6px; width:7px; height:7px; border-radius:50%; background:#9b4f61; box-shadow:0 0 0 2px color-mix(in srgb,#9b4f61 16%,transparent); }

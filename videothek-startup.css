@@ -96,6 +96,12 @@ html[data-app-ready="true"] .app-shell{animation:startup-app-in .42s ease both}
 :root[data-theme="neon"] .view{min-height:calc(100dvh - 72px)}
 
 .catalog-desktop-nav{display:none}
+:root .catalog-explore-filter-panel .active-catalog-filters{display:grid;position:static;justify-content:stretch;gap:9px;margin:0;padding:0;overflow:visible}
+:root .catalog-explore-filter-panel .active-catalog-filters[hidden]{display:none}
+:root .catalog-explore-filter-panel .active-filter-item{display:grid;grid-template-columns:minmax(0,1fr) 30px;align-items:center;gap:12px;min-height:46px;padding:7px 7px 7px 13px;border:1px solid var(--line);border-radius:7px;background:var(--panel2);color:var(--text);font-family:SourceSans,system-ui,sans-serif;font-size:.82rem;font-stretch:normal;font-weight:600;letter-spacing:normal;line-height:1.25;text-transform:none}
+:root .catalog-explore-filter-panel .active-filter-item [data-remove-catalog-filter]{display:grid;place-items:center;width:30px;height:30px;padding:0;border:0;border-radius:5px;background:color-mix(in srgb,var(--text) 6%,transparent);color:var(--muted);font:500 1.15rem/1 SourceSans,system-ui,sans-serif;text-shadow:none}
+:root .catalog-explore-filter-panel .active-filter-item [data-remove-catalog-filter]:hover,:root .catalog-explore-filter-panel .active-filter-item [data-remove-catalog-filter]:focus-visible{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent2)}
+.catalog-desktop-nav [data-active-filter-count],.catalog-explore-tabs [data-active-filter-count]{font:inherit;color:inherit}
 .cinema-view.has-catalog-context:has(.catalog-playlist-essay-view:not([hidden])) .arthouse-catalog-bar{left:auto;width:min(880px,100%);max-width:880px;margin-right:auto;margin-left:auto;transform:none}
 .cinema-view.has-catalog-context:has(.catalog-playlist-essay-view:not([hidden])) .arthouse-catalog-overview{width:100%;max-width:880px;margin-inline:auto;transform:none}
 
@@ -191,6 +197,7 @@ html[data-app-ready="true"] .app-shell{animation:startup-app-in .42s ease both}
   :root[data-view="cinema"] .catalog-explore-panel{padding-top:20px}
   :root[data-view="cinema"] .catalog-explore-drawer .chips,
   :root[data-view="cinema"] .catalog-explore-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+  :root[data-view="cinema"] .catalog-explore-filter-panel .active-catalog-filters{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
   :root[data-view="cinema"] .catalog-collection-group{grid-column:1/-1}
   :root[data-view="cinema"] .catalog-collection-group-items{grid-template-columns:repeat(3,minmax(0,1fr))}
   :root[data-view="cinema"] .catalog-collection-region{align-content:start}
