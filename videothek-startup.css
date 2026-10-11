@@ -200,6 +200,7 @@ html[data-app-ready="true"] .app-shell{animation:startup-app-in .42s ease both}
   :root[data-view="cinema"] .catalog-explore-filter-panel .active-catalog-filters{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
   :root[data-view="cinema"] .catalog-collection-group{grid-column:1/-1}
   :root[data-view="cinema"] .catalog-collection-group-items{grid-template-columns:repeat(3,minmax(0,1fr))}
+  :root[data-view="cinema"] .catalog-explore-list>.playlist-choice-group .playlist-choice-group-items{grid-template-columns:repeat(3,minmax(0,1fr))}
   :root[data-view="cinema"] .catalog-collection-region{align-content:start}
   :root[data-view="cinema"] .catalog-drawer-backdrop{top:120px}
   :root[data-theme="neon"][data-view="cinema"] .cinema-view::before,
