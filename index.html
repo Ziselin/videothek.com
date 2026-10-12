@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#090914">
   <meta name="description" content="Videothek verwaltet kuratierte Filmprojekte und Verweise auf externe Speicherorte.">
   <title>Videothek</title>
-  <script>document.documentElement.dataset.storageLoading="true";try{const savedTheme=localStorage.getItem("videothek-theme-v1");document.documentElement.dataset.theme=["default","neon","cinema"].includes(savedTheme)?savedTheme:"neon";document.documentElement.lang=localStorage.getItem("videothek-app-language-v1")==="de"?"de":"en"}catch{document.documentElement.dataset.theme="neon";document.documentElement.lang="en"}</script>
+  <script>document.documentElement.dataset.storageLoading="true";try{const savedTheme=localStorage.getItem("videothek-theme-v1"),appearance=savedTheme==="default"?"light":"dark";document.documentElement.dataset.theme="neon";document.documentElement.dataset.appearance=appearance;document.documentElement.lang=localStorage.getItem("videothek-app-language-v1")==="de"?"de":"en"}catch{document.documentElement.dataset.theme="neon";document.documentElement.dataset.appearance="dark";document.documentElement.lang="en"}</script>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/videothek-neon-v-favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
@@ -15,8 +15,7 @@
   <link rel="stylesheet" href="videothek-playlist-essay.css?v=20261010-21">
   <link rel="stylesheet" href="videothek-typesetting.css?v=20261010-1">
   <link rel="stylesheet" href="videothek-neon.css?v=20261010-39">
-  <link rel="stylesheet" href="videothek-cinema.css?v=20261003-16">
-  <link rel="stylesheet" href="videothek-startup.css?v=20261011-7">
+  <link rel="stylesheet" href="videothek-startup.css?v=20261012-10">
 </head>
 <body>
   <div id="appStartup" class="app-startup" role="status" aria-live="polite" aria-label="Neon V wird geladen">
@@ -203,7 +202,7 @@
       </details>
     </div>
     <div id="catalogDisplayPanel" class="catalog-drawer-fields" role="tabpanel" aria-labelledby="catalogDisplayTab" tabindex="0" hidden>
-      <label>Theme<select id="catalogThemeSelect"><option value="default">Arthouse</option><option value="neon">Videothek · Neon</option><option value="cinema">Kino bei Nacht</option></select></label>
+      <label>Theme<select id="catalogThemeSelect"><option value="default">Arthouse · Hell</option><option value="neon">Neon V · Dunkel</option></select></label>
       <label class="drawer-toggle"><input id="catalogCollectorHighlightToggle" type="checkbox" checked><span>Sammler-Markierungen anzeigen</span></label>
       <p class="drawer-language-empty drawer-setting-note">Die Bedeutung der Farbmarkierungen ist unter „Info“ erklärt.</p>
       <label>Sprache der App<select id="appLanguageSelect"><option value="de">Deutsch</option><option value="en">English</option></select></label>
@@ -544,10 +543,10 @@
   <script src="videothek-cyberpunk-playlist.js?v=20261010-1"></script>
   <script src="videothek-gespenst-im-getriebe-playlist.js?v=20261010-1"></script>
   <script src="videothek-film-noir-playlist.js?v=20261009-3"></script>
-  <script src="videothek-storage.js?v=20261004-17"></script>
+  <script src="videothek-storage.js?v=20261012-18"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="videothek.js?v=20261011-305"></script>
+  <script src="videothek.js?v=20261012-307"></script>
 </body>
 </html>
 
