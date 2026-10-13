@@ -1154,7 +1154,7 @@ $("tmdbIdSearchResults").addEventListener("click",async event=>{const button=eve
 $("tmdbIdSearchDialog").addEventListener("close",()=>{clearTimeout(tmdbIdSearchTimer);tmdbIdSearchResults=[]});
 new MutationObserver(linkifyDetailCast).observe($("detailContent"),{childList:true,subtree:true});
 const openInternetArchivePlayerWithSubtitleContext=openInternetArchivePlayer;
-openInternetArchivePlayer=function(filmId,copyIndex){stopDetailPlayback();currentPlayerFilm=projects.flatMap(project=>project.films||[]).find(film=>sameId(film.id,filmId))||null;currentPlayerCopyIndex=Number(copyIndex);currentPlayerCopy=currentPlayerFilm?filmCopies(currentPlayerFilm)[currentPlayerCopyIndex]||null:null;return openInternetArchivePlayerWithSubtitleContext(filmId,copyIndex)};
+openInternetArchivePlayer=function(filmId,copyIndex){stopDetailPlayback();currentPlayerFilm=projects.flatMap(project=>project.films||[]).find(film=>sameId(film.id,filmId))||null;currentPlayerCopyIndex=Number(copyIndex);currentPlayerCopy=currentPlayerFilm?filmCopies(currentPlayerFilm)[currentPlayerCopyIndex]||null:null;currentPlayerSourceUrl=String(currentPlayerCopy?.link||"").trim();return openInternetArchivePlayerWithSubtitleContext(filmId,copyIndex)};
 new MutationObserver(()=>upgradeArchiveVideo($("detailContent").querySelector(".archive-html5-player"))).observe($("detailContent"),{childList:true,subtree:true});
 document.addEventListener("click",event=>{const person=event.target.closest("[data-person-search]");if(person)filterByPerson(person.dataset.personSearch)});
 document.addEventListener("click",event=>{const back=event.target.closest("[data-player-back]");if(back)showDetail(back.dataset.playerBack)});
