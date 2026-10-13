@@ -153,6 +153,7 @@ let catalogPlaylistId = savedCatalogState.playlistId;
 let catalogSort = savedCatalogState.sort;
 let showCatalogOriginalTitles = savedCatalogState.showOriginalTitles;
 let showCollectorHighlights = savedCatalogState.showCollectorHighlights;
+document.documentElement.dataset.collectorHighlights=String(showCollectorHighlights);
 const catalogRandomOrder = new Map();
 let selectedCatalogLanguages = new Set(savedCatalogState.languages);
 let selectedCatalogSubtitles = new Set(savedCatalogState.subtitles||[]);
