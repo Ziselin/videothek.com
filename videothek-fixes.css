@@ -2004,6 +2004,51 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
   text-overflow:ellipsis;
   -webkit-line-clamp:unset;
 }
+
+/* Watchlist: a quiet hover affordance that becomes a persistent state marker. */
+.film-card { position:relative; }
+.watchlist-toggle {
+  position:absolute;
+  z-index:8;
+  top:8px;
+  right:8px;
+  display:grid;
+  place-items:center;
+  width:36px;
+  height:36px;
+  padding:8px;
+  border:1px solid rgba(234,225,241,.3);
+  border-radius:10px;
+  background:rgba(8,7,16,.82);
+  color:#eee7f3;
+  box-shadow:0 5px 18px rgba(0,0,0,.28);
+  opacity:0;
+  transform:translateY(-3px);
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:opacity .16s ease,transform .16s ease,color .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.watchlist-toggle svg { width:18px; height:18px; overflow:visible; }
+.watchlist-toggle path { fill:transparent; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round; transition:fill .16s ease; }
+.film-card:hover .watchlist-toggle,
+.film-card:focus-within .watchlist-toggle,
+.watchlist-toggle.is-active { opacity:1; transform:translateY(0); }
+.watchlist-toggle:hover { color:#fff; border-color:rgba(255,79,154,.75); }
+.watchlist-toggle.is-active {
+  color:#ff4f9a;
+  border-color:rgba(255,79,154,.78);
+  box-shadow:0 0 0 1px rgba(255,79,154,.12),0 0 16px rgba(255,39,133,.34),0 6px 20px rgba(0,0,0,.3);
+}
+.watchlist-toggle.is-active path { fill:currentColor; }
+.watchlist-toggle:focus-visible { opacity:1; transform:none; outline:2px solid var(--accent); outline-offset:3px; }
+:root[data-theme="arthouse"] .watchlist-toggle { background:rgba(20,18,25,.9); color:#f7f2f7; }
+:root[data-theme="arthouse"] .watchlist-toggle.is-active { color:#ff4f9a; }
+@media (hover:none),(pointer:coarse) {
+  .watchlist-toggle { width:44px; height:44px; padding:12px; opacity:.96; transform:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .watchlist-toggle,.watchlist-toggle path { transition:none; }
+}
 :root[data-theme="default"] .film-info strong {
   display:block;
   min-height:0;

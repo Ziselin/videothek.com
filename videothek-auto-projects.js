@@ -1,9 +1,31 @@
 /* Automatically derived archive folders. They are views, never additional storage. */
 const AUTOMATIC_ALL_FILMS_ID="automatic-all-films";
+const AUTOMATIC_WATCHLIST_ID="automatic-watchlist";
 const AUTOMATIC_SERIES_ID="automatic-series";
 const AUTOMATIC_HARDCOPIES_ID="automatic-hardcopies";
-const AUTOMATIC_ARCHIVE_IDS=new Set([AUTOMATIC_ALL_FILMS_ID,AUTOMATIC_SERIES_ID,AUTOMATIC_HARDCOPIES_ID,LIST_CATALOG_PROJECT_ID]);
+const WATCHLIST_STORAGE_KEY="videothek-watchlist-v1";
+const AUTOMATIC_ARCHIVE_IDS=new Set([AUTOMATIC_ALL_FILMS_ID,AUTOMATIC_WATCHLIST_ID,AUTOMATIC_SERIES_ID,AUTOMATIC_HARDCOPIES_ID,LIST_CATALOG_PROJECT_ID]);
 let automaticArchiveCache={signature:"",projects:new Map()};
+let watchlistRevision=0;
+let watchlistEntries=loadWatchlistEntries();
+
+function loadWatchlistEntries(){
+  try{
+    const stored=JSON.parse(localStorage.getItem(WATCHLIST_STORAGE_KEY)||"[]"),seen=new Set();
+    if(!Array.isArray(stored))return[];
+    return stored.map(entry=>typeof entry==="object"&&entry?entry:{id:entry,addedAt:""}).map(entry=>({id:String(entry.id||"").trim(),addedAt:String(entry.addedAt||"")})).filter(entry=>entry.id&&!seen.has(entry.id)&&seen.add(entry.id))
+  }catch(error){console.warn("Watchlist konnte nicht geladen werden.",error);return[]}
+}
+function watchlistHas(filmId){return watchlistEntries.some(entry=>sameId(entry.id,filmId))}
+function persistWatchlist(){
+  try{localStorage.setItem(WATCHLIST_STORAGE_KEY,JSON.stringify(watchlistEntries))}catch(error){console.warn("Watchlist konnte nicht lokal gespeichert werden.",error);return false}
+  Promise.resolve(window.NeonVStorage?.setSetting?.("watchlistEntries",watchlistEntries)).catch(error=>console.warn("Watchlist konnte nicht im Archivspeicher gesichert werden.",error));
+  return true
+}
+function watchlistFilms(){
+  const lookup=playlistFilmLookup(projects);
+  return watchlistEntries.map(entry=>lookup.byId.get(String(entry.id))).filter(Boolean)
+}
 
 function isAutomaticArchiveProject(id){return AUTOMATIC_ARCHIVE_IDS.has(String(id||""))}
 function automaticArchiveSourceProjects(){return projects.filter(project=>!sameId(project.id,LIST_CATALOG_PROJECT_ID))}
@@ -24,7 +46,7 @@ function mergedAutomaticArchiveFilms(){
   return [...films.values()]
 }
 function automaticArchiveProjects(){
-  const signature=`${stateRevision}:${projects.length}:${projects.reduce((sum,project)=>sum+(project.films||[]).length,0)}`;
+  const signature=`${stateRevision}:${watchlistRevision}:${projects.length}:${projects.reduce((sum,project)=>sum+(project.films||[]).length,0)}`;
   if(automaticArchiveCache.signature===signature)return automaticArchiveCache.projects;
   const merged=mergedAutomaticArchiveFilms(),all=merged.filter(film=>filmMediaType(film)==="movie"&&filmCopies(film).length),series=merged.filter(film=>filmMediaType(film)==="tv"),hardcopies=merged.map(film=>{
     const copies=filmCopies(film).filter(copyIsPhysical);
@@ -33,6 +55,7 @@ function automaticArchiveProjects(){
   }).filter(Boolean),catalog=projects.find(project=>sameId(project.id,LIST_CATALOG_PROJECT_ID));
   const derived=[
     {id:AUTOMATIC_ALL_FILMS_ID,name:"Alle Filme",description:"Alle Filme mit vorhandenen Fassungen.",films:all,automatic:true},
+    {id:AUTOMATIC_WATCHLIST_ID,name:"Watchlist",description:"Filme, die du dir noch ansehen möchtest.",films:watchlistFilms(),automatic:true},
     {id:AUTOMATIC_SERIES_ID,name:"Serien",description:"Alle Serieneinträge aus deinen Projekten.",films:series,automatic:true},
     {id:AUTOMATIC_HARDCOPIES_ID,name:"Hardcopies",description:"Alle physischen Fassungen wie DVD, Blu-ray und weitere Datenträger.",films:hardcopies,automatic:true}
   ];
@@ -49,7 +72,7 @@ function automaticProjectRow(project,{exportable=true}={}){
 function renderAutomaticArchiveProjects(){
   const list=document.getElementById("automaticProjectList"),section=document.getElementById("automaticProjectSection"),count=document.getElementById("automaticProjectSectionCount");
   if(!list)return;
-  const folders=automaticArchiveProjects(),catalog=folders.get(LIST_CATALOG_PROJECT_ID),ordered=[folders.get(AUTOMATIC_ALL_FILMS_ID),folders.get(AUTOMATIC_SERIES_ID),folders.get(AUTOMATIC_HARDCOPIES_ID),catalog].filter(Boolean);
+  const folders=automaticArchiveProjects(),catalog=folders.get(LIST_CATALOG_PROJECT_ID),ordered=[folders.get(AUTOMATIC_ALL_FILMS_ID),folders.get(AUTOMATIC_WATCHLIST_ID),folders.get(AUTOMATIC_SERIES_ID),folders.get(AUTOMATIC_HARDCOPIES_ID),catalog].filter(Boolean);
   list.innerHTML=ordered.map(project=>automaticProjectRow(project,{exportable:!sameId(project.id,LIST_CATALOG_PROJECT_ID)})).join("");
   if(count)count.textContent=String(ordered.length);
   if(section&&isAutomaticArchiveProject(activeProjectId))section.open=true;
@@ -100,5 +123,28 @@ exportProject=function(scope,projectId=pendingExportProjectId||activeProjectId){
   a.href=URL.createObjectURL(blob);a.download=`${base}${isPublic?"-oeffentlich":""}.videothek.json`;a.click();URL.revokeObjectURL(a.href);toast(`„${source.name}“ exportiert`)
 };
 
-document.addEventListener("click",event=>{const button=event.target.closest?.("[data-automatic-project-id]");if(button)selectProject(button.dataset.automaticProjectId)});
+function watchlistButtonMarkup(film){
+  const active=watchlistHas(film.id),label=active?"Von der Watchlist entfernen":"Zur Watchlist hinzufügen";
+  return `<button class="watchlist-toggle${active?" is-active":""}" type="button" data-watchlist-film-id="${esc(film.id)}" aria-pressed="${active}" aria-label="${label}" title="${label}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75 4.75c0-1.1.9-2 2-2h6.5c1.1 0 2 .9 2 2v16.1L12 17.55l-5.25 3.3V4.75Z"/></svg></button>`
+}
+const catalogCardMarkupBeforeWatchlist=catalogCardMarkup;
+catalogCardMarkup=function(film){return catalogCardMarkupBeforeWatchlist(film).replace("</article>",`${watchlistButtonMarkup(film)}</article>`)};
+function syncWatchlistButtons(filmId,active){
+  const label=active?"Von der Watchlist entfernen":"Zur Watchlist hinzufügen";
+  document.querySelectorAll(`[data-watchlist-film-id="${CSS.escape(String(filmId))}"]`).forEach(button=>{button.classList.toggle("is-active",active);button.setAttribute("aria-pressed",String(active));button.setAttribute("aria-label",label);button.title=label})
+}
+function toggleWatchlistFilm(filmId){
+  const id=String(filmId||"").trim();if(!id)return;
+  const existing=watchlistEntries.findIndex(entry=>sameId(entry.id,id)),adding=existing<0,previous=watchlistEntries;
+  watchlistEntries=adding?[{id,addedAt:new Date().toISOString()},...watchlistEntries]:watchlistEntries.filter((_,index)=>index!==existing);
+  if(!persistWatchlist()){watchlistEntries=previous;toast("Watchlist konnte nicht gespeichert werden");return}
+  watchlistRevision+=1;automaticArchiveCache.signature="";syncWatchlistButtons(id,adding);renderAutomaticArchiveProjects();
+  toast(adding?"Zur Watchlist hinzugefügt":"Von der Watchlist entfernt")
+}
+
+document.addEventListener("click",event=>{
+  const watchlistButton=event.target.closest?.("[data-watchlist-film-id]");
+  if(watchlistButton){event.preventDefault();event.stopPropagation();toggleWatchlistFilm(watchlistButton.dataset.watchlistFilmId);return}
+  const button=event.target.closest?.("[data-automatic-project-id]");if(button)selectProject(button.dataset.automaticProjectId)
+});
 renderAutomaticArchiveProjects();syncAutomaticArchiveControls();
