@@ -3,7 +3,7 @@ const AUTOMATIC_ALL_FILMS_ID="automatic-all-films";
 const AUTOMATIC_SERIES_ID="automatic-series";
 const AUTOMATIC_HARDCOPIES_ID="automatic-hardcopies";
 const AUTOMATIC_ARCHIVE_IDS=new Set([AUTOMATIC_ALL_FILMS_ID,AUTOMATIC_SERIES_ID,AUTOMATIC_HARDCOPIES_ID,LIST_CATALOG_PROJECT_ID]);
-let automaticArchiveCache={revision:-1,projects:new Map()};
+let automaticArchiveCache={signature:"",projects:new Map()};
 
 function isAutomaticArchiveProject(id){return AUTOMATIC_ARCHIVE_IDS.has(String(id||""))}
 function automaticArchiveSourceProjects(){return projects.filter(project=>!sameId(project.id,LIST_CATALOG_PROJECT_ID))}
@@ -24,7 +24,8 @@ function mergedAutomaticArchiveFilms(){
   return [...films.values()]
 }
 function automaticArchiveProjects(){
-  if(automaticArchiveCache.revision===stateRevision)return automaticArchiveCache.projects;
+  const signature=`${stateRevision}:${projects.length}:${projects.reduce((sum,project)=>sum+(project.films||[]).length,0)}`;
+  if(automaticArchiveCache.signature===signature)return automaticArchiveCache.projects;
   const merged=mergedAutomaticArchiveFilms(),all=merged.filter(film=>filmMediaType(film)==="movie"&&filmCopies(film).length),series=merged.filter(film=>filmMediaType(film)==="tv"),hardcopies=merged.map(film=>{
     const copies=filmCopies(film).filter(copyIsPhysical);
     if(!copies.length)return null;
@@ -37,7 +38,7 @@ function automaticArchiveProjects(){
   ];
   const map=new Map(derived.map(project=>[project.id,project]));
   if(catalog)map.set(LIST_CATALOG_PROJECT_ID,{...catalog,automatic:true,description:catalog.description||"Noch nicht zugeordnete Einträge aus Listen."});
-  automaticArchiveCache={revision:stateRevision,projects:map};
+  automaticArchiveCache={signature,projects:map};
   return map
 }
 function archiveProjectById(id){return automaticArchiveProjects().get(String(id||""))||projects.find(project=>sameId(project.id,id))}
