@@ -1,5 +1,7 @@
 # Changelog
 
+- Die globale Werkssynchronisierung behandelt die ausdrücklich gewählte Klassifikation „Serial“ jetzt als verbindlich. Sie kann weder durch einen älteren Serien- noch durch einen Film-Datensatz überschrieben werden und wird auf alle Instanzen desselben Werks übertragen. Dadurch zeigt die Abspielansicht von Kino-Serials ausschließlich Staffeln und Folgen; allgemeine Filmfassungen bleiben ohne Datenverlust gespeichert, aber verborgen.
+
 - Die kuratierte Bibliotheksplaylist „Film Noir“ wurde einschließlich ihrer Narration durch die neue Fassung vom 9. Oktober 2026 ersetzt. Die 50 Referenzeinträge werden aktualisiert; eingebettete Projekte, Fassungen und lokale Film-IDs bleiben weiterhin ausgeschlossen.
 
 - Die Filmliste des Narrationseditors kennzeichnet Serien und Kino-Serials jetzt zuverlässig mit `{{tv:TMDB-ID}}`, selbst wenn ein verknüpfter Archiveintrag noch als Film klassifiziert ist. Klick und Drag & Drop übernehmen denselben sichtbaren Token ins Markdown.
