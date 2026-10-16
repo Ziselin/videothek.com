@@ -975,7 +975,7 @@ input[readonly],textarea[readonly],.auto-filled-field {
 .franchise-input { display:grid; grid-template-columns:42px minmax(0,1fr); align-items:stretch; }
 .franchise-input>span { display:grid; place-items:center; border:1px solid var(--line); border-right:0; border-radius:8px 0 0 8px; background:color-mix(in srgb,var(--muted) 12%,var(--panel)); color:var(--accent); font-size:1.08rem; font-weight:800; }
 .franchise-input>input { border-radius:0 8px 8px 0; }
-.detail-franchise { margin:10px 0 0!important; }
+.detail-franchise { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0!important; }
 .detail-franchise button { padding:5px 9px; border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line)); border-radius:8px; background:color-mix(in srgb,var(--accent) 9%,transparent); color:var(--accent); font-weight:700; }
 .detail-franchise button:hover { background:color-mix(in srgb,var(--accent) 16%,transparent); }
 .series-format-switch { display:flex; margin:0; padding:2px; border:1px solid var(--line); border-radius:9px; background:color-mix(in srgb,var(--panel2) 72%,transparent); }
