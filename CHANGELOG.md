@@ -1,6 +1,6 @@
 # Changelog
 
-- Die globale Werkssynchronisierung behandelt die ausdrücklich gewählte Klassifikation „Serial“ jetzt als verbindlich. Sie kann weder durch einen älteren Serien- noch durch einen Film-Datensatz überschrieben werden und wird auf alle Instanzen desselben Werks übertragen. Dadurch zeigt die Abspielansicht von Kino-Serials ausschließlich Staffeln und Folgen; allgemeine Filmfassungen bleiben ohne Datenverlust gespeichert, aber verborgen.
+- Die globale Werkssynchronisierung behandelt die Klassifikation „Serial“ jetzt als verbindlich. Bei älteren Beständen erkennt eine Migration die überholte Serial-Struktur daran, dass sämtliche Hauptfassungen bereits identisch einzelnen Folgen zugeordnet sind, und stellt die verlorene Klassifikation wieder her. Sie kann anschließend weder durch einen älteren Serien- noch durch einen Film-Datensatz überschrieben werden und wird auf alle Instanzen desselben Werks übertragen. Dadurch zeigt die Abspielansicht von Kino-Serials ausschließlich Staffeln und Folgen; allgemeine Filmfassungen bleiben ohne Datenverlust gespeichert, aber verborgen.
 
 - Die kuratierte Bibliotheksplaylist „Film Noir“ wurde einschließlich ihrer Narration durch die neue Fassung vom 9. Oktober 2026 ersetzt. Die 50 Referenzeinträge werden aktualisiert; eingebettete Projekte, Fassungen und lokale Film-IDs bleiben weiterhin ausgeschlossen.
 
