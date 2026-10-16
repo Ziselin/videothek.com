@@ -101,8 +101,8 @@ selectProject=function(id){
 const archiveRowMarkupBeforeAutomaticArchive=archiveRowMarkup;
 archiveRowMarkup=function(film,projectId){
   if(!isAutomaticArchiveProject(projectId))return archiveRowMarkupBeforeAutomaticArchive(film,projectId);
-  const copies=availabilityCopies(film),linkedCopies=copies.filter(copy=>String(copy.link||"").trim()),status=filmAvailabilityStatus(film),linkDisplay=linkedCopies.length?`<button class="archive-link-count" type="button" data-archive-film-detail="${esc(film.id)}" aria-label="${linkedCopies.length} ${linkedCopies.length===1?"Link":"Links"} zu ${esc(film.title)} anzeigen" title="Fassungen anzeigen">${linkedCopies.length}</button>`:"—";
-  return `<tr><td><div class="title-cell"><span class="film-drag-handle is-locked" title="Automatisch einsortiert">${cover(film,true)}</span><button class="archive-film-title" type="button" data-archive-film-detail="${esc(film.id)}" title="${esc(film.title)} öffnen">${esc(film.title)}</button></div></td><td>${esc(film.year||"—")}</td><td>${linkDisplay}</td><td>${archiveEditableRatingMarkup(film)}</td><td><span class="status" data-status="${esc(status)}">${status==="verfügbar"?"geprüft":esc(status)}</span></td><td><div class="film-row-actions"><button class="row-menu" type="button" data-edit-film="${esc(film.id)}" aria-label="${esc(film.title)} bearbeiten">•••</button></div></td></tr>`
+  const copies=availabilityCopies(film),linkedCopies=copies.filter(copy=>String(copy.link||"").trim()),status=filmAvailabilityStatus(film),linkDisplay=linkedCopies.length?`<button class="archive-link-count" type="button" data-archive-film-detail="${esc(film.id)}" aria-label="${linkedCopies.length} ${linkedCopies.length===1?"Link":"Links"} zu ${esc(film.title)} anzeigen" title="Fassungen anzeigen">${linkedCopies.length}</button>`:"—",watchlistCheck=sameId(projectId,AUTOMATIC_WATCHLIST_ID)?`<label class="watchlist-row-check" title="Von der Watchlist entfernen"><input type="checkbox" data-watchlist-complete="${esc(film.id)}" aria-label="${esc(film.title)} von der Watchlist entfernen"><span aria-hidden="true"></span></label>`:"";
+  return `<tr><td><div class="title-cell">${watchlistCheck}<span class="film-drag-handle is-locked" title="Automatisch einsortiert">${cover(film,true)}</span><button class="archive-film-title" type="button" data-archive-film-detail="${esc(film.id)}" title="${esc(film.title)} öffnen">${esc(film.title)}</button></div></td><td>${esc(film.year||"—")}</td><td>${linkDisplay}</td><td>${archiveEditableRatingMarkup(film)}</td><td><span class="status" data-status="${esc(status)}">${status==="verfügbar"?"geprüft":esc(status)}</span></td><td><div class="film-row-actions"><button class="row-menu" type="button" data-edit-film="${esc(film.id)}" aria-label="${esc(film.title)} bearbeiten">•••</button></div></td></tr>`
 };
 const openExportDialogBeforeAutomaticArchive=openExportDialog;
 openExportDialog=function(projectId=activeProjectId){
@@ -138,10 +138,14 @@ function toggleWatchlistFilm(filmId){
   const existing=watchlistEntries.findIndex(entry=>sameId(entry.id,id)),adding=existing<0,previous=watchlistEntries;
   watchlistEntries=adding?[{id,addedAt:new Date().toISOString()},...watchlistEntries]:watchlistEntries.filter((_,index)=>index!==existing);
   if(!persistWatchlist()){watchlistEntries=previous;toast("Watchlist konnte nicht gespeichert werden");return}
-  watchlistRevision+=1;automaticArchiveCache.signature="";syncWatchlistButtons(id,adding);renderAutomaticArchiveProjects();
+  watchlistRevision+=1;automaticArchiveCache.signature="";syncWatchlistButtons(id,adding);if(sameId(activeProjectId,AUTOMATIC_WATCHLIST_ID))renderSelectedProject();else renderAutomaticArchiveProjects();
   toast(adding?"Zur Watchlist hinzugefügt":"Von der Watchlist entfernt")
 }
 
+document.addEventListener("change",event=>{
+  const checkbox=event.target.closest?.("[data-watchlist-complete]");
+  if(checkbox?.checked)toggleWatchlistFilm(checkbox.dataset.watchlistComplete)
+});
 document.addEventListener("click",event=>{
   const watchlistButton=event.target.closest?.("[data-watchlist-film-id]");
   if(watchlistButton){event.preventDefault();event.stopPropagation();toggleWatchlistFilm(watchlistButton.dataset.watchlistFilmId);return}
