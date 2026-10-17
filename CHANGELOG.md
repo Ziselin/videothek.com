@@ -1,5 +1,9 @@
 # Changelog
 
+- Playlist- und Sammlungsköpfe reagieren jetzt auf die tatsächlich verfügbare Inhaltsbreite: Titel und Beschreibung behalten eine lesbare Breite, während die vollständige Aktionsgruppe bei Platzmangel geschlossen in eine eigene Zeile wechselt.
+
+- Der Narrationseditor bewahrt beim Einfügen eines Films per Klick oder Drag-and-drop jetzt seine sichtbare Textposition. Der Markdown-Text springt nach dem Einfügen nicht mehr ans Ende; Cursor und Einfügestelle bleiben erhalten.
+
 - Film, Serie und Kino-Serial besitzen jetzt einen dauerhaft gespeicherten TMDB-Namensraum. Eine ausdrücklich gewählte Serial-Klassifikation gewinnt bereits beim Speichern, Importieren und Zusammenführen globaler Werke und kann nicht mehr von einem älteren Serienwert verdrängt werden. Die manuelle Gesamtsynchronisierung prüft ältere TV-Einträge ohne Namensraum anhand ihrer IMDb-Verknüpfung erneut und korrigiert eindeutige TMDB-Filmzuordnungen global zu Serials.
 
 - Filmreferenzen in Playlist-Narrationen benötigen keinen sichtbaren Typzusatz mehr: `{{TMDB-ID}}` folgt dem bereits mit der Playlist verknüpften globalen Werkeintrag. Die optionalen Präfixe bleiben strikt: `{{tv:TMDB-ID}}` verweist ausschließlich auf Serien oder Serials, `{{film:TMDB-ID}}` ausschließlich auf Filme.
