@@ -1,5 +1,9 @@
 # Changelog
 
+- Film, Serie und Kino-Serial besitzen jetzt einen dauerhaft gespeicherten TMDB-Namensraum. Eine ausdrücklich gewählte Serial-Klassifikation gewinnt bereits beim Speichern, Importieren und Zusammenführen globaler Werke und kann nicht mehr von einem älteren Serienwert verdrängt werden. Die manuelle Gesamtsynchronisierung prüft ältere TV-Einträge ohne Namensraum anhand ihrer IMDb-Verknüpfung erneut und korrigiert eindeutige TMDB-Filmzuordnungen global zu Serials.
+
+- Filmreferenzen in Playlist-Narrationen benötigen keinen sichtbaren Typzusatz mehr: `{{TMDB-ID}}` folgt dem bereits mit der Playlist verknüpften globalen Werkeintrag. Die optionalen Präfixe bleiben strikt: `{{tv:TMDB-ID}}` verweist ausschließlich auf Serien oder Serials, `{{film:TMDB-ID}}` ausschließlich auf Filme.
+
 - Die globale Werkssynchronisierung behandelt die Klassifikation „Serial“ jetzt als verbindlich. Bei älteren Beständen erkennt eine Migration die überholte Serial-Struktur daran, dass sämtliche Hauptfassungen bereits denselben Internet-Archive-Einträgen wie einzelne Folgen zugeordnet sind; dabei gelten Detail-, Download- und direkte Dateilinks desselben Archive-Objekts als identische Quelle. Sie stellt die verlorene Klassifikation wieder her, die anschließend weder durch einen älteren Serien- noch durch einen Film-Datensatz überschrieben werden kann. Dadurch zeigt die Abspielansicht von Kino-Serials ausschließlich Staffeln und Folgen; allgemeine Filmfassungen bleiben ohne Datenverlust gespeichert, aber verborgen.
 
 - Die kuratierte Bibliotheksplaylist „Film Noir“ wurde einschließlich ihrer Narration durch die neue Fassung vom 9. Oktober 2026 ersetzt. Die 50 Referenzeinträge werden aktualisiert; eingebettete Projekte, Fassungen und lokale Film-IDs bleiben weiterhin ausgeschlossen.
