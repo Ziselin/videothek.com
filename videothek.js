@@ -461,12 +461,13 @@ function dragFilmOverProject(event){const row=projectDropRow(event.target),targe
 function leaveFilmProject(event){const row=projectDropRow(event.target);if(row&&!row.contains(event.relatedTarget))row.classList.remove("is-film-drop-target")}
 function filmMediaType(film){return film?.mediaType==="tv"?"tv":"movie"}
 function isExplicitSerial(film){return film?.mediaType==="tv"&&film?.seriesFormat==="serial"}
+function serialCopySourceKey(copy,index=0){const archive=internetArchiveReference(copy?.link);return archive?`archive:${String(archive.identifier).trim().toLocaleLowerCase("en")}`:copyMergeKey(copy,index)}
 function hasLegacySerialCopyLayout(film){
   if(filmMediaType(film)!=="tv")return false;
   const general=filmCopies(film).filter(copy=>copyIsPhysical(copy)||String(copy?.link||"").trim()),episodes=seriesEpisodeCopies(film);
   if(!general.length||!episodes.length)return false;
-  const episodeKeys=new Set(episodes.map((copy,index)=>copyMergeKey(copy,index)));
-  return general.every((copy,index)=>episodeKeys.has(copyMergeKey(copy,index)))
+  const episodeKeys=new Set(episodes.map(serialCopySourceKey));
+  return general.every((copy,index)=>episodeKeys.has(serialCopySourceKey(copy,index)))
 }
 function isSerialRecord(film){return isExplicitSerial(film)||hasLegacySerialCopyLayout(film)}
 function filmSeriesFormat(film){
