@@ -1,5 +1,9 @@
 # Changelog
 
+- Die globale Migration älterer Kino-Serials erkennt jetzt auch gemischte Altbestände aus einer Gesamtfassung und mindestens einer bereits als Folge erfassten Fassung. Solche Einträge werden dauerhaft als Serial klassifiziert; ihre allgemeinen Fassungen bleiben verlustfrei gespeichert, erscheinen in der Abspielansicht aber nicht mehr neben den korrekt zugeordneten Folgen.
+
+- Jede Markdown-Überschrift der Ebene `##` eröffnet in einer Playlist-Narration wieder zuverlässig einen Raum – unabhängig davon, ob ihr Titel mit einer arabischen oder römischen Ordnungszahl, mit „Raum“ oder unmittelbar mit einem Namen beginnt. Damit erscheint die Raumnavigation auch bei frei benannten Kapiteln wie „Raum 1: Die Herren hinter der Maske“.
+
 - Playlist- und Sammlungsköpfe reagieren jetzt auf die tatsächlich verfügbare Inhaltsbreite: Titel und Beschreibung behalten eine lesbare Breite, während die vollständige Aktionsgruppe bei Platzmangel geschlossen in eine eigene Zeile wechselt.
 
 - Der Narrationseditor bewahrt beim Einfügen eines Films per Klick oder Drag-and-drop jetzt seine sichtbare Textposition. Der Markdown-Text springt nach dem Einfügen nicht mehr ans Ende; Cursor und Einfügestelle bleiben erhalten.
