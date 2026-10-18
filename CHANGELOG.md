@@ -1,5 +1,9 @@
 # Changelog
 
+- Playlist-Narrationen erkennen jetzt normale Markdown-Links im Format `[Beschriftung](https://…)`, auch mit Leerraum vor der URL, Klammern im URL-Pfad und kursiver oder fetter Auszeichnung in der Beschriftung. Externe Links werden sicher in einem neuen Tab geöffnet und in Essay sowie Editorvorschau lesbar hervorgehoben.
+
+- Der manuelle Synchronisieren-Button steht im Archiv wieder für jede aktive Liste zur Verfügung – auch für selbst angelegte und importierte Playlisten. Persönliche, vorbereitete und kuratierte Listen verwenden nun dieselbe Ermittlung unvollständiger Einträge und denselben mehrstufigen TMDB-/Wikidata-Abgleich.
+
 - Die globale Migration älterer Kino-Serials erkennt jetzt auch gemischte Altbestände aus einer Gesamtfassung und mindestens einer bereits als Folge erfassten Fassung. Solche Einträge werden dauerhaft als Serial klassifiziert; ihre allgemeinen Fassungen bleiben verlustfrei gespeichert, erscheinen in der Abspielansicht aber nicht mehr neben den korrekt zugeordneten Folgen.
 
 - Jede Markdown-Überschrift der Ebene `##` eröffnet in einer Playlist-Narration wieder zuverlässig einen Raum – unabhängig davon, ob ihr Titel mit einer arabischen oder römischen Ordnungszahl, mit „Raum“ oder unmittelbar mit einem Namen beginnt. Damit erscheint die Raumnavigation auch bei frei benannten Kapiteln wie „Raum 1: Die Herren hinter der Maske“.
