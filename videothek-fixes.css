@@ -1659,6 +1659,23 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
+/* Keep the explore header stationary and give the active panel its own
+   dependable wheel/touch scroll area, including the long genre list. */
+.catalog-explore-drawer {
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.catalog-explore-panel:not([hidden]) {
+  flex:1 1 auto;
+  min-height:0;
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable;
+  padding-right:8px;
+}
 :root[data-theme="default"] .film-info span { color: var(--muted); font-size: .78rem; }
 
 :root[data-theme="default"] a,

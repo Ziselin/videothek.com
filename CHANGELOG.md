@@ -1,5 +1,13 @@
 # Changelog
 
+- Das Auswahlmenü besitzt nun für den jeweils geöffneten Bereich eine eigene vertikale Scrollfläche. Dadurch lässt sich insbesondere die lange Genreliste zuverlässig mit Mausrad, Trackpad und Touch bedienen, während Kopf und Bereichsnavigation sichtbar bleiben.
+
+- „Biography“ wird in deutschen Metadaten als „Biografie“ und in englischen Metadaten als „Biography“ geführt. „Sport“ wird sprachübergreifend einheitlich großgeschrieben; vorhandene abweichende Schreibweisen werden automatisch bereinigt.
+
+- Die Genreliste wird jetzt ausschließlich aus dem Genre-Feld der aktuell angezeigten Sprachfassung aufgebaut; auch die Filterung verwendet dieselbe Quelle. „Short“ gilt als Formatangabe statt Inhaltsgenre und wird bei Synchronisierung, Bearbeitung sowie der Bestandsmigration vollständig entfernt.
+
+- TMDB-Genres werden sprachabhängig in die Neon-V-Kategorien überführt: „Sci-Fi & Fantasy“ wird zu „Science Fiction“ und „Fantasy“, „Action & Adventure“ zu „Action“ und „Abenteuer“ beziehungsweise „Adventure“, und „Musical“ wird unter „Musik“ geführt. Die Bereinigung gilt für neue Synchronisierungen und bereits vorhandene Bestände; doppelte Kategorien werden dabei vermieden.
+
 - Playlist-Narrationen erkennen jetzt normale Markdown-Links im Format `[Beschriftung](https://…)`, auch mit Leerraum vor der URL, Klammern im URL-Pfad und kursiver oder fetter Auszeichnung in der Beschriftung. Externe Links werden sicher in einem neuen Tab geöffnet und in Essay sowie Editorvorschau lesbar hervorgehoben.
 
 - Der manuelle Synchronisieren-Button steht im Archiv wieder für jede aktive Liste zur Verfügung – auch für selbst angelegte und importierte Playlisten. Persönliche, vorbereitete und kuratierte Listen verwenden nun dieselbe Ermittlung unvollständiger Einträge und denselben mehrstufigen TMDB-/Wikidata-Abgleich.
