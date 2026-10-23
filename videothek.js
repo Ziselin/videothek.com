@@ -428,7 +428,7 @@ function appendCatalogBatch(generation=catalogRenderGeneration){if(generation!==
 function initializeCatalogWindowing(){if(catalogRenderObserver||!("IntersectionObserver" in window))return;catalogRenderObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting))appendCatalogBatch()},{rootMargin:"1200px 0px"});catalogRenderObserver.observe($("catalogRenderSentinel"))}
 const appStartupBeganAt=performance.now();
 let appStartupFinished=false;
-function finishAppStartup(){if(appStartupFinished||document.documentElement.dataset.storageLoading!=="true")return;appStartupFinished=true;const reveal=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{const startup=$("appStartup");document.documentElement.dataset.appReady="true";delete document.documentElement.dataset.storageLoading;if(!startup)return;startup.classList.add("is-leaving");const remove=()=>startup.remove();startup.addEventListener("transitionend",remove,{once:true});setTimeout(remove,700)}));setTimeout(reveal,Math.max(0,1050-(performance.now()-appStartupBeganAt)))}
+function finishAppStartup(){if(appStartupFinished||document.documentElement.dataset.storageLoading!=="true")return;appStartupFinished=true;const startupMinimumMs=matchMedia("(prefers-reduced-motion: reduce)").matches?1450:3050,reveal=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{const startup=$("appStartup");document.documentElement.dataset.appReady="true";delete document.documentElement.dataset.storageLoading;if(!startup)return;startup.classList.add("is-leaving");const remove=()=>startup.remove();startup.addEventListener("transitionend",remove,{once:true});setTimeout(remove,700)}));setTimeout(reveal,Math.max(0,startupMinimumMs-(performance.now()-appStartupBeganAt)))}
 function renderCatalog(updateMenu=true,providedMatches=null){if(updateMenu)renderCatalogMenu();renderActiveCatalogFilters();catalogRenderGeneration++;const matches=providedMatches?sortCatalogFilms(providedMatches):filteredFilms(),searching=Boolean(String(catalogSearchQuery||"").trim()),selectedList=playlists.find(item=>sameId(item.id,catalogPlaylistId)),selectedCollection=isCuratedCollection(selectedList)?selectedList:null,selectedPlaylist=selectedList&&!selectedCollection?selectedList:null,essay=$("catalogPlaylistEssayView"),displayCount=selectedPlaylist?playlistEntryCount(selectedPlaylist):matches.length;catalogRenderFilms=matches;catalogRenderedCount=0;const franchiseQuery=String(catalogSearchQuery||"").trim().startsWith("#")?normalizedFranchise(catalogSearchQuery):"",genreSelection=activeGenre!=="all"?genreName(activeGenre):"";$("allFilmsHeading").textContent=selectedList?.name||(franchiseQuery?`#${franchiseQuery}`:genreSelection||"Alle Filme");els.cinemaView.classList.toggle("has-catalog-context",Boolean(selectedList||franchiseQuery||genreSelection));els.filmCount.textContent=`${displayCount} Titel`;els.filmGrid.replaceChildren();if(selectedPlaylist){renderPlaylistEssay(selectedPlaylist,essay);essay.dataset.playlistId=String(selectedPlaylist.id);essay.hidden=false;els.filmGrid.hidden=true;$("catalogRenderSentinel").hidden=true;els.emptyState.hidden=true;alignCatalogControls()}else{essay.innerHTML="";essay.hidden=true;delete essay.dataset.playlistId;els.filmGrid.hidden=false;$("catalogRenderSentinel").hidden=false;els.filmGrid.classList.toggle("is-searching",searching);appendCatalogBatch();els.emptyState.hidden=matches.length>0;initializeCatalogWindowing()}catalogHasRendered=true;els.cinemaView.classList.remove("is-view-loading");els.cinemaView.removeAttribute("aria-busy");finishAppStartup()}
 let catalogRefreshFrame=0,catalogRefreshNeedsFilters=false,catalogRefreshNeedsMenu=false;
 function scheduleCatalogRefresh({filters=false,menu=false}={}){catalogRefreshNeedsFilters||=filters;catalogRefreshNeedsMenu||=menu;if(catalogRefreshFrame)return;catalogRefreshFrame=requestAnimationFrame(()=>{catalogRefreshFrame=0;setTimeout(()=>{const refreshFilters=catalogRefreshNeedsFilters,refreshMenu=catalogRefreshNeedsMenu;catalogRefreshNeedsFilters=false;catalogRefreshNeedsMenu=false;if(currentView!=="cinema")return;if(refreshFilters)renderFilters();renderCatalog(refreshMenu)},0)})}
@@ -1585,7 +1585,9 @@ synchronizeProjectCovers=async function(projectId,job=null){
 };
 async function initializeApplication(){
   document.documentElement.dataset.view=currentView;
-  initializeTheme();
+  const startupWarnings=[];
+  const startupStep=(label,task,fallback=false)=>{try{return task()}catch(error){startupWarnings.push({label,error});console.warn(`Neon V startup step skipped: ${label}`,error);return fallback}};
+  startupStep("theme",initializeTheme);
   let localFallbackState;
   const loadLocalFallback=()=>localFallbackState||=( {projects:loadProjects(),playlists:loadPlaylists(),settings:indexedStorageSettings()} );
   if(window.NeonVStorage)try{
@@ -1602,29 +1604,58 @@ async function initializeApplication(){
   selectedCatalogProjectIds=new Set([...selectedCatalogProjectIds].filter(id=>projects.some(project=>sameId(project.id,id))));
   if(catalogPlaylistId!=="all"&&!playlists.some(playlist=>sameId(playlist.id,catalogPlaylistId)))catalogPlaylistId="all";
   if(restorePendingCopySettings()){writeLocalSnapshot();try{await persistIndexedState(false);clearPendingCopySettings(stateRevision)}catch(error){console.warn("Wiederhergestellte Fassungseinstellungen bleiben für den nächsten Start vorgemerkt",error)}}
-  const migratedGenres=migrateCanonicalGenres();
-  const installedPalmeDor=installPalmeDorData();
-  const installedGoldenLion=installGoldenLionData();
-  const installedGoldenBear=installGoldenBearData();
-  const installedNationalFilmRegistry=installNationalFilmRegistryData();
-  const installedWorldCinemaProject=installWorldCinemaProjectData();
-  const ensuredFilmArchive=ensureFilmArchiveProject(),archivedResolvedListEntries=archiveResolvedListCatalogFilms(),migratedLegacySerials=migrateLegacySerialFormats(),reconciledGlobalFilms=reconcileDuplicateFilmsGlobally(),installedPreparedPlaylists=installPreparedPlaylistSeeds(),normalizedListKinds=normalizeListKinds(),installedImdbTop250=installImdbTop250Data(),installedLetterboxdTop500=installLetterboxdTop500Data(),installedSightSound2022=installSightSound2022Data(),installedAfricanCinemaCanon=installAfricanCinemaCanonData(),installedAfricanFilmHeritage=installAfricanFilmHeritageData(),installedOscarBestPicture=installOscarBestPictureData(),installedBfiSilentFilms=installBfiSilentFilmsData(),installedSightSoundDocumentaries=installSightSoundDocumentariesData(),installedTspdtTop1000=installTspdtTop1000Data(),installedDiffArabFilms=installDiffArabFilmsData(),installedHkfaChineseMotionPictures=installHkfaChineseMotionPicturesData(),installedEssentialIndianFilms=installEssentialIndianFilmsData(),installedBiffAsianCinema100=installBiffAsianCinema100Data(),installedRussianSovietCinema=installRussianSovietCinemaData(),installedPolishCinemaCanon=installPolishCinemaCanonData(),installedGermanCinemaCanon=installGermanCinemaCanonData(),installedLatinAmericanCanon=installLatinAmericanCanonData(),installedAbraccineBrazil=installAbraccineBrazilData(),installedAnnecyAnimation=installAnnecyAnimationData(),migratedSeriesStructures=migrateSeriesStructures(),migratedEpisodeRatings=migrateMisplacedEpisodeRatings(),migratedTrailers=migrateTrailersToBonusMaterials(),migratedCopyStatuses=migrateCopyStatusTimestamps();
-  const installedCuratedCollection=installedImdbTop250||installedLetterboxdTop500||installedSightSound2022||installedAfricanCinemaCanon||installedAfricanFilmHeritage||installedOscarBestPicture||installedBfiSilentFilms||installedSightSoundDocumentaries||installedTspdtTop1000||installedDiffArabFilms||installedHkfaChineseMotionPictures||installedEssentialIndianFilms||installedBiffAsianCinema100||installedRussianSovietCinema||installedPolishCinemaCanon||installedGermanCinemaCanon||installedLatinAmericanCanon||installedAbraccineBrazil||installedAnnecyAnimation,needsPlaylistMaterialization=installedPreparedPlaylists||installedCuratedCollection||installedPalmeDor||installedGoldenLion||installedGoldenBear||installedNationalFilmRegistry||installedWorldCinemaProject||playlists.some(playlist=>(playlist.placeholders||[]).some(entry=>!entry.filmId)),materializedPlaylistEntries=needsPlaylistMaterialization?materializePlaylistEntries():0;
+  const migratedGenres=startupStep("genres",migrateCanonicalGenres);
+  const installedPalmeDor=startupStep("palme-dor",installPalmeDorData);
+  const installedGoldenLion=startupStep("golden-lion",installGoldenLionData);
+  const installedGoldenBear=startupStep("golden-bear",installGoldenBearData);
+  const installedNationalFilmRegistry=startupStep("national-film-registry",installNationalFilmRegistryData);
+  const installedWorldCinemaProject=startupStep("world-cinema-project",installWorldCinemaProjectData);
+  const ensuredFilmArchive=startupStep("film-archive",ensureFilmArchiveProject,{changed:false,project:null});
+  const archivedResolvedListEntries=startupStep("archive-resolved-list-entries",archiveResolvedListCatalogFilms,0);
+  const migratedLegacySerials=startupStep("legacy-serials",migrateLegacySerialFormats,0);
+  const reconciledGlobalFilms=startupStep("global-film-reconciliation",reconcileDuplicateFilmsGlobally,0);
+  const installedPreparedPlaylists=startupStep("prepared-playlists",installPreparedPlaylistSeeds);
+  const normalizedListKinds=startupStep("list-kinds",normalizeListKinds);
+  const installedImdbTop250=startupStep("imdb-top-250",installImdbTop250Data);
+  const installedLetterboxdTop500=startupStep("letterboxd-top-500",installLetterboxdTop500Data);
+  const installedSightSound2022=startupStep("sight-sound-2022",installSightSound2022Data);
+  const installedAfricanCinemaCanon=startupStep("african-cinema-canon",installAfricanCinemaCanonData);
+  const installedAfricanFilmHeritage=startupStep("african-film-heritage",installAfricanFilmHeritageData);
+  const installedOscarBestPicture=startupStep("oscar-best-picture",installOscarBestPictureData);
+  const installedBfiSilentFilms=startupStep("bfi-silent-films",installBfiSilentFilmsData);
+  const installedSightSoundDocumentaries=startupStep("sight-sound-documentaries",installSightSoundDocumentariesData);
+  const installedTspdtTop1000=startupStep("tspdt-top-1000",installTspdtTop1000Data);
+  const installedDiffArabFilms=startupStep("diff-arab-films",installDiffArabFilmsData);
+  const installedHkfaChineseMotionPictures=startupStep("hkfa-chinese-motion-pictures",installHkfaChineseMotionPicturesData);
+  const installedEssentialIndianFilms=startupStep("essential-indian-films",installEssentialIndianFilmsData);
+  const installedBiffAsianCinema100=startupStep("biff-asian-cinema-100",installBiffAsianCinema100Data);
+  const installedRussianSovietCinema=startupStep("russian-soviet-cinema",installRussianSovietCinemaData);
+  const installedPolishCinemaCanon=startupStep("polish-cinema-canon",installPolishCinemaCanonData);
+  const installedGermanCinemaCanon=startupStep("german-cinema-canon",installGermanCinemaCanonData);
+  const installedLatinAmericanCanon=startupStep("latin-american-canon",installLatinAmericanCanonData);
+  const installedAbraccineBrazil=startupStep("abraccine-brazil",installAbraccineBrazilData);
+  const installedAnnecyAnimation=startupStep("annecy-animation",installAnnecyAnimationData);
+  const migratedSeriesStructures=startupStep("series-structures",migrateSeriesStructures,0);
+  const migratedEpisodeRatings=startupStep("episode-ratings",migrateMisplacedEpisodeRatings,0);
+  const migratedTrailers=startupStep("trailers",migrateTrailersToBonusMaterials,0);
+  const migratedCopyStatuses=startupStep("copy-statuses",migrateCopyStatusTimestamps,0);
+  const installedCuratedCollection=installedImdbTop250||installedLetterboxdTop500||installedSightSound2022||installedAfricanCinemaCanon||installedAfricanFilmHeritage||installedOscarBestPicture||installedBfiSilentFilms||installedSightSoundDocumentaries||installedTspdtTop1000||installedDiffArabFilms||installedHkfaChineseMotionPictures||installedEssentialIndianFilms||installedBiffAsianCinema100||installedRussianSovietCinema||installedPolishCinemaCanon||installedGermanCinemaCanon||installedLatinAmericanCanon||installedAbraccineBrazil||installedAnnecyAnimation,needsPlaylistMaterialization=installedPreparedPlaylists||installedCuratedCollection||installedPalmeDor||installedGoldenLion||installedGoldenBear||installedNationalFilmRegistry||installedWorldCinemaProject||playlists.some(playlist=>(playlist.placeholders||[]).some(entry=>!entry.filmId)),materializedPlaylistEntries=needsPlaylistMaterialization?startupStep("playlist-materialization",materializePlaylistEntries,0):0;
   const anyCuratedCollectionInstalled=installedCuratedCollection||installedPalmeDor||installedGoldenLion||installedGoldenBear||installedNationalFilmRegistry||installedWorldCinemaProject;
-  if(anyCuratedCollectionInstalled||materializedPlaylistEntries){reconcileAllPlaylistPlaceholders();syncPlaylistCollectionNumbers()}
+  if(anyCuratedCollectionInstalled||materializedPlaylistEntries){startupStep("playlist-placeholders",reconcileAllPlaylistPlaceholders);startupStep("playlist-collection-numbers",syncPlaylistCollectionNumbers)}
   const startupDataChanged=ensuredFilmArchive.changed||Boolean(archivedResolvedListEntries)||Boolean(migratedLegacySerials)||Boolean(reconciledGlobalFilms)||installedPreparedPlaylists||anyCuratedCollectionInstalled||materializedPlaylistEntries||migratedSeriesStructures||migratedEpisodeRatings||migratedTrailers||migratedCopyStatuses||migratedGenres,totalFilmCount=projects.reduce((sum,project)=>sum+(project.films||[]).length,0);
   if(startupDataChanged){if(totalFilmCount>5000){invalidateLocalSnapshot();const persistLargeStartup=()=>persistIndexedState();if("requestIdleCallback" in window)requestIdleCallback(persistLargeStartup,{timeout:15000});else setTimeout(persistLargeStartup,5000)}else{try{localStorage.setItem(STORAGE_KEY,JSON.stringify(projects));localStorage.setItem(PLAYLISTS_KEY,JSON.stringify(playlists))}catch{}persistIndexedState()}}
-  registerWebMCP();
+  startupStep("web-mcp",registerWebMCP);
   els.searchInput.value=catalogSearchQuery;
-  render(false);
-  scheduleFilmSearchIndexWarmup();
-  projects.filter(project=>project.reconciliationPending).forEach(project=>queueProjectReconciliation(project.id));
-  setArchiveSection(activeArchiveSection);
-  translateUi();
-  if(document.documentElement.lang==="en")new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{if(node.nodeType===Node.ELEMENT_NODE)translateUi(node)}))).observe(document.body,{childList:true,subtree:true});
+  startupStep("base-render",()=>render(false));
+  startupStep("search-index",scheduleFilmSearchIndexWarmup);
+  startupStep("project-reconciliation",()=>projects.filter(project=>project.reconciliationPending).forEach(project=>queueProjectReconciliation(project.id)));
+  startupStep("archive-section",()=>setArchiveSection(activeArchiveSection));
+  startupStep("translation",translateUi);
+  if(document.documentElement.lang==="en")startupStep("translation-observer",()=>new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{if(node.nodeType===Node.ELEMENT_NODE)translateUi(node)}))).observe(document.body,{childList:true,subtree:true}));
   els.cinemaView.classList.add("is-view-loading");
   els.cinemaView.setAttribute("aria-busy","true");
   requestAnimationFrame(()=>setTimeout(()=>{try{renderFilters();renderCatalog(false)}catch(error){console.error("Neon V initial catalog render failed",error);els.cinemaView.classList.remove("is-view-loading");els.cinemaView.removeAttribute("aria-busy");finishAppStartup();toast("Die Bibliothek wurde geladen, aber die Auswahlansicht konnte nicht vollständig aufgebaut werden.")}},0));
+  if(startupWarnings.length)console.warn("Neon V started with recoverable warnings",startupWarnings.map(item=>item.label));
   const maintainCatalog=()=>{const reconciledFilmDuplicates=reconcileDuplicateFilmsGlobally(),repairedTitles=repairMissingFilmTitles(),reconciledPlaylists=reconcileAllPlaylistPlaceholders();syncPlaylistCollectionNumbers();if(normalizedListKinds||reconciledFilmDuplicates||repairedTitles||reconciledPlaylists){try{localStorage.setItem(PLAYLISTS_KEY,JSON.stringify(playlists));if(reconciledFilmDuplicates||repairedTitles)localStorage.setItem(STORAGE_KEY,JSON.stringify(projects))}catch{}persistIndexedState();render()}if(reconciledFilmDuplicates)toast(reconciledFilmDuplicates===1?"Eine Dublette anhand übereinstimmender IDs zusammengeführt":`${reconciledFilmDuplicates} Dubletten anhand übereinstimmender IDs zusammengeführt`)};
   const maintenanceKey="videothek-catalog-maintenance-v1",maintenanceVersion="2026-09-26-2";
   if(localStorage.getItem(maintenanceKey)!==maintenanceVersion){const runMaintenance=()=>{if(projects.some(project=>project.reconciliationPending)){setTimeout(runMaintenance,5000);return}maintainCatalog();localStorage.setItem(maintenanceKey,maintenanceVersion)};if("requestIdleCallback" in window)requestIdleCallback(runMaintenance,{timeout:10000});else setTimeout(runMaintenance,4000)}

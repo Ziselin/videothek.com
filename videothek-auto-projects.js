@@ -129,6 +129,12 @@ function watchlistButtonMarkup(film){
 }
 const catalogCardMarkupBeforeWatchlist=catalogCardMarkup;
 catalogCardMarkup=function(film){return catalogCardMarkupBeforeWatchlist(film).replace("</article>",`${watchlistButtonMarkup(film)}</article>`)};
+const playlistEssayFilmCardBeforeWatchlist=playlistEssayFilmCard;
+playlistEssayFilmCard=function(entry,options={}){
+  const card=playlistEssayFilmCardBeforeWatchlist(entry,options),film=entry?.film;
+  if(!film?.id)return card;
+  return `<div class="playlist-essay-film-row">${card}${watchlistButtonMarkup(film).replace('class="watchlist-toggle','class="watchlist-toggle playlist-essay-watchlist')}</div>`
+};
 function syncWatchlistButtons(filmId,active){
   const label=active?"Von der Watchlist entfernen":"Zur Watchlist hinzufügen";
   document.querySelectorAll(`[data-watchlist-film-id="${CSS.escape(String(filmId))}"]`).forEach(button=>{button.classList.toggle("is-active",active);button.setAttribute("aria-pressed",String(active));button.setAttribute("aria-label",label);button.title=label})

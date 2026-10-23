@@ -36,15 +36,30 @@
   background:radial-gradient(circle,rgba(255,41,143,.14),rgba(185,38,192,.035) 42%,transparent 70%);
   opacity:0;
   transform:translate(-50%,-54%) scale(.8);
-  animation:startup-glow-in 1s ease .45s forwards;
+  animation:startup-glow-bounce 1.85s linear 1s both,startup-glow-breathe 2.8s ease-in-out 2.85s infinite alternate;
 }
-.app-startup-logo{
+.app-startup-logo-stage{
   position:relative;
   width:clamp(112px,15vw,168px);
-  height:auto;
+  aspect-ratio:1;
+}
+.app-startup-logo-stage img{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+}
+.app-startup-logo-tube{
   opacity:0;
   transform:scale(.985);
-  animation:startup-v-ignite .82s linear .22s forwards,startup-v-breathe 2.8s ease-in-out 1.04s infinite alternate;
+  filter:grayscale(.76) saturate(.16) brightness(.24) contrast(.9) drop-shadow(0 2px 3px rgba(0,0,0,.72));
+  animation:startup-tube-reveal 1ms steps(1,end) 1s both;
+}
+.app-startup-logo{
+  opacity:0;
+  transform:scale(.985);
+  animation:startup-v-ignite 1.85s linear 1s both,startup-v-breathe 2.8s ease-in-out 2.85s infinite alternate;
 }
 .app-startup-status{
   position:relative;
@@ -348,17 +363,43 @@ html[data-app-ready="true"] .app-shell{animation:startup-app-in .42s ease both}
 }
 
 @keyframes startup-v-ignite{
-  0%,15%{opacity:0;filter:brightness(.45) saturate(.75)}
-  23%{opacity:.68;filter:brightness(1.08) saturate(1.04) drop-shadow(0 0 8px rgba(255,52,156,.32))}
-  32%{opacity:.16;filter:brightness(.68)}
-  47%{opacity:.9;filter:brightness(1.06) drop-shadow(0 0 11px rgba(255,52,156,.38))}
-  57%{opacity:.62;filter:brightness(.9)}
-  73%,100%{opacity:1;transform:scale(1);filter:brightness(1) drop-shadow(0 0 10px rgba(255,52,156,.3))}
+  0%{opacity:0;filter:brightness(.38) saturate(.72)}
+  2%{opacity:1;filter:brightness(1.18) saturate(1.08) drop-shadow(0 0 14px rgba(255,52,156,.46))}
+  6%,28%{opacity:.06;filter:brightness(.48) saturate(.8)}
+  31%{opacity:.94;filter:brightness(1.12) drop-shadow(0 0 12px rgba(255,52,156,.42))}
+  35%,51%{opacity:.09;filter:brightness(.52)}
+  54%{opacity:1;filter:brightness(1.1) drop-shadow(0 0 12px rgba(255,52,156,.4))}
+  58%,69%{opacity:.13;filter:brightness(.58)}
+  72%{opacity:.96;filter:brightness(1.08) drop-shadow(0 0 11px rgba(255,52,156,.38))}
+  76%,83%{opacity:.18;filter:brightness(.64)}
+  86%{opacity:1;filter:brightness(1.07) drop-shadow(0 0 11px rgba(255,52,156,.36))}
+  89%,92%{opacity:.3;filter:brightness(.72)}
+  94%{opacity:1;filter:brightness(1.05) drop-shadow(0 0 10px rgba(255,52,156,.34))}
+  96%{opacity:.56;filter:brightness(.86)}
+  98%,100%{opacity:1;transform:scale(1);filter:brightness(1) drop-shadow(0 0 10px rgba(255,52,156,.3))}
 }
 @keyframes startup-v-breathe{to{filter:brightness(1.055) drop-shadow(0 0 15px rgba(255,52,156,.38))}}
-@keyframes startup-glow-in{to{opacity:1;transform:translate(-50%,-54%) scale(1)}}
+@keyframes startup-tube-reveal{to{opacity:.72;transform:scale(1)}}
+@keyframes startup-glow-bounce{
+  0%{opacity:0;transform:translate(-50%,-54%) scale(.8)}
+  2%{opacity:1;transform:translate(-50%,-54%) scale(1.02)}
+  6%,28%{opacity:.03}
+  31%{opacity:.88}
+  35%,51%{opacity:.04}
+  54%{opacity:.94}
+  58%,69%{opacity:.06}
+  72%{opacity:.86}
+  76%,83%{opacity:.09}
+  86%{opacity:.92}
+  89%,92%{opacity:.16}
+  94%{opacity:.88}
+  96%{opacity:.28}
+  98%,100%{opacity:1;transform:translate(-50%,-54%) scale(1)}
+}
+@keyframes startup-glow-breathe{to{opacity:.82;transform:translate(-50%,-54%) scale(1.035)}}
 @keyframes startup-status-in{to{opacity:1}}
 @keyframes startup-app-in{from{opacity:0}to{opacity:1}}
+@keyframes startup-reduced-reveal{from{opacity:0}to{opacity:1}}
 
 @media(max-width:800px){
   :root[data-theme="neon"] .topbar,
@@ -422,7 +463,8 @@ html[data-app-ready="true"] .app-shell{animation:startup-app-in .42s ease both}
   :root[data-theme="neon"] .search input{font-size:.86rem}
 }
 @media(prefers-reduced-motion:reduce){
-  .app-startup-logo,.app-startup-glow,.app-startup-status{animation:none;opacity:1}
+  .app-startup-logo,.app-startup-logo-tube,.app-startup-glow{animation:startup-reduced-reveal 1ms linear 1s both}
+  .app-startup-status{animation:none;opacity:1}
   .app-startup-logo{transform:none;filter:drop-shadow(0 0 10px rgba(255,52,156,.3))}
   html[data-app-ready="true"] .app-shell{animation:none}
 }
