@@ -1,5 +1,11 @@
 # Changelog
 
+- Wertige Filme erhalten in der Narrationsansicht nun einen eigenständigen fünf Pixel breiten Qualitätsstreifen unmittelbar rechts neben dem Poster. Er schließt als einfache, eckige Farbkante oben und unten bündig mit dem Container ab. Gold, Lila und Blau folgen weiterhin den bekannten Fassungsstufen; der Glow bleibt auf den Streifen begrenzt. Die für Tabellenposter bestimmten Leuchtrahmen werden in dieser kompakten Ansicht nicht mehr abgeschnitten dargestellt. Markierte und unmarkierte Filmzeilen reservieren denselben Abstand zwischen Poster und Text, während Tastaturfokus und Qualitätsinformation auch ohne Farbwahrnehmung eindeutig bleiben.
+
+- Die dunkle Videotheks-Darstellung wurde nach einer gemeinsamen UX-, Ästhetik- und Technikprüfung verfeinert, ohne ihre Neon-V-Identität oder Struktur zu verändern. Filmkarten sind auf Mobilgeräten lesbarer, Titel dürfen zweizeilig werden, und Dialoge, Essays, Fassungsbuttons, Benachrichtigungen sowie Fokuszustände folgen einer klareren visuellen Hierarchie. Die ausgeprägten doppelten Sammlerrahmen und ihr farbiger Schein bis zur Schrift bleiben bewusst als sichtbares Videothek-Merkmal erhalten; ebenso die vereinbarte goldene Kennzeichnung vollständig gesehener Listen. Entdecken-Menü und Tabs wurden zugleich für Tastatur und Screenreader vervollständigt; reduzierte Bewegung wird durchgängig respektiert.
+
+- Die helle Arthouse-Darstellung besitzt nun eine eigene abschließende Theme-Schicht, bleibt strukturell aber vollständig Neon V. Eine ruhige Papierpalette, klar getrennte Akzentrollen, kontraststarke Texte und Fokusmarkierungen, helle Formulare sowie zurückhaltende Karten, Tabellen, Dialoge und Essayfortschritte schaffen eine konsistente, reizärmere Tagesansicht. Die dunkle Darstellung bleibt davon unberührt.
+
 - Das Auswahlmenü besitzt nun für den jeweils geöffneten Bereich eine eigene vertikale Scrollfläche. Dadurch lässt sich insbesondere die lange Genreliste zuverlässig mit Mausrad, Trackpad und Touch bedienen, während Kopf und Bereichsnavigation sichtbar bleiben.
 
 - „Biography“ wird in deutschen Metadaten als „Biografie“ und in englischen Metadaten als „Biography“ geführt. „Sport“ wird sprachübergreifend einheitlich großgeschrieben; vorhandene abweichende Schreibweisen werden automatisch bereinigt.

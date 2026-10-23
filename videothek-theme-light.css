@@ -1,0 +1,726 @@
+/*
+ * Neon V — light appearance
+ * Same information architecture and components as the dark interface.
+ * This final theme layer owns only the calm, high-contrast daylight treatment.
+ */
+:root[data-theme="neon"][data-appearance="light"] {
+  color-scheme:light;
+  --bg:#f4f1ea;
+  --panel:#fcfaf5;
+  --panel2:#ece7de;
+  --line:#c8c0b5;
+  --text:#242124;
+  --muted:#625d62;
+  --accent:#a92d62;
+  --accent2:#126966;
+  --danger:#9a2940;
+  --surface-page:#f4f1ea;
+  --surface-panel:#fcfaf5;
+  --surface-raised:#fffdf8;
+  --surface-subtle:#ece7de;
+  --surface-hover:#f5e8ed;
+  --surface-selected:#f3e2e9;
+  --text-strong:#242124;
+  --text-secondary:#625d62;
+  --text-on-accent:#fff;
+  --accent-text:#8f214f;
+  --accent2-text:#075f5d;
+  --focus-ring:#075f5d;
+  --control-border:#81776f;
+  --link:#214f87;
+  --backdrop:rgba(35,29,33,.3);
+  --shadow-soft:0 10px 28px rgba(51,42,45,.1);
+  --shadow-raised:0 22px 62px rgba(51,42,45,.18);
+}
+
+:root[data-theme="neon"][data-appearance="light"] body {
+  color:var(--text);
+  background:linear-gradient(180deg,#faf8f3 0,var(--surface-page) 48rem);
+}
+:root[data-theme="neon"][data-appearance="light"] body::before {
+  opacity:.035;
+  background-image:linear-gradient(rgba(45,39,42,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(45,39,42,.03) 1px,transparent 1px);
+}
+
+/* The dark header is the shared Neon V brand anchor. */
+:root[data-theme="neon"][data-appearance="light"] .topbar {
+  background:rgba(9,8,18,.97);
+  border-bottom-color:rgba(255,255,255,.11);
+  box-shadow:0 5px 16px rgba(30,22,29,.13);
+}
+:root[data-theme="neon"][data-appearance="light"] .catalog-desktop-nav {
+  background:rgba(250,248,243,.97);
+  border-bottom-color:var(--line);
+  box-shadow:0 5px 14px rgba(45,37,40,.07);
+}
+:root[data-theme="neon"][data-appearance="light"] .catalog-desktop-nav button {
+  color:#655f64;
+}
+:root[data-theme="neon"][data-appearance="light"] .catalog-desktop-nav button:hover,
+:root[data-theme="neon"][data-appearance="light"] .catalog-desktop-nav button.is-active {
+  color:var(--text);
+}
+
+/* Readable hierarchy: UI stays sans, film and editorial content retain Garamond. */
+:root[data-theme="neon"][data-appearance="light"] .sidebar-head h1,
+:root[data-theme="neon"][data-appearance="light"] .machine-head h2,
+:root[data-theme="neon"][data-appearance="light"] .section-heading h2 {
+  color:var(--text-strong);
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .film-info strong,
+:root[data-theme="neon"][data-appearance="light"] .detail-body h2,
+:root[data-theme="neon"][data-appearance="light"] .catalog-playlist-essay-view h1,
+:root[data-theme="neon"][data-appearance="light"] .catalog-playlist-essay-view h2,
+:root[data-theme="neon"][data-appearance="light"] .playlist-essay-prose h3 {
+  color:var(--text-strong);
+  font-family:Garamond,Georgia,serif;
+  font-style:normal;
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .film-info strong {
+  display:-webkit-box;
+  min-height:2.25em;
+  overflow:hidden;
+  font-size:1.08rem;
+  font-weight:650;
+  line-height:1.14;
+  white-space:normal;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+:root[data-theme="neon"][data-appearance="light"] .archive-label,
+:root[data-theme="neon"][data-appearance="light"] .eyebrow {
+  color:#76501f;
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .muted,
+:root[data-theme="neon"][data-appearance="light"] .film-meta,
+:root[data-theme="neon"][data-appearance="light"] .film-meta button,
+:root[data-theme="neon"][data-appearance="light"] .detail-meta,
+:root[data-theme="neon"][data-appearance="light"] .section-heading span {
+  color:var(--text-secondary);
+}
+:root[data-theme="neon"][data-appearance="light"] a,
+:root[data-theme="neon"][data-appearance="light"] .archive-film-link,
+:root[data-theme="neon"][data-appearance="light"] .archive-link-count,
+:root[data-theme="neon"][data-appearance="light"] .link-cell {
+  color:var(--link);
+  text-decoration-color:color-mix(in srgb,var(--link) 50%,transparent);
+}
+
+/* Predictable, high-contrast interaction states. */
+:root[data-theme="neon"][data-appearance="light"] :is(button,a,input,select,textarea,[tabindex]):focus-visible {
+  outline:3px solid var(--focus-ring);
+  outline-offset:3px;
+}
+:root[data-theme="neon"][data-appearance="light"] .topbar :is(button,a,input,select,[tabindex]):focus-visible {
+  outline-color:#72f3e9;
+}
+:root[data-theme="neon"][data-appearance="light"] .primary-button,
+:root[data-theme="neon"][data-appearance="light"] .empty-state button,
+:root[data-theme="neon"][data-appearance="light"] .support-message-actions a.primary-button {
+  color:var(--text-on-accent);
+  background:var(--accent);
+  border-color:var(--accent);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .primary-button:hover,
+:root[data-theme="neon"][data-appearance="light"] .empty-state button:hover,
+:root[data-theme="neon"][data-appearance="light"] .support-message-actions a.primary-button:hover {
+  color:#fff;
+  background:#8e204f;
+  box-shadow:none;
+  transform:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .secondary-action,
+:root[data-theme="neon"][data-appearance="light"] .dialog-actions>button:not(.primary-button):not(.danger-button) {
+  color:var(--text-strong)!important;
+  background:var(--surface-raised)!important;
+  border-color:var(--line)!important;
+}
+:root[data-theme="neon"][data-appearance="light"] .secondary-action:hover,
+:root[data-theme="neon"][data-appearance="light"] .dialog-actions>button:not(.primary-button):not(.danger-button):hover {
+  color:var(--accent-text)!important;
+  background:var(--surface-hover)!important;
+  border-color:var(--accent)!important;
+}
+
+/* Neutral surfaces let posters and content carry the colour. */
+:root[data-theme="neon"][data-appearance="light"] .project-sidebar,
+:root[data-theme="neon"][data-appearance="light"] .archive-tabs,
+:root[data-theme="neon"][data-appearance="light"] .archive-list-section,
+:root[data-theme="neon"][data-appearance="light"] .table-wrap,
+:root[data-theme="neon"][data-appearance="light"] .empty-state,
+:root[data-theme="neon"][data-appearance="light"] .dialog,
+:root[data-theme="neon"][data-appearance="light"] .detail-dialog,
+:root[data-theme="neon"][data-appearance="light"] .catalog-drawer,
+:root[data-theme="neon"][data-appearance="light"] .catalog-explore-drawer {
+  color:var(--text);
+  background:var(--surface-panel);
+  border-color:var(--line);
+  box-shadow:var(--shadow-soft);
+}
+:root[data-theme="neon"][data-appearance="light"] .dialog,
+:root[data-theme="neon"][data-appearance="light"] .detail-dialog {
+  box-shadow:var(--shadow-raised);
+}
+:root[data-theme="neon"][data-appearance="light"] :is(input,select,textarea) {
+  color:var(--text);
+  background:var(--surface-raised);
+  border-color:var(--control-border);
+}
+:root[data-theme="neon"][data-appearance="light"] :is(input,textarea)::placeholder {
+  color:#777177;
+  opacity:1;
+}
+:root[data-theme="neon"][data-appearance="light"] .dialog-close {
+  color:#5f5960;
+}
+:root[data-theme="neon"][data-appearance="light"] .dialog-close:hover {
+  color:var(--accent-text);
+  background:var(--surface-hover);
+}
+:root[data-theme="neon"][data-appearance="light"] .support-message-dialog .support-message-lead {
+  color:#4f494e;
+}
+:root[data-theme="neon"][data-appearance="light"] .dialog::backdrop,
+:root[data-theme="neon"][data-appearance="light"] .detail-dialog::backdrop,
+:root[data-theme="neon"][data-appearance="light"] .catalog-drawer-backdrop {
+  background:var(--backdrop);
+}
+
+/* Film grid: same cards, quieter daylight treatment. */
+:root[data-theme="neon"][data-appearance="light"] .poster {
+  border:1px solid #bdb4aa;
+  border-radius:5px;
+  box-shadow:0 8px 20px rgba(49,41,44,.14);
+}
+:root[data-theme="neon"][data-appearance="light"] .film-card:hover .poster,
+:root[data-theme="neon"][data-appearance="light"] .film-card:focus-within .poster {
+  border-color:var(--accent);
+  box-shadow:0 12px 26px rgba(49,41,44,.18);
+  transform:translateY(-2px);
+}
+:root[data-theme="neon"][data-appearance="light"] .film-info {
+  color:var(--text);
+}
+:root[data-theme="neon"][data-appearance="light"] .watchlist-toggle,
+:root[data-theme="neon"][data-appearance="light"] .watchlist-row-check span {
+  color:#f7f4ef;
+  background:rgba(24,21,28,.9);
+  border-color:rgba(255,255,255,.58);
+}
+:root[data-theme="neon"][data-appearance="light"] .watchlist-toggle.is-active {
+  color:#fff;
+  background:var(--accent);
+  border-color:var(--accent);
+  box-shadow:0 3px 10px rgba(79,31,52,.24);
+}
+:root[data-theme="neon"][data-appearance="light"] .watchlist-row-check input:checked+span {
+  background:var(--accent);
+  border-color:var(--accent);
+  box-shadow:inset 0 0 0 3px var(--surface-raised);
+}
+
+/* Genres and selection keep the Neon V interaction model without visual noise. */
+:root[data-theme="neon"][data-appearance="light"] .chip,
+:root[data-theme="neon"][data-appearance="light"] .catalog-explore-choice,
+:root[data-theme="neon"][data-appearance="light"] .project-item,
+:root[data-theme="neon"][data-appearance="light"] .archive-list-row {
+  color:#4f494f;
+  background:var(--surface-subtle);
+  border-color:var(--line);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] :is(.chip,.catalog-explore-choice,.project-item,.archive-list-row):hover {
+  color:var(--text);
+  background:var(--surface-hover);
+  border-color:#a76780;
+}
+:root[data-theme="neon"][data-appearance="light"] .chip.is-active,
+:root[data-theme="neon"][data-appearance="light"] .catalog-explore-choice.is-active {
+  color:#fff;
+  background:var(--accent);
+  border-color:var(--accent);
+  box-shadow:none;
+}
+
+/* Archive, menus and tables share one legible catalogue language. */
+:root[data-theme="neon"][data-appearance="light"] .project-row:is(:hover,:focus-within):not(.is-active):not(.is-project-drag-source):not(.is-project-drop-target) {
+  background:var(--surface-hover);
+}
+:root[data-theme="neon"][data-appearance="light"] .project-row.is-active {
+  color:var(--text);
+  background:var(--surface-selected);
+  box-shadow:inset 3px 0 var(--accent);
+}
+:root[data-theme="neon"][data-appearance="light"] .archive-tab {
+  color:#5f5960;
+}
+:root[data-theme="neon"][data-appearance="light"] .archive-tab.is-active {
+  color:var(--text);
+  background:transparent;
+  box-shadow:inset 0 -3px var(--accent);
+}
+:root[data-theme="neon"][data-appearance="light"] .project-menu,
+:root[data-theme="neon"][data-appearance="light"] .project-row-menu {
+  color:var(--text);
+  background:var(--surface-raised);
+  border-color:var(--line);
+  box-shadow:var(--shadow-soft);
+}
+:root[data-theme="neon"][data-appearance="light"] .project-menu button,
+:root[data-theme="neon"][data-appearance="light"] .project-row-menu button {
+  color:var(--text);
+}
+:root[data-theme="neon"][data-appearance="light"] .project-menu button:hover,
+:root[data-theme="neon"][data-appearance="light"] .project-row-menu button:hover {
+  color:var(--text);
+  background:var(--surface-hover);
+}
+:root[data-theme="neon"][data-appearance="light"] .project-row-menu .project-delete-button {
+  color:var(--danger);
+  border-color:#d2a9b1;
+}
+:root[data-theme="neon"][data-appearance="light"] .project-row-menu .project-delete-button:hover {
+  color:#761d31;
+  background:#f2dfe3;
+}
+:root[data-theme="neon"][data-appearance="light"] thead,
+:root[data-theme="neon"][data-appearance="light"] th {
+  color:#595359;
+  background:#eae4da;
+  border-color:var(--line);
+}
+:root[data-theme="neon"][data-appearance="light"] td {
+  color:#302c30;
+  border-color:#d8d1c7;
+}
+:root[data-theme="neon"][data-appearance="light"] tbody tr:hover {
+  background:#f6ebef;
+}
+:root[data-theme="neon"][data-appearance="light"] .status {
+  color:#246044;
+  background:#e0eee5;
+}
+:root[data-theme="neon"][data-appearance="light"] .status[data-status="prüfen"] {
+  color:#684e12;
+  background:#f2e7c9;
+}
+:root[data-theme="neon"][data-appearance="light"] .status[data-status="nicht verfügbar"] {
+  color:#842d3e;
+  background:#f1dfe2;
+}
+
+/* Search results and form subpanels must not remain dark islands. */
+:root[data-theme="neon"][data-appearance="light"] .tmdb-panel,
+:root[data-theme="neon"][data-appearance="light"] .film-copy,
+:root[data-theme="neon"][data-appearance="light"] .film-playlist-option,
+:root[data-theme="neon"][data-appearance="light"] .film-identifiers,
+:root[data-theme="neon"][data-appearance="light"] .catalog-info-section,
+:root[data-theme="neon"][data-appearance="light"] .playlist-empty {
+  color:var(--text);
+  background:#f8f5ef;
+  border-color:var(--line);
+}
+:root[data-theme="neon"][data-appearance="light"] .tmdb-result,
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-result {
+  color:var(--text);
+  background:var(--surface-raised);
+  border-color:var(--line);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .tmdb-result:hover,
+:root[data-theme="neon"][data-appearance="light"] .tmdb-result:focus-visible,
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-result:hover,
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-result:focus-visible {
+  color:var(--text);
+  background:var(--surface-hover);
+  border-color:var(--accent);
+}
+:root[data-theme="neon"][data-appearance="light"] .tmdb-result.is-selected,
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-result.is-selected {
+  border-color:var(--accent2-text);
+  box-shadow:inset 3px 0 var(--accent2-text);
+}
+:root[data-theme="neon"][data-appearance="light"] .tmdb-result small,
+:root[data-theme="neon"][data-appearance="light"] .tmdb-result em,
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-result small {
+  color:var(--text-secondary);
+}
+:root[data-theme="neon"][data-appearance="light"] .tmdb-result b,
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-result b {
+  color:var(--accent2-text);
+}
+:root[data-theme="neon"][data-appearance="light"] .copy-storage-switch,
+:root[data-theme="neon"][data-appearance="light"] .media-type-switch,
+:root[data-theme="neon"][data-appearance="light"] .film-editor-tabs,
+:root[data-theme="neon"][data-appearance="light"] .catalog-settings-tabs {
+  color:var(--text);
+  background:#e8e2d9;
+  border-color:var(--line);
+}
+:root[data-theme="neon"][data-appearance="light"] .copy-storage-switch button,
+:root[data-theme="neon"][data-appearance="light"] .media-type-switch label,
+:root[data-theme="neon"][data-appearance="light"] .film-editor-tabs button,
+:root[data-theme="neon"][data-appearance="light"] .catalog-settings-tabs button {
+  color:var(--text-secondary);
+}
+:root[data-theme="neon"][data-appearance="light"] .copy-storage-switch button.is-active,
+:root[data-theme="neon"][data-appearance="light"] .media-type-switch input:checked+span,
+:root[data-theme="neon"][data-appearance="light"] .film-editor-tabs button.is-active,
+:root[data-theme="neon"][data-appearance="light"] .catalog-settings-tabs button.is-active {
+  color:var(--accent2-text);
+  background:var(--surface-raised);
+  box-shadow:inset 0 -2px var(--accent2-text);
+}
+
+/* Essays remain cinematic, but progress and citations are calm editorial elements. */
+:root[data-theme="neon"][data-appearance="light"] .catalog-playlist-essay-view,
+:root[data-theme="neon"][data-appearance="light"] .playlist-essay-prose {
+  color:var(--text);
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-room-progress {
+  color:var(--text);
+  background:var(--surface-subtle);
+  border-color:var(--line);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-room-progress strong {
+  color:var(--text);
+  background:rgba(55,47,51,.08);
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-room-progress.is-complete {
+  color:#5c4410;
+  background:#f3e8c8;
+  border-color:#b78a25;
+  box-shadow:inset 3px 0 #b78a25;
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-room-progress.is-complete span {
+  color:#5c4410;
+}
+
+/* Complete the daylight surface coverage inherited from Neon. */
+:root[data-theme="neon"][data-appearance="light"] .machine-view,
+:root[data-theme="neon"][data-appearance="light"] .machine-content,
+:root[data-theme="neon"][data-appearance="light"] .cinema-view {
+  color:var(--text);
+  background-color:transparent;
+}
+:root[data-theme="neon"][data-appearance="light"] .dialog-head,
+:root[data-theme="neon"][data-appearance="light"] .detail-body,
+:root[data-theme="neon"][data-appearance="light"] .support-message-dialog form {
+  color:var(--text);
+  background:var(--surface-panel);
+}
+:root[data-theme="neon"][data-appearance="light"] .dialog-head h2,
+:root[data-theme="neon"][data-appearance="light"] .empty-state strong {
+  color:var(--text-strong);
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .dialog-head h2 {
+  font-family:SourceSans,system-ui,sans-serif;
+  font-style:normal;
+}
+:root[data-theme="neon"][data-appearance="light"] :is(.form-grid label,.small-dialog label,.paste-dialog form>label,.copy-grid label,.tmdb-token-row label,.catalog-drawer-fields label,.playlist-number-field) {
+  color:#544e54;
+}
+:root[data-theme="neon"][data-appearance="light"] :is(.tmdb-panel-head strong,.copies-head strong) {
+  color:var(--text-strong);
+}
+:root[data-theme="neon"][data-appearance="light"] :is(.film-identifiers-head small,.film-id-row label,.tmdb-panel-head small,.tmdb-status,.copies-head small,.film-playlist-option small,.copy-action small) {
+  color:var(--text-secondary);
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .copy-password-field::after {
+  color:var(--text-secondary);
+}
+:root[data-theme="neon"][data-appearance="light"] .film-id-row [data-fetch-id] {
+  color:#735300!important;
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .film-id-row [data-fetch-id]:hover {
+  color:#573f00!important;
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .film-id-row.is-verifiable [data-fetch-id] {
+  color:#176541!important;
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .film-id-row.is-verifiable [data-fetch-id]:hover {
+  color:#0d4f31!important;
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .film-id-status.is-present,
+:root[data-theme="neon"][data-appearance="light"] .copy-action.is-verified>span {
+  color:#176541;
+}
+:root[data-theme="neon"][data-appearance="light"] .copy-action.is-review>span {
+  color:#725200;
+}
+:root[data-theme="neon"][data-appearance="light"] .copy-action.is-unavailable>span {
+  color:#8a263b;
+}
+
+/* Supporting catalogue controls use the same quiet selection grammar. */
+:root[data-theme="neon"][data-appearance="light"] .genre-toggle,
+:root[data-theme="neon"][data-appearance="light"] .genre-visibility-toggle {
+  color:var(--text-secondary);
+  background:transparent;
+  border-color:var(--line);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .genre-toggle:hover,
+:root[data-theme="neon"][data-appearance="light"] .genre-visibility-toggle:hover {
+  color:var(--text);
+  background:var(--surface-hover);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .switch-track {
+  background:#d4ccc2;
+  border-color:#aaa097;
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .genre-visibility-toggle[aria-pressed="true"] .switch-track {
+  background:var(--accent2-text);
+  border-color:var(--accent2-text);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .section-heading h2::after {
+  background:var(--accent);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .play-badge {
+  color:#fff;
+  background:rgba(36,33,36,.9);
+  box-shadow:0 4px 12px rgba(36,31,34,.18);
+}
+:root[data-theme="neon"][data-appearance="light"] .collection-number {
+  color:var(--accent-text);
+  background:var(--surface-hover);
+  border-color:#c79aac;
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .project-item {
+  background:transparent;
+}
+:root[data-theme="neon"][data-appearance="light"] .project-row.is-active .project-item {
+  color:var(--text);
+  background:transparent;
+}
+:root[data-theme="neon"][data-appearance="light"] :is(.catalog-collection-group,.catalog-collection-region) {
+  border-color:var(--line);
+}
+:root[data-theme="neon"][data-appearance="light"] :is(.catalog-collection-group>h3,.catalog-collection-region>h4) {
+  color:var(--text-strong);
+}
+:root[data-theme="neon"][data-appearance="light"] .catalog-collection-subregion {
+  color:var(--text-secondary);
+  border-color:var(--line);
+}
+:root[data-theme="neon"][data-appearance="light"] .archive-list-section-personal .archive-list-section-icon,
+:root[data-theme="neon"][data-appearance="light"] .archive-list-section-projects .archive-list-section-icon {
+  color:var(--accent2-text);
+  background:#dceae7;
+}
+:root[data-theme="neon"][data-appearance="light"] .archive-list-section-curated .archive-list-section-icon,
+:root[data-theme="neon"][data-appearance="light"] .archive-list-section-automatic .archive-list-section-icon {
+  color:var(--accent-text);
+  background:#f0dde5;
+}
+:root[data-theme="neon"][data-appearance="light"] .project-row-menu-button:hover,
+:root[data-theme="neon"][data-appearance="light"] .project-row-menu-button[aria-expanded="true"] {
+  color:var(--accent2-text);
+  background:var(--surface-hover);
+  box-shadow:none;
+}
+
+/* Drawers, playlist tools and placeholder states remain part of the light workspace. */
+:root[data-theme="neon"][data-appearance="light"] .drawer-toggle,
+:root[data-theme="neon"][data-appearance="light"] .drawer-language-filters label {
+  color:#4f494f;
+  background:var(--surface-subtle);
+  border-color:var(--line);
+}
+:root[data-theme="neon"][data-appearance="light"] .drawer-toggle:hover,
+:root[data-theme="neon"][data-appearance="light"] .drawer-language-filters label:hover,
+:root[data-theme="neon"][data-appearance="light"] .drawer-language-filters label:has(input:checked) {
+  color:var(--text);
+  background:var(--surface-hover);
+  border-color:#bd879c;
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-tabs {
+  background:#e8e2d9;
+  border-color:var(--line);
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-tabs button {
+  color:var(--text-secondary);
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-film-tabs button.is-active {
+  color:var(--accent2-text);
+  background:var(--surface-raised);
+  box-shadow:inset 0 -2px var(--accent2-text);
+}
+:root[data-theme="neon"][data-appearance="light"] :is(.playlist-entry-cover,.playlist-placeholder-poster) {
+  color:var(--text-secondary);
+  background:#ddd6cc;
+  border-color:var(--line);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-entry-placeholder-title {
+  color:var(--text-strong);
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-placeholder-row .status {
+  color:#625b61;
+  background:#e8e2d9;
+}
+
+/* Remove residual glow while retaining clear semantic feedback. */
+:root[data-theme="neon"][data-appearance="light"] .support-message-accent {
+  background:var(--accent);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .support-later-button {
+  color:var(--text-secondary);
+}
+:root[data-theme="neon"][data-appearance="light"] .support-later-button:hover {
+  color:var(--text);
+  background:var(--surface-hover);
+}
+:root[data-theme="neon"][data-appearance="light"] .detail-person-link:hover,
+:root[data-theme="neon"][data-appearance="light"] .detail-person-link:focus-visible {
+  color:var(--link);
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] :is(input,select,textarea):focus {
+  border-color:var(--focus-ring);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--focus-ring) 22%,transparent);
+}
+:root[data-theme="neon"][data-appearance="light"] :is(.film-id-row [data-fetch-id],.copy-action.is-verified>span,.copy-action.is-review>span,.copy-action.is-unavailable>span) {
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .id-search-button {
+  color:var(--accent2-text);
+  background:var(--surface-raised);
+  border-color:var(--line);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .id-search-button:hover {
+  color:#fff;
+  background:var(--accent2-text);
+  border-color:var(--accent2-text);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .toast {
+  color:#fff;
+  background:#3d373c;
+  border-color:#3d373c;
+  box-shadow:0 10px 28px rgba(42,34,38,.2);
+}
+
+/* Editorial consistency for essays and their cited films. */
+:root[data-theme="neon"][data-appearance="light"] .playlist-essay-prose :is(h2,h3,h4),
+:root[data-theme="neon"][data-appearance="light"] .playlist-essay-film-copy strong {
+  color:var(--text-strong);
+  font-family:Garamond,Georgia,serif;
+  font-style:normal;
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-essay-rating-fill,
+:root[data-theme="neon"][data-appearance="light"] .playlist-essay-rating:hover .playlist-essay-rating-fill {
+  color:#9a6d12;
+  text-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .playlist-narration-drop-caret {
+  background:var(--accent2-text);
+  box-shadow:none;
+}
+
+/* Ambient genre colour remains recognizable but never competes with reading. */
+:root[data-theme="neon"][data-appearance="light"] .cinema-view::before,
+:root[data-theme="neon"][data-appearance="light"] .cinema-view::after {
+  opacity:.045;
+  filter:none;
+  mix-blend-mode:multiply;
+}
+:root[data-theme="neon"][data-appearance="light"] .project-row.is-project-drag-source {
+  opacity:.58;
+  background:var(--surface-subtle);
+  box-shadow:none;
+}
+:root[data-theme="neon"][data-appearance="light"] .project-row.is-project-drop-target,
+:root[data-theme="neon"][data-appearance="light"] .project-row.is-project-merging {
+  color:var(--text);
+  background:var(--surface-selected);
+  border-color:var(--accent2-text);
+  box-shadow:inset 3px 0 var(--accent2-text);
+}
+
+/* A restrained scrollbar and standard pointer reduce non-essential stimulation. */
+:root[data-theme="neon"][data-appearance="light"] {
+  scrollbar-color:#756b72 #e6e0d7;
+}
+:root[data-theme="neon"][data-appearance="light"] ::-webkit-scrollbar-track {
+  background:#e6e0d7;
+}
+:root[data-theme="neon"][data-appearance="light"] ::-webkit-scrollbar-thumb {
+  border-color:#e6e0d7;
+  background:#756b72;
+}
+:root[data-theme="neon"][data-appearance="light"],
+:root[data-theme="neon"][data-appearance="light"] body,
+:root[data-theme="neon"][data-appearance="light"] .app-shell,
+:root[data-theme="neon"][data-appearance="light"] dialog,
+:root[data-theme="neon"][data-appearance="light"] .catalog-drawer {
+  cursor:auto;
+}
+:root[data-theme="neon"][data-appearance="light"] :is(button,a,label,select,summary,[role="button"]) {
+  cursor:pointer;
+}
+:root[data-theme="neon"][data-appearance="light"] :is(input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]),textarea,[contenteditable="true"]) {
+  cursor:text;
+}
+:root[data-theme="neon"][data-appearance="light"] .film-drag-handle {
+  cursor:grab;
+}
+:root[data-theme="neon"][data-appearance="light"] .film-drag-handle:active {
+  cursor:grabbing;
+}
+
+@media (max-width:520px) {
+  :root[data-theme="neon"][data-appearance="light"] .film-info strong {
+    font-size:.88rem;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  :root[data-theme="neon"][data-appearance="light"] *,
+  :root[data-theme="neon"][data-appearance="light"] *::before,
+  :root[data-theme="neon"][data-appearance="light"] *::after {
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+  :root[data-theme="neon"][data-appearance="light"] .film-card:hover .poster,
+  :root[data-theme="neon"][data-appearance="light"] .film-card:focus-within .poster,
+  :root[data-theme="neon"][data-appearance="light"] .support-message-actions a.primary-button:hover {
+    transform:none;
+  }
+}
+
+@media (forced-colors:active) {
+  :root[data-theme="neon"][data-appearance="light"] body::before {
+    display:none;
+  }
+  :root[data-theme="neon"][data-appearance="light"] :is(button,a,input,select,textarea,[tabindex]):focus-visible {
+    outline:3px solid Highlight;
+  }
+  :root[data-theme="neon"][data-appearance="light"] :is(.chip.is-active,.catalog-explore-choice.is-active,.project-row.is-active,.archive-tab.is-active,.status,.tmdb-result.is-selected,.playlist-film-result.is-selected,.film-editor-tabs button.is-active,.catalog-settings-tabs button.is-active,.copy-storage-switch button.is-active,.media-type-switch input:checked+span,.watchlist-toggle.is-active,.watchlist-row-check input:checked+span) {
+    border:2px solid Highlight;
+    color:CanvasText;
+    background:Canvas;
+    box-shadow:none;
+  }
+}

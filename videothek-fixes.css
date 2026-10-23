@@ -2089,8 +2089,6 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
 }
 .watchlist-toggle.is-active path { fill:currentColor; }
 .watchlist-toggle:focus-visible { opacity:1; transform:none; outline:2px solid var(--accent); outline-offset:3px; }
-:root[data-theme="arthouse"] .watchlist-toggle { background:rgba(20,18,25,.9); color:#f7f2f7; }
-:root[data-theme="arthouse"] .watchlist-toggle.is-active { color:#ff4f9a; }
 @media (hover:none),(pointer:coarse) {
   .watchlist-toggle { width:44px; height:44px; padding:12px; opacity:.96; transform:none; }
 }
@@ -2124,7 +2122,6 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
 .watchlist-row-check:hover span { border-color:var(--accent); box-shadow:0 0 10px rgba(255,39,133,.24); }
 .watchlist-row-check input:focus-visible + span { outline:2px solid var(--accent); outline-offset:3px; }
 .watchlist-row-check input:checked + span { border-color:var(--accent); background:var(--accent); }
-:root[data-theme="arthouse"] .watchlist-row-check span { background:#17131d; border-color:rgba(255,255,255,.45); }
 :root[data-theme="default"] .film-info strong {
   display:block;
   min-height:0;

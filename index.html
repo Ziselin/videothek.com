@@ -12,10 +12,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
   <link rel="stylesheet" href="videothek.css">
   <link rel="stylesheet" href="videothek-fixes.css?v=20261021-141">
-  <link rel="stylesheet" href="videothek-playlist-essay.css?v=20261018-22">
+  <link rel="stylesheet" href="videothek-playlist-essay.css?v=20261023-25">
   <link rel="stylesheet" href="videothek-typesetting.css?v=20261010-1">
   <link rel="stylesheet" href="videothek-neon.css?v=20261010-39">
   <link rel="stylesheet" href="videothek-startup.css?v=20261012-10">
+  <link rel="stylesheet" href="videothek-theme-dark-refinement.css?v=20261023-2">
+  <link rel="stylesheet" href="videothek-theme-light.css?v=20261021-1">
 </head>
 <body>
   <div id="appStartup" class="app-startup" role="status" aria-live="polite" aria-label="Neon V wird geladen">
@@ -45,7 +47,7 @@
       <div class="top-actions">
         <label class="search"><span class="sr-only">Filme suchen</span><input id="searchInput" type="search" placeholder="Titel, Regie, Genre, #Franchise …" spellcheck="false" autocomplete="off"></label>
         <div class="header-tools">
-          <span id="catalogMenuHeaderSlot" class="catalog-tool-slot"><button id="catalogMenuButton" class="catalog-menu-button" type="button" aria-label="Auswahl und Sortierung öffnen. Mit der Tab-Taste öffnen und schließen." title="Mit der Tab-Taste öffnen und schließen" aria-expanded="false" aria-controls="catalogDrawer">
+          <span id="catalogMenuHeaderSlot" class="catalog-tool-slot"><button id="catalogMenuButton" class="catalog-menu-button" type="button" aria-label="Auswahl und Sortierung öffnen" title="Auswahl und Sortierung öffnen" aria-expanded="false" aria-controls="catalogDrawer">
             <svg class="catalog-menu-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
               <path d="M2 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
               <path d="M13 4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z" />
@@ -144,7 +146,7 @@
         </div>
         <div id="playlistsContent" class="machine-content" hidden>
           <div class="machine-head"><div><p class="eyebrow">Playlist</p><h2 id="playlistTitle">Playlisten</h2><p id="playlistSummary" class="muted">Noch keine Playlist angelegt.</p></div><div class="machine-head-actions"><button id="playlistNarrationButton" class="secondary-action" type="button" hidden>Narration bearbeiten</button><button id="playlistAddFilmButton" class="primary-button" type="button">+ Film hinzufügen</button><div id="syncCollectionControl" class="sync-control" hidden><button id="syncCollectionButton" class="secondary-action" type="button" aria-describedby="syncCollectionStatus"><span class="sync-project-progress" aria-hidden="true"></span><span class="sync-project-spinner" aria-hidden="true"></span><span class="sync-project-label">Synchronisieren</span><span class="sync-project-count" aria-hidden="true"></span></button><span id="syncCollectionStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></div></div></div>
-          <div id="playlistTableWrap" class="table-wrap"><table><thead><tr><th class="playlist-number-cell"><button class="table-sort-button" type="button" data-playlist-sort="number">#</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="title">Titel</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="year">Jahr</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="details">Details</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="rating">Rating</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="status">Status</button></th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="playlistItems"></tbody></table></div>
+          <div id="playlistTableWrap" class="table-wrap"><table><thead><tr><th class="playlist-number-cell"><button class="table-sort-button" type="button" data-playlist-sort="number" aria-label="Nach Listenposition sortieren">#</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="title">Titel</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="year">Jahr</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="details">Details</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="rating">Rating</button></th><th><button class="table-sort-button" type="button" data-playlist-sort="status">Status</button></th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="playlistItems"></tbody></table></div>
           <div id="playlistArchiveEmpty" class="playlist-empty"><strong id="playlistEmptyTitle">Filme für einen Abend zusammenstellen</strong><span id="playlistEmptyText">Lege links deine erste Playlist an.</span></div>
         </div>
       </section>
@@ -152,26 +154,26 @@
   </div>
 
   <div id="catalogExploreBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
-  <aside id="catalogExploreDrawer" class="catalog-drawer catalog-explore-drawer" aria-hidden="true" aria-labelledby="catalogExploreTitle">
+  <aside id="catalogExploreDrawer" class="catalog-drawer catalog-explore-drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="catalogExploreTitle">
     <div class="catalog-drawer-head"><div><p class="eyebrow">Entdecken</p><h2 id="catalogExploreTitle">Filme erkunden</h2></div><button id="catalogExploreClose" type="button" aria-label="Entdecken-Menü schließen">×</button></div>
     <div class="catalog-settings-tabs catalog-explore-tabs" role="tablist" aria-label="Katalogbereiche">
-      <button class="is-active" type="button" role="tab" aria-selected="true" data-catalog-explore-tab="genres">Genre</button>
-      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="collections">Sammlung</button>
-      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="playlists">Playlist</button>
-      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="franchises">Franchise</button>
-      <button type="button" role="tab" aria-selected="false" data-catalog-explore-tab="filters">Filter <span data-active-filter-count>(0)</span></button>
+      <button id="catalogExploreGenresTab" class="is-active" type="button" role="tab" aria-selected="true" aria-controls="catalogExploreGenres" data-catalog-explore-tab="genres">Genre</button>
+      <button id="catalogExploreCollectionsTab" type="button" role="tab" aria-selected="false" aria-controls="catalogExploreCollections" data-catalog-explore-tab="collections">Sammlung</button>
+      <button id="catalogExplorePlaylistsTab" type="button" role="tab" aria-selected="false" aria-controls="catalogExplorePlaylists" data-catalog-explore-tab="playlists">Playlist</button>
+      <button id="catalogExploreFranchisesTab" type="button" role="tab" aria-selected="false" aria-controls="catalogExploreFranchises" data-catalog-explore-tab="franchises">Franchise</button>
+      <button id="catalogExploreFiltersTab" type="button" role="tab" aria-selected="false" aria-controls="catalogExploreFilters" data-catalog-explore-tab="filters">Filter <span data-active-filter-count>(0)</span></button>
     </div>
-    <div id="catalogExploreGenres" class="catalog-explore-panel" role="tabpanel">
+    <div id="catalogExploreGenres" class="catalog-explore-panel" role="tabpanel" aria-labelledby="catalogExploreGenresTab">
       <div class="genre-filter-region">
         <div class="genre-filter-head"><button id="genreVisibilityToggle" class="genre-visibility-toggle" type="button" aria-pressed="true"><span class="switch-track" aria-hidden="true"><span></span></span><span>Genres</span></button></div>
         <div id="genreFilters" class="chips" aria-label="Nach Genre filtern"></div>
         <button id="genreToggle" class="genre-toggle" type="button" aria-expanded="false" aria-controls="genreFilters" hidden>Mehr Genres <span aria-hidden="true">⌄</span></button>
       </div>
     </div>
-    <div id="catalogExplorePlaylists" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogPlaylistChoices" class="catalog-explore-list"></div><p id="catalogPlaylistsEmpty" class="drawer-language-empty" hidden>Noch keine Playlists angelegt oder aus der Bibliothek ausgewählt.</p></div>
-    <div id="catalogExploreCollections" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogCollectionChoices" class="catalog-explore-list"></div></div>
-    <div id="catalogExploreFranchises" class="catalog-explore-panel" role="tabpanel" hidden><div id="catalogFranchiseChoices" class="catalog-explore-list"></div><p id="catalogFranchisesEmpty" class="drawer-language-empty" hidden>Noch keine Franchises hinterlegt.</p></div>
-    <div id="catalogExploreFilters" class="catalog-explore-panel catalog-explore-filter-panel" role="tabpanel" hidden><div id="activeCatalogFilters" class="active-catalog-filters" aria-live="polite"></div><p id="catalogActiveFiltersEmpty" class="drawer-language-empty">Keine Filter aktiv.</p></div>
+    <div id="catalogExplorePlaylists" class="catalog-explore-panel" role="tabpanel" aria-labelledby="catalogExplorePlaylistsTab" hidden><div id="catalogPlaylistChoices" class="catalog-explore-list"></div><p id="catalogPlaylistsEmpty" class="drawer-language-empty" hidden>Noch keine Playlists angelegt oder aus der Bibliothek ausgewählt.</p></div>
+    <div id="catalogExploreCollections" class="catalog-explore-panel" role="tabpanel" aria-labelledby="catalogExploreCollectionsTab" hidden><div id="catalogCollectionChoices" class="catalog-explore-list"></div></div>
+    <div id="catalogExploreFranchises" class="catalog-explore-panel" role="tabpanel" aria-labelledby="catalogExploreFranchisesTab" hidden><div id="catalogFranchiseChoices" class="catalog-explore-list"></div><p id="catalogFranchisesEmpty" class="drawer-language-empty" hidden>Noch keine Franchises hinterlegt.</p></div>
+    <div id="catalogExploreFilters" class="catalog-explore-panel catalog-explore-filter-panel" role="tabpanel" aria-labelledby="catalogExploreFiltersTab" hidden><div id="activeCatalogFilters" class="active-catalog-filters" aria-live="polite"></div><p id="catalogActiveFiltersEmpty" class="drawer-language-empty">Keine Filter aktiv.</p></div>
   </aside>
 
   <div id="catalogBackdrop" class="catalog-drawer-backdrop" aria-hidden="true"></div>
@@ -553,7 +555,7 @@
   <script src="videothek-storage.js?v=20261015-20"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-<script src="videothek.js?v=20261021-343"></script>
+<script src="videothek.js?v=20261023-345"></script>
   <script src="videothek-auto-projects.js?v=20261016-4"></script>
   <script src="videothek-global-works.js?v=20261015-1"></script>
   <script src="videothek-shared-editions.js?v=20261015-1"></script>

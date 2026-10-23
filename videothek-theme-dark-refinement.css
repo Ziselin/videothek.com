@@ -1,0 +1,158 @@
+/* Neon V dark refinement — same videotheque, calmer hierarchy and clearer states. */
+:root[data-theme="neon"][data-appearance="dark"] {
+  --neon-surface-raised:#151222;
+  --neon-surface-soft:#1a1627;
+  --neon-copy:#f5eddf;
+  --neon-muted:#aaa4b5;
+}
+
+:root[data-theme="neon"][data-appearance="dark"] .film-card .poster {
+  box-shadow:0 13px 27px rgba(0,0,0,.42);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+:root[data-theme="neon"][data-appearance="dark"] .film-card:hover .poster,
+:root[data-theme="neon"][data-appearance="dark"] .film-card:focus-within .poster {
+  transform:translateY(-2px);
+  box-shadow:0 16px 32px rgba(0,0,0,.5),0 0 12px rgba(255,79,154,.12);
+}
+:root[data-theme="neon"][data-appearance="dark"] .film-info strong {
+  display:-webkit-box;
+  min-height:2.42em;
+  overflow:hidden;
+  color:var(--neon-copy);
+  font-size:.98rem;
+  line-height:1.21;
+  white-space:normal;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+:root[data-theme="neon"][data-appearance="dark"] .film-meta,
+:root[data-theme="neon"][data-appearance="dark"] .film-meta button { color:var(--neon-muted); }
+:root[data-theme="neon"][data-appearance="dark"] .film-meta [data-director-filter]:focus-visible {
+  border-radius:2px;
+  outline:2px solid var(--accent2);
+  outline-offset:3px;
+}
+:root[data-theme="neon"][data-appearance="dark"] .collection-number { color:#c6bfcc; }
+
+/* Copy quality deliberately keeps the pronounced collector-card treatment from
+   the Videothek: outer edge, inset edge and a coloured falloff toward the title. */
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .film-card.is-collector-copy .poster {
+  box-shadow:0 0 13px rgba(244,183,36,.46),0 18px 24px -9px rgba(244,183,36,.45),0 30px 42px -22px rgba(244,183,36,.34),0 15px 29px rgba(0,0,0,.38);
+}
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .film-card.is-epic-copy .poster {
+  box-shadow:0 0 13px rgba(138,76,232,.44),0 18px 24px -9px rgba(138,76,232,.42),0 30px 42px -22px rgba(138,76,232,.32),0 15px 29px rgba(0,0,0,.38);
+}
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .film-card.is-quality-copy .poster {
+  box-shadow:0 0 13px rgba(47,157,232,.4),0 18px 24px -9px rgba(47,157,232,.39),0 30px 42px -22px rgba(47,157,232,.3),0 15px 29px rgba(0,0,0,.38);
+}
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .film-card.is-collector-copy:is(:hover,:focus-within) .poster {
+  box-shadow:0 0 15px rgba(244,183,36,.52),0 19px 26px -9px rgba(244,183,36,.5),0 31px 44px -22px rgba(244,183,36,.38),0 17px 32px rgba(0,0,0,.42)!important;
+}
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .film-card.is-epic-copy:is(:hover,:focus-within) .poster {
+  box-shadow:0 0 15px rgba(138,76,232,.52),0 19px 26px -9px rgba(138,76,232,.48),0 31px 44px -22px rgba(138,76,232,.37),0 17px 32px rgba(0,0,0,.42)!important;
+}
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .film-card.is-quality-copy:is(:hover,:focus-within) .poster {
+  box-shadow:0 0 15px rgba(47,157,232,.47),0 19px 26px -9px rgba(47,157,232,.44),0 31px 44px -22px rgba(47,157,232,.34),0 17px 32px rgba(0,0,0,.42)!important;
+}
+
+:root[data-theme="neon"][data-appearance="dark"] .play-badge {
+  transform:translate(-50%,-45%) scale(.82);
+  box-shadow:0 5px 16px rgba(0,0,0,.42),0 0 10px rgba(255,79,154,.16);
+}
+:root[data-theme="neon"][data-appearance="dark"] .film-card:hover .play-badge,
+:root[data-theme="neon"][data-appearance="dark"] .film-card:focus-within .play-badge { transform:translate(-50%,-50%) scale(.92); }
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .film-card:is(.is-collector-copy,.is-epic-copy,.is-quality-copy) .play-badge {
+  background:rgba(16,13,24,.86);
+  color:#f7f0e5;
+  box-shadow:0 5px 15px rgba(0,0,0,.42);
+}
+:root[data-theme="neon"][data-appearance="dark"] .watchlist-toggle {
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  box-shadow:0 5px 15px rgba(0,0,0,.34);
+}
+:root[data-theme="neon"][data-appearance="dark"] .watchlist-toggle.is-active {
+  box-shadow:0 0 9px rgba(255,39,133,.25),0 6px 17px rgba(0,0,0,.36);
+}
+
+/* Technical dialogs stay direct; detail titles retain the editorial voice. */
+:root[data-theme="neon"][data-appearance="dark"] .dialog-head h2 {
+  color:var(--neon-copy);
+  font-family:SourceSans,system-ui,sans-serif;
+  font-style:normal;
+  font-weight:720;
+  letter-spacing:-.02em;
+}
+:root[data-theme="neon"][data-appearance="dark"] .detail-body h2 {
+  color:var(--neon-copy);
+  font:normal 650 clamp(2rem,4.5vw,3.35rem)/1.02 Garamond,serif;
+  letter-spacing:-.025em;
+}
+:root[data-theme="neon"][data-appearance="dark"] .playlist-essay-film { border-radius:8px; background:var(--neon-surface-raised); }
+:root[data-theme="neon"][data-appearance="dark"] .playlist-essay-film-copy strong {
+  display:-webkit-box;
+  overflow:hidden;
+  line-height:1.15;
+  white-space:normal;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+:root[data-theme="neon"][data-appearance="dark"] .playlist-essay-rating-fill { text-shadow:0 0 6px rgba(255,190,64,.52); }
+:root[data-theme="neon"][data-appearance="dark"] .playlist-essay-film-rating.is-interactive:is(:hover,:focus-visible) .playlist-essay-rating-fill { text-shadow:0 0 7px rgba(255,190,64,.62); }
+:root[data-theme="neon"][data-appearance="dark"] .playlist-narration-shelf { background:var(--neon-surface-soft); }
+:root[data-theme="neon"][data-appearance="dark"] .playlist-narration-film:is(:hover,:focus-visible) { border-color:rgba(40,222,209,.62); background:rgba(40,222,209,.06); }
+
+:root[data-theme="neon"][data-appearance="dark"] .copy-action {
+  border-color:#3c364b;
+  background:var(--neon-surface-raised);
+  color:var(--neon-copy);
+}
+:root[data-theme="neon"][data-appearance="dark"] .copy-action:hover { border-color:var(--accent2); background:#1b1729; }
+:root[data-theme="neon"][data-appearance="dark"] .copy-action :is(small,.copy-action-language) { color:var(--neon-muted); }
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .copy-action.is-collector-copy { box-shadow:inset 3px 0 rgba(244,183,36,.84),0 0 8px rgba(244,183,36,.14); }
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .copy-action.is-epic-copy { box-shadow:inset 3px 0 rgba(169,112,255,.84),0 0 8px rgba(138,76,232,.14); }
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .copy-action.is-quality-copy { box-shadow:inset 3px 0 rgba(103,194,255,.82),0 0 8px rgba(47,157,232,.13); }
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .copy-action.is-collector-copy:hover { box-shadow:inset 3px 0 rgba(244,183,36,.94),0 0 11px rgba(244,183,36,.2); }
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .copy-action.is-epic-copy:hover { box-shadow:inset 3px 0 rgba(169,112,255,.94),0 0 11px rgba(138,76,232,.2); }
+:root[data-theme="neon"][data-appearance="dark"][data-collector-highlights="true"] .copy-action.is-quality-copy:hover { box-shadow:inset 3px 0 rgba(103,194,255,.92),0 0 11px rgba(47,157,232,.19); }
+:root[data-theme="neon"][data-appearance="dark"] .primary-button,
+:root[data-theme="neon"][data-appearance="dark"] .empty-state button { box-shadow:0 7px 18px rgba(0,0,0,.24); }
+:root[data-theme="neon"][data-appearance="dark"] .primary-button:hover,
+:root[data-theme="neon"][data-appearance="dark"] .empty-state button:hover { box-shadow:0 0 17px rgba(250,79,155,.27),0 9px 21px rgba(0,0,0,.3); }
+:root[data-theme="neon"][data-appearance="dark"] .toast {
+  border:1px solid rgba(40,222,209,.46);
+  border-left:3px solid var(--accent2);
+  background:#171421;
+  color:var(--neon-copy);
+  box-shadow:0 14px 34px rgba(0,0,0,.52);
+}
+:root[data-theme="neon"][data-appearance="dark"] th { background:#151220; }
+:root[data-theme="neon"][data-appearance="dark"] .section-heading h2::after { opacity:.62; box-shadow:0 0 5px rgba(255,79,154,.24); }
+:root[data-theme="neon"][data-appearance="dark"] .collection-number { border-color:#46404e; background:#17141f; }
+
+@media (hover:none),(pointer:coarse) {
+  :root[data-theme="neon"][data-appearance="dark"] .watchlist-toggle { width:40px; height:40px; padding:11px; }
+}
+@media (max-width:440px) {
+  :root[data-theme="neon"][data-appearance="dark"] .film-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 13px; }
+  :root[data-theme="neon"][data-appearance="dark"] .film-info strong { font-size:.93rem; }
+  :root[data-theme="neon"][data-appearance="dark"] .film-meta,
+  :root[data-theme="neon"][data-appearance="dark"] .film-meta button { font-size:.74rem; }
+}
+@media (prefers-reduced-motion:reduce) {
+  :root[data-theme="neon"][data-appearance="dark"] *,
+  :root[data-theme="neon"][data-appearance="dark"] *::before,
+  :root[data-theme="neon"][data-appearance="dark"] *::after {
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+  :root[data-theme="neon"][data-appearance="dark"] .film-card:hover .poster,
+  :root[data-theme="neon"][data-appearance="dark"] .film-card:focus-within .poster { transform:none; }
+}
+@media (forced-colors:active) {
+  :root[data-theme="neon"][data-appearance="dark"] .copy-action:is(.is-collector-copy,.is-epic-copy,.is-quality-copy) { outline:2px solid Highlight; box-shadow:none!important; }
+}
