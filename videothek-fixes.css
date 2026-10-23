@@ -499,8 +499,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* Refined clean edition: quieter, fully sans-serif and more compact. */
 :root { --bg:#f5f4f0; --panel:#ffffff; --panel2:#ecebe7; --line:#d8d6cf; --text:#252523; --muted:#74736e; --accent:#753a43; --accent2:#753a43; }
-body { background:#f5f4f0; font-family:SourceSans,system-ui,sans-serif; }
-.brand,.catalog-toolbar h1,.machine-head h2,.sidebar-head h1,.section-heading h2,.dialog-head h2,.film-info strong,.empty-state strong,.detail-body h2,.section-heading span { font-family:SourceSans,system-ui,sans-serif; font-style:normal; }
+body { background:#f5f4f0; font-family:RobotoUI,system-ui,sans-serif; }
+.brand,.catalog-toolbar h1,.machine-head h2,.sidebar-head h1,.section-heading h2,.dialog-head h2,.film-info strong,.empty-state strong,.detail-body h2,.section-heading span { font-family:RobotoUI,system-ui,sans-serif; font-style:normal; }
 .brand { font-size:1.22rem; font-weight:680; letter-spacing:.08em; }
 .topbar { background:rgba(250,249,246,.94); border-bottom-color:#dedbd4; box-shadow:0 2px 16px rgba(31,30,27,.035); }
 .cinema-view { max-width:1500px; }
@@ -1551,7 +1551,7 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
   align-items: center;
   min-height: 44px;
   color: var(--text);
-  font-family: SourceSans, system-ui, sans-serif;
+  font-family: RobotoUI, system-ui, sans-serif;
   font-size: 1.72rem;
   font-weight: 650;
   letter-spacing: .045em;
@@ -1606,7 +1606,7 @@ html[lang="en"] .machine-view.is-view-loading .table-wrap::after { content:"Prep
   border-bottom: 1px solid var(--line);
 }
 :root[data-theme="default"] .section-heading h2 { font-size: 1.78rem; }
-:root[data-theme="default"] .section-heading span { color: var(--muted); font-family: SourceSans, system-ui, sans-serif; font-style: normal; }
+:root[data-theme="default"] .section-heading span { color: var(--muted); font-family: RobotoUI, system-ui, sans-serif; font-style: normal; }
 :root[data-theme="default"] .eyebrow { color: #805f32; font-weight: 750; letter-spacing: .17em; }
 
 :root[data-theme="default"] .genre-filter-region { margin-block: 30px 38px; }

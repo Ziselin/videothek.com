@@ -1,3 +1,12 @@
+@font-face {
+  font-family:RobotoCondensed;
+  src:url('assets/fonts/roboto-condensed/RobotoCondensed-Variable.ttf') format('truetype-variations');
+  font-style:normal;
+  font-weight:100 900;
+  font-stretch:75% 100%;
+  font-display:swap;
+}
+
 /* Neon V dark refinement — same videotheque, calmer hierarchy and clearer states. */
 :root[data-theme="neon"][data-appearance="dark"] {
   --neon-surface-raised:#151222;
@@ -34,6 +43,22 @@
   outline-offset:3px;
 }
 :root[data-theme="neon"][data-appearance="dark"] .collection-number { color:#c6bfcc; }
+
+/* Catalog context titles borrow the spaced grotesque capitals of illuminated cinema marquees. */
+:root[data-theme="neon"][data-appearance="dark"] #allFilmsHeading {
+  max-width:min(100%,34ch);
+  color:#f6efe4;
+  font-family:RobotoCondensed,"Arial Narrow",Arial,sans-serif;
+  font-size:clamp(1.25rem,2.35vw,1.9rem);
+  font-style:normal;
+  font-weight:700;
+  font-stretch:condensed;
+  font-variation-settings:"wdth" 75,"wght" 700;
+  line-height:1.08;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  text-wrap:balance;
+}
 
 /* Copy quality deliberately keeps the pronounced collector-card treatment from
    the Videothek: outer edge, inset edge and a coloured falloff toward the title. */
@@ -80,7 +105,7 @@
 /* Technical dialogs stay direct; detail titles retain the editorial voice. */
 :root[data-theme="neon"][data-appearance="dark"] .dialog-head h2 {
   color:var(--neon-copy);
-  font-family:SourceSans,system-ui,sans-serif;
+  font-family:RobotoUI,system-ui,sans-serif;
   font-style:normal;
   font-weight:720;
   letter-spacing:-.02em;
@@ -132,10 +157,64 @@
 :root[data-theme="neon"][data-appearance="dark"] .section-heading h2::after { opacity:.62; box-shadow:0 0 5px rgba(255,79,154,.24); }
 :root[data-theme="neon"][data-appearance="dark"] .collection-number { border-color:#46404e; background:#17141f; }
 
+/* The search field reads as one continuous control; the input never paints a second end cap. */
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search {
+  isolation:isolate;
+  overflow:hidden;
+  min-height:44px;
+  padding:0 16px 0 46px;
+  border:1px solid #464057;
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(24,21,38,.98),rgba(16,14,27,.98));
+  background-clip:padding-box;
+  box-shadow:inset 0 1px rgba(255,255,255,.045),0 6px 18px rgba(0,0,0,.24);
+  transition:border-color .18s ease,background-color .18s ease,box-shadow .18s ease;
+}
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search::before {
+  left:17px;
+  width:13px;
+  height:13px;
+  border-color:#aaa3b6;
+}
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search::after {
+  left:30px;
+  top:27px;
+  background:#aaa3b6;
+}
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search input {
+  min-width:0;
+  height:42px;
+  padding:0;
+  border:0!important;
+  border-radius:0;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#fff7e8;
+  caret-color:#28ded1;
+  -webkit-appearance:none;
+  appearance:none;
+}
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search input::placeholder { color:#9690a2; opacity:1; }
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search:hover {
+  border-color:#625b73;
+  background:linear-gradient(180deg,rgba(28,24,43,.98),rgba(18,16,30,.98));
+}
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search:focus-within {
+  border-color:#28ded1;
+  background:linear-gradient(180deg,#1b182a,#12101e);
+  box-shadow:inset 0 1px rgba(255,255,255,.055),0 0 0 3px rgba(40,222,209,.18),0 8px 22px rgba(0,0,0,.3);
+}
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search:focus-within::before { border-color:#52eadf; }
+:root[data-theme="neon"][data-appearance="dark"] .topbar .search:focus-within::after { background:#52eadf; }
+
 @media (hover:none),(pointer:coarse) {
   :root[data-theme="neon"][data-appearance="dark"] .watchlist-toggle { width:40px; height:40px; padding:11px; }
 }
 @media (max-width:440px) {
+  :root[data-theme="neon"][data-appearance="dark"] #allFilmsHeading { font-size:1.12rem; letter-spacing:.04em; text-wrap:wrap; }
+  :root[data-theme="neon"][data-appearance="dark"] .topbar .search { padding:0 12px 0 42px; }
+  :root[data-theme="neon"][data-appearance="dark"] .topbar .search::before { left:14px; }
+  :root[data-theme="neon"][data-appearance="dark"] .topbar .search::after { left:27px; }
   :root[data-theme="neon"][data-appearance="dark"] .film-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 13px; }
   :root[data-theme="neon"][data-appearance="dark"] .film-info strong { font-size:.93rem; }
   :root[data-theme="neon"][data-appearance="dark"] .film-meta,

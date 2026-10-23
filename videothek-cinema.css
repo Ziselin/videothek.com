@@ -24,7 +24,7 @@
   --cinema-card:#121920;
   --cinema-ink:#14110d;
   background:#090d11;
-  font-family:SourceSans,system-ui,sans-serif;
+  font-family:RobotoUI,system-ui,sans-serif;
 }
 
 :root[data-theme="cinema"] body {
@@ -67,7 +67,7 @@
   left:0;
   top:3px;
   color:#b9ecff;
-  font:700 1.72rem/1 SourceSans,system-ui,sans-serif;
+  font:700 1.72rem/1 RobotoUI,system-ui,sans-serif;
   letter-spacing:.19em;
   text-transform:uppercase;
   text-shadow:0 0 2px #fff,0 0 7px var(--cinema-neon),0 0 18px rgba(59,200,255,.8),0 0 36px rgba(59,200,255,.38);
@@ -79,7 +79,7 @@
   left:1px;
   top:38px;
   color:#8a9aa1;
-  font:650 .58rem/1 SourceSans,system-ui,sans-serif;
+  font:650 .58rem/1 RobotoUI,system-ui,sans-serif;
   letter-spacing:.13em;
   white-space:nowrap;
 }
@@ -214,7 +214,7 @@
 }
 :root[data-theme="cinema"] .catalog-meta span {
   color:#55483a;
-  font-family:Haettenschweiler,"Arial Narrow",SourceSans,system-ui,sans-serif;
+  font-family:Haettenschweiler,"Arial Narrow",RobotoUI,system-ui,sans-serif;
   font-size:.78rem;
   font-stretch:ultra-condensed;
   font-variant-numeric:tabular-nums;
