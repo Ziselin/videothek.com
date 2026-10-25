@@ -471,6 +471,11 @@ td { color:#3c3731; }
 .archive-rating-control { margin:0; font-size:.88rem; vertical-align:middle; }
 .archive-rating-control.is-interactive:hover,
 .archive-rating-control.is-interactive:focus-visible { outline-offset:3px; }
+.detail-user-rating { display:inline-flex; align-items:center; gap:12px; margin:14px 0 2px; padding:8px 11px; border:1px solid color-mix(in srgb,var(--line) 82%,transparent); border-radius:8px; background:color-mix(in srgb,var(--panel2) 72%,transparent); transition:border-color .16s ease,background-color .16s ease,box-shadow .16s ease; }
+.detail-user-rating>span { color:var(--muted); font-size:.68rem; font-weight:750; letter-spacing:.11em; line-height:1; text-transform:uppercase; }
+.detail-user-rating .playlist-essay-film-rating { margin:0; font-size:1rem; }
+.detail-user-rating:hover,.detail-user-rating:focus-within { border-color:color-mix(in srgb,var(--accent) 48%,var(--line)); background:color-mix(in srgb,var(--accent) 5%,var(--panel2)); box-shadow:0 0 14px color-mix(in srgb,var(--accent) 8%,transparent); }
+@media(max-width:520px){.detail-user-rating{display:flex;width:100%;justify-content:space-between}.detail-user-rating .playlist-essay-film-rating{font-size:1rem}}
 .project-menu,.project-row-menu { background:#fffaf2; border-color:#cbbfad; box-shadow:0 16px 38px rgba(55,39,25,.16); }
 .project-menu button { color:#302b26; }
 .project-menu button:hover { background:#eee6da; }

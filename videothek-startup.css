@@ -260,6 +260,7 @@ html[data-app-ready="true"] .app-shell{animation:startup-app-in .42s ease both}
 :root .catalog-explore-filter-panel .active-filter-item [data-remove-catalog-filter]{display:grid;place-items:center;width:30px;height:30px;padding:0;border:0;border-radius:5px;background:color-mix(in srgb,var(--text) 6%,transparent);color:var(--muted);font:500 1.15rem/1 RobotoUI,system-ui,sans-serif;text-shadow:none}
 :root .catalog-explore-filter-panel .active-filter-item [data-remove-catalog-filter]:hover,:root .catalog-explore-filter-panel .active-filter-item [data-remove-catalog-filter]:focus-visible{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent2)}
 .catalog-desktop-nav [data-active-filter-count],.catalog-explore-tabs [data-active-filter-count]{font:inherit;color:inherit}
+.catalog-desktop-nav [data-active-filter-count].has-active-filters,.catalog-explore-tabs [data-active-filter-count].has-active-filters{color:#19d3e6;text-shadow:0 0 8px color-mix(in srgb,#19d3e6 48%,transparent)}
 .cinema-view.has-catalog-context:has(.catalog-playlist-essay-view:not([hidden])) .arthouse-catalog-bar{left:auto;width:min(880px,100%);max-width:880px;margin-right:auto;margin-left:auto;transform:none}
 .cinema-view.has-catalog-context:has(.catalog-playlist-essay-view:not([hidden])) .arthouse-catalog-overview{width:100%;max-width:880px;margin-inline:auto;transform:none}
 
