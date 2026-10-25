@@ -330,6 +330,7 @@ html[data-app-ready="true"] .app-shell{animation:startup-app-in .42s ease both}
     transition:opacity .18s ease,transform .18s ease;
   }
   :root[data-view="cinema"] .catalog-desktop-nav button.is-active::after{opacity:1;transform:none}
+  :root[data-view="cinema"] body.catalog-explore-drawer-open .catalog-desktop-nav{z-index:72}
   :root[data-view="cinema"] #catalogExploreHeaderSlot{display:none}
   :root[data-view="cinema"] .catalog-explore-drawer{
     top:120px;
