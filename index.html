@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#090914">
   <meta name="description" content="Videothek verwaltet kuratierte Filmprojekte und Verweise auf externe Speicherorte.">
   <title>Videothek</title>
-  <script>document.documentElement.dataset.storageLoading="true";try{const savedTheme=localStorage.getItem("videothek-theme-v1"),appearance=savedTheme==="default"?"light":"dark";document.documentElement.dataset.theme="neon";document.documentElement.dataset.appearance=appearance;document.documentElement.lang=localStorage.getItem("videothek-app-language-v1")==="de"?"de":"en"}catch{document.documentElement.dataset.theme="neon";document.documentElement.dataset.appearance="dark";document.documentElement.lang="en"}</script>
+  <script>document.documentElement.dataset.storageLoading="true";try{const bootKey="neon-v-startup-guard-v1",now=Date.now(),previous=JSON.parse(sessionStorage.getItem(bootKey)||"null"),recent=previous&&!previous.complete&&now-Number(previous.startedAt||0)<300000,attempts=recent?Number(previous.attempts||1)+1:1;sessionStorage.setItem(bootKey,JSON.stringify({startedAt:now,attempts,complete:false}));window.__neonStartupGuard={key:bootKey,attempts,safeMode:attempts>=2};if(attempts>=2)document.documentElement.dataset.startupSafe="true";const savedTheme=localStorage.getItem("videothek-theme-v1"),appearance=savedTheme==="default"?"light":"dark";document.documentElement.dataset.theme="neon";document.documentElement.dataset.appearance=appearance;document.documentElement.lang=localStorage.getItem("videothek-app-language-v1")==="de"?"de":"en"}catch{document.documentElement.dataset.theme="neon";document.documentElement.dataset.appearance="dark";document.documentElement.lang="en"}</script>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/videothek-neon-v-favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/videothek-neon-v-favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/videothek-neon-v-apple-touch.png">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="videothek-playlist-essay.css?v=20261023-32">
   <link rel="stylesheet" href="videothek-typesetting.css?v=20261010-1">
   <link rel="stylesheet" href="videothek-neon.css?v=20261023-40">
-  <link rel="stylesheet" href="videothek-startup.css?v=20261025-17">
+  <link rel="stylesheet" href="videothek-startup.css?v=20261031-18">
   <link rel="stylesheet" href="videothek-theme-dark-refinement.css?v=20261023-7">
   <link rel="stylesheet" href="videothek-theme-light.css?v=20261023-6">
 </head>
@@ -527,38 +527,11 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="videothek-reference-catalog.js?v=20260914-3"></script>
   <script src="videothek-import.js?v=20260927-4"></script>
-  <script src="videothek-curated-playlists.js?v=20260915-2"></script>
-  <script src="videothek-imdb-top250.js?v=20260820-1"></script>
-  <script src="videothek-letterboxd-top500.js?v=20261001-1"></script>
-  <script src="videothek-sight-sound-2022.js?v=20261002-3"></script>
-  <script src="videothek-african-cinema-canon.js?v=20261002-1"></script>
-  <script src="videothek-african-film-heritage-project.js?v=20261002-1"></script>
-  <script src="videothek-oscar-best-picture.js?v=20261002-1"></script>
-  <script src="videothek-bfi-100-silent-films.js?v=20261002-1"></script>
-    <script src="videothek-sight-sound-documentaries.js?v=20261002-1"></script>
-    <script src="videothek-tspdt-top1000.js?v=20261002-1"></script>
-    <script src="videothek-diff-arab-films.js?v=20261002-1"></script>
-    <script src="videothek-hkfa-chinese-motion-pictures.js?v=20261002-1"></script>
-    <script src="videothek-essential-indian-films.js?v=20261002-1"></script>
-    <script src="videothek-biff-asian-cinema-100.js?v=20261002-1"></script>
-    <script src="videothek-russian-soviet-cinema.js?v=20261002-1"></script>
-    <script src="videothek-polish-cinema-canon.js?v=20261002-1"></script>
-    <script src="videothek-german-cinema-canon.js?v=20261002-1"></script>
-    <script src="videothek-latin-american-canon.js?v=20261002-1"></script>
-    <script src="videothek-abraccine-brazil.js?v=20261002-1"></script>
-    <script src="videothek-annecy-animation.js?v=20261002-1"></script>
-    <script src="videothek-palme-dor.js?v=20261003-1"></script>
-    <script src="videothek-golden-lion.js?v=20261003-1"></script>
-    <script src="videothek-golden-bear.js?v=20261004-1"></script>
-    <script src="videothek-national-film-registry.js?v=20261004-1"></script>
-  <script src="videothek-world-cinema-project.js?v=20261005-1"></script>
-  <script src="videothek-cyberpunk-playlist.js?v=20261010-1"></script>
-  <script src="videothek-gespenst-im-getriebe-playlist.js?v=20261010-1"></script>
-  <script src="videothek-film-noir-playlist.js?v=20261009-3"></script>
+  <!-- Large curated catalogs are loaded after the interactive app shell. -->
   <script src="videothek-storage.js?v=20261015-20"></script>
   <script>window.__onGCastApiAvailable=function(isAvailable){window.__neonCastApiAvailable=Boolean(isAvailable);window.dispatchEvent(new CustomEvent("neoncastavailable",{detail:{isAvailable:Boolean(isAvailable)}}))}</script>
   <script async src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-<script src="videothek.js?v=20261025-352"></script>
+<script src="videothek.js?v=20261031-353"></script>
   <script src="videothek-auto-projects.js?v=20261023-6"></script>
   <script src="videothek-global-works.js?v=20261015-1"></script>
   <script src="videothek-shared-editions.js?v=20261015-1"></script>
